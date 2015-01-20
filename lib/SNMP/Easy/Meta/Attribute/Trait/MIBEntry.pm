@@ -1,0 +1,24 @@
+package SNMP::Easy::Meta::Attribute::Trait::MIBEntry;
+#ABSTRACT: Attribute trait for attributes derived from MIBs
+
+use Moose::Role;
+
+our $VERSION = '0.0.0';
+
+Moose::Util::meta_attribute_alias('MIBEntry');
+
+has oid => (
+    is        => 'rw',
+    isa       => 'Str',
+    required  => 1,
+    predicate => 'has_oid',
+);
+
+
+1;
+# Local Variables:
+# mode: cperl
+# indent-tabs-mode: nil
+# cperl-indent-level: 4
+# cperl-indent-parens-as-block: t
+# End:
