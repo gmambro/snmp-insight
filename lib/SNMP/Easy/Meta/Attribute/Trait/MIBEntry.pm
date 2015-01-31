@@ -14,6 +14,12 @@ has oid => (
     predicate => 'has_oid',
 );
 
+has munger => (
+    is        => 'rw',
+    isa       => 'Str',
+    required  => 0,
+    predicate => 'has_munger',
+);
 
 1;
 # Local Variables:

@@ -46,7 +46,7 @@ has_table 'ifTable'  => (
 
 has_table "ifXTable" => (
     oid => "1.1",
-    {
+    columns => {
 	'ifName'=> 1,
 	'ifInMulticastPkts'=> 2,
 	'ifInBroadcastPkts'=> 3,

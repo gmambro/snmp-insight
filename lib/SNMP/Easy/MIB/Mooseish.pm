@@ -29,46 +29,83 @@ sub has_scalar {
     my ( $meta, $name, %options ) = @_;
 
     my $oid = $options{oid};
-    $oid =~ /^\./ and $oid = $meta->mib_oid . $oid;	    
-    
-    # TODO
-    $meta->add_attribute(
-	$name,
-        traits => ['MIBEntry'],
-	is => 'ro',
-	lazy => 1,
-        oid => $oid,
+    $oid =~ /^\./ and $oid = $meta->mib_oid . $oid;
+
+    my $munger_code;
+    if ($options{munger}) {
+        $munger_code = _load_munger($options{munger});
+    }
+
+    my %attribute_options = (
+        traits  => ['MIBEntry'],
+	is      => 'ro',
+	lazy    => 1,
+        oid     => $oid,
 	default => sub {
 	    my $self = shift;
-	    $self->_mib_read_scalar(oid => $oid)
+	    $self->_mib_read_scalar($oid, $munger_code)
 	},
     );
+    $options{munger} and $attribute_options{munger} = $options{munger};
+    
+    $meta->add_attribute($name, %attribute_options);
 }
 
 sub has_table {
     my ( $meta, $name, %options ) = @_;
-
-    my $oid = $options{oid};
-    $oid =~ /^\./ and $oid = $meta->mib_oid . $oid;
+    
+    my $table_oid = $options{oid};
+    $table_oid =~ /^\./ and $table_oid = $meta->mib_oid . $table_oid;
 
     my $columns = $options{columns};
-    while ( my ($name, $def) = each (%$columns) ) {
-        my ($sub_id, $munge);        
-        ref $def eq 'ARRAY' ? ($sub_id, $munge) = @$def : $sub_id = $def; 
-        my $col_id = "$oid.$sub_id";
-        
-        $meta->add_attribute(
-            $name,
-            traits => ['MIBEntry'],
-            is => 'ro',
-            lazy => 1,
-            oid => $col_id,
-            default => sub {
-                my $self = shift;
-                $self->_mib_read_tablerow(oid => $col_id)
-            },
-        );
+    while ( my ($col_name, $col_opts) = each (%$columns) ) {
+        _create_column($meta, $table_oid, $col_name, $col_opts);
     }
+
+    $meta->add_attribute(
+        $name,
+
+        # is it needed?
+        # traits => ['MIBEntry'],
+
+        is   => 'ro',
+        lazy => 1,
+
+        default => sub {
+            my $self = shift;
+            $self->_mib_read_table(keys %$columns);
+        },
+    );    
+}
+
+sub _load_munger {
+    warn "_load_munger not implemented yet";
+}
+
+sub _create_column {
+   my ($meta, $table_oid, $col_name, $col_opts) = @_;
+
+   ref $col_opts eq 'ARRAY' or $col_opts = [ $col_opts ];
+
+   my ($sub_id, $munger) = @$col_opts;
+
+   my $col_oid = "$table_oid.$sub_id";
+   my $munger_code;
+   $munger and $munger_code = _load_munger($munger);
+
+   my %attribute_options = (
+       traits  => ['MIBEntry'],
+       is      => 'ro',
+       lazy    => 1,
+       oid     => $col_oid,
+       default => sub {
+           my $self = shift;
+           $self->_mib_read_tablerow($col_oid, $munger)
+       },
+   );
+   $munger and $attribute_options{munger} = $munger;
+       
+   $meta->add_attribute($col_name, %attribute_options);   
 }
 
 1;

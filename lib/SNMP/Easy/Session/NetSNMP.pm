@@ -20,7 +20,7 @@ sub _build_driver {
     $options{-retries}       = $self->retries;
 
     # $options{-translate}     = $self->translate;
-    $options{-debug}         = DEBUG_ALL if $ENV{SNMP_EASY_DEBUG};
+    $options{-debug}         = DEBUG_ALL if SNMP::Easy::debug();
 
     $options{-localaddr}     = $self->localaddr     if $self->localaddr;
     $options{-localport}     = $self->localport     if $self->localport;    

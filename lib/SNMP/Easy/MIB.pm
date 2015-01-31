@@ -10,14 +10,13 @@ use namespace::autoclean;
 requires 'session';
 
 sub _mib_read_scalar {
-    my ($self, %options) = @_;
+    my ($self, $oid, $munger) = @_;
 
-    $self->session->get_scalar($options{oid});
+    $self->session->get_scalar($oid);
 }
 
 sub _mib_read_tablerow {
-    my ($self, %options) = @_;
-    my $oid = $options{oid};
+    my ($self, $oid, $munger) = @_;
     
     my $row = $self->session->get_subtree($oid);
     
@@ -26,6 +25,10 @@ sub _mib_read_tablerow {
     }
 
     return $row;
+}
+
+sub _mib_read_table {
+    die "Not implemented yet"
 }
 
 1;

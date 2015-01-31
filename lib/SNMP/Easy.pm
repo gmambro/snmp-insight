@@ -10,7 +10,6 @@ use SNMP::Easy::Device;
 
 our $VERSION = '0.01';
 
-
 sub open {
     my %args = @_;
     
@@ -32,7 +31,7 @@ sub open {
 
     my $device_role = $classifier->classify();
         
-    $ENV{SNMP_EASY_DEBUG} and print "debug: classifier $device_role";
+    debug() and print "debug: classifier $device_role";
     
     my $role_package = use_package_optimistically($device_role);
     is_role($role_package) or die "$role_package is not a Moose role";
@@ -53,6 +52,10 @@ sub _load_class {
     }
 
     die "Cannot load classifier $class_name";
+}
+
+sub debug {
+    return $ENV{SNMP_EASY_DEBUG};
 }
 
 
