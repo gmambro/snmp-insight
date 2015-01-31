@@ -1,4 +1,5 @@
 package SNMP::Easy::Meta::Class::Trait::MIB;
+
 #ABSTRACT: meta class trait for MIBs roles
 
 use Moose::Role;
@@ -18,10 +19,11 @@ has mib_oid => (
 );
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil
 # cperl-indent-level: 4
 # cperl-indent-parens-as-block: t
 # End:
-    
+

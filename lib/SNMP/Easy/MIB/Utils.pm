@@ -1,4 +1,5 @@
 package SNMP::Easy::MIB::Utils;
+
 #ABSTRACT Functions for dealing with MIB data
 
 use strict;
@@ -10,37 +11,37 @@ use base qw( Exporter );
 our @EXPORT_OK = qw( sysObjectID2vendor );
 
 my %ID_VENDOR_MAP = (
-    9    => 'Cisco',
-    11   => 'HP',
-    18   => 'BayRS',
-    42   => 'Sun',
-    43   => '3Com',
-    45   => 'Baystack',
-    171  => 'Dell',
-    207  => 'Allied',
-    244  => 'Lantronix',
-    311  => 'Microsoft',
-    318  => 'APC',
-    674  => 'Dell',
-    1872 => 'AlteonAD',
-    1916 => 'Extreme',
-    1991 => 'Foundry',
-    2021 => 'NetSNMP',
-    2272 => 'Passport',
-    2636 => 'Juniper',
-    2925 => 'Cyclades',
-    3076 => 'Altiga',
-    3224 => 'Netscreen',
-    3375 => 'F5',
-    3417 => 'BlueCoatSG',
-    4526 => 'Netgear',
-    5624 => 'Enterasys',
+    9     => 'Cisco',
+    11    => 'HP',
+    18    => 'BayRS',
+    42    => 'Sun',
+    43    => '3Com',
+    45    => 'Baystack',
+    171   => 'Dell',
+    207   => 'Allied',
+    244   => 'Lantronix',
+    311   => 'Microsoft',
+    318   => 'APC',
+    674   => 'Dell',
+    1872  => 'AlteonAD',
+    1916  => 'Extreme',
+    1991  => 'Foundry',
+    2021  => 'NetSNMP',
+    2272  => 'Passport',
+    2636  => 'Juniper',
+    2925  => 'Cyclades',
+    3076  => 'Altiga',
+    3224  => 'Netscreen',
+    3375  => 'F5',
+    3417  => 'BlueCoatSG',
+    4526  => 'Netgear',
+    5624  => 'Enterasys',
     5951  => 'Netscaler',
-    6027 => 'Force10',
-    6486 => 'AlcatelLucent',
-    6527 => 'Timetra',
-    8072 => 'NetSNMP',
-    9303 => 'PacketFront',
+    6027  => 'Force10',
+    6486  => 'AlcatelLucent',
+    6527  => 'Timetra',
+    8072  => 'NetSNMP',
+    9303  => 'PacketFront',
     10002 => 'Ubiquiti',
     11898 => 'Orinoco',
     12325 => 'Pf',
@@ -68,6 +69,7 @@ sub sysObjectID2vendor {
 }
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil

@@ -3,15 +3,14 @@ use strict;
 use warnings FATAL => 'all';
 use Test::More;
 
-
 use_ok 'SNMP::Easy::MIB::SNMPv2';
 use_ok 'SNMP::Easy::MIB::IFMIB';
 use_ok 'SNMP::Easy::MIB::UCD';
 
-
 done_testing;
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil

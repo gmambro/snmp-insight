@@ -1,4 +1,5 @@
 package SNMP::Easy;
+
 # ABSTRACT: SNMP Moose interface
 use 5.010;
 use strict;
@@ -12,43 +13,41 @@ our $VERSION = '0.01';
 
 sub open {
     my %args = @_;
-    
+
     my $session = $args{session};
-    if (!defined($session)) {
-	my $session_class = $args{session_class} || 'SNMP::Easy::Session::NetSNMP';
-	$session = _load_class(
-	    $session_class,
-	    'SNMP::Easy::Session',
-	    @{$args{session_args}});
+    if ( !defined($session) ) {
+        my $session_class =
+          $args{session_class} || 'SNMP::Easy::Session::NetSNMP';
+        $session = _load_class( $session_class,
+            'SNMP::Easy::Session', @{ $args{session_args} } );
     }
 
-    my $device = SNMP::Easy::Device->new(session => $session);
-    
+    my $device = SNMP::Easy::Device->new( session => $session );
+
     my $classifier_class = $args{classifier} || 'SNMP::Easy::Classifier';
-    my $classifier = _load_class($classifier_class,
-				 'SNMP::Easy::Classifier',
-				 device => $device);
+    my $classifier = _load_class( $classifier_class, 'SNMP::Easy::Classifier',
+        device => $device );
 
     my $device_role = $classifier->classify();
-        
+
     debug() and print "debug: classifier $device_role";
-    
+
     my $role_package = use_package_optimistically($device_role);
     is_role($role_package) or die "$role_package is not a Moose role";
-    
-    $role_package->meta->apply( $device );
-        
+
+    $role_package->meta->apply($device);
+
     return $device;
 }
 
 sub _load_class {
-    my ($class_name, $search_base,  %options) = @_ ;
-    
+    my ( $class_name, $search_base, %options ) = @_;
+
     my $possible_full_name = $search_base . "::" . $class_name;
-    my @possible = ($possible_full_name, $class_name);
-    for my $name  (@possible) {
-	my $package = use_package_optimistically($name);
-	$package->can('new') and return $package->new(%options);
+    my @possible = ( $possible_full_name, $class_name );
+    for my $name (@possible) {
+        my $package = use_package_optimistically($name);
+        $package->can('new') and return $package->new(%options);
     }
 
     die "Cannot load classifier $class_name";
@@ -57,7 +56,6 @@ sub _load_class {
 sub debug {
     return $ENV{SNMP_EASY_DEBUG};
 }
-
 
 =head1 SYNOPSIS
 
@@ -117,7 +115,8 @@ L<http://search.cpan.org/dist/SNMP-Easy/>
 =back
 =cut
 
-1; # End of SNMP::Easy
+1;    # End of SNMP::Easy
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil

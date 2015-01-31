@@ -1,4 +1,5 @@
 package SNMP::Easy::MIB::UCD;
+
 #ABSTRACT: Support for data in UCD MIB
 
 use Moose::Role;
@@ -20,10 +21,10 @@ mib_name "UCD-SNMP-MIB";
 
 # --   prTable          OBJECT IDENTIFIER ::= { ucdavis   2 }
 has_table "prTable" => (
-    oid => '.2',
+    oid     => '.2',
     columns => {}
 );
-    
+
 # --   memory           OBJECT IDENTIFIER ::= { ucdavis   4 }
 # --   extTable         OBJECT IDENTIFIER ::= { ucdavis   8 }
 # --   diskTable        OBJECT IDENTIFIER ::= { ucdavis   9 }
@@ -33,14 +34,12 @@ has_table "prTable" => (
 # --   logMatch         OBJECT IDENTIFIER ::= { ucdavis  16 }
 
 # --   version          OBJECT IDENTIFIER ::= { ucdavis 100 }
-has_scalar "versionIndex" => (
-    oid => '.100.1',
-);
+has_scalar "versionIndex" => ( oid => '.100.1', );
 
 # --   snmperrs         OBJECT IDENTIFIER ::= { ucdavis 101 }
-    
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil
@@ -48,5 +47,3 @@ has_scalar "versionIndex" => (
 # cperl-indent-parens-as-block: t
 # End:
 
-
-    

@@ -1,4 +1,5 @@
 package SNMP::Easy::Meta::Attribute::Trait::MIBEntry;
+
 #ABSTRACT: Attribute trait for attributes derived from MIBs
 
 use Moose::Role;
@@ -22,6 +23,7 @@ has munger => (
 );
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil

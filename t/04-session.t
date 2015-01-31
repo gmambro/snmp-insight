@@ -9,6 +9,7 @@ BEGIN {
 done_testing;
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil

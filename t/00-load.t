@@ -7,7 +7,7 @@ use Test::More;
 plan tests => 1;
 
 BEGIN {
-    use_ok( 'SNMP::Easy' ) || print "Bail out!\n";
+    use_ok('SNMP::Easy') || print "Bail out!\n";
 }
 
-diag( "Testing SNMP::Easy $SNMP::Easy::VERSION, Perl $], $^X" );
+diag("Testing SNMP::Easy $SNMP::Easy::VERSION, Perl $], $^X");
