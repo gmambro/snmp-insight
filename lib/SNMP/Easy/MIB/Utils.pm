@@ -1,6 +1,6 @@
 package SNMP::Easy::MIB::Utils;
 
-#ABSTRACT Functions for dealing with MIB data
+#ABSTRACT: Functions for dealing with MIB data
 
 use strict;
 use warnings;

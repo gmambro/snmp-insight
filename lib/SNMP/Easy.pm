@@ -32,9 +32,7 @@ sub open {
 
     debug() and print "debug: classifier $device_role";
 
-    my $role_package = use_package_optimistically($device_role);
-    is_role($role_package) or die "$role_package is not a Moose role";
-
+    my $role_package = _load_device_role( $device_role, 'SNMP::Easy::Device' );
     $role_package->meta->apply($device);
 
     return $device;
@@ -51,6 +49,20 @@ sub _load_class {
     }
 
     die "Cannot load classifier $class_name";
+}
+
+sub _load_device_role {
+    my ( $role_name, $search_base ) = @_;
+
+    my $possible_full_name = $search_base . "::" . $role_name;
+    my @possible = ( $possible_full_name, $role_name );
+    for my $name (@possible) {
+        my $package = use_package_optimistically($name);
+        use_package_optimistically($name);
+        is_role($package) and return $package;
+    }
+
+    die "Cannot load device $role_name";
 }
 
 sub debug {
