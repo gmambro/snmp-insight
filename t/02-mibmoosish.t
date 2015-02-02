@@ -8,7 +8,6 @@ BEGIN {
 }
 
 {
-
     package MockSession;
     use Moose;
 
@@ -19,7 +18,7 @@ BEGIN {
 
     package FooMIB;
     use Moose::Role;
-    use SNMP::Easy::MIB::Mooseish;
+    use SNMP::Easy::Moose::MIB;
     with 'SNMP::Easy::MIB';
 
     mib_oid "1.1.1";
@@ -57,7 +56,7 @@ use_ok 'TestDevice';
 
     package BarMIB;
     use Moose::Role;
-    use SNMP::Easy::MIB::Mooseish;
+    use SNMP::Easy::Moose::MIB;
     with 'SNMP::Easy::MIB';
 
     mib_oid "1.1.2";

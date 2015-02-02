@@ -6,7 +6,7 @@ use Moose::Role;
 
 our $VERSION = '0.0.0';
 
-use SNMP::Easy::MIB::Mooseish;
+use SNMP::Easy::Moose::MIB;
 use namespace::autoclean;
 
 with 'SNMP::Easy::MIB';
@@ -24,7 +24,7 @@ has_table 'ifTable' => (
         'ifType'            => 3,
         'ifMtu'             => 4,
         'ifSpeed'           => 5,
-        'ifPhysAddress'     => [ 6, 'macaddress' ],
+        'ifPhysAddress'     => [ 6, 'munge_macaddress' ],
         'ifAdminStatus'     => 7,
         'ifOperStatus'      => 8,
         'ifLastChange'      => 9,

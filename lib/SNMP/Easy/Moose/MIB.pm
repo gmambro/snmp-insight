@@ -1,4 +1,4 @@
-package SNMP::Easy::MIB::Mooseish;
+package SNMP::Easy::Moose::MIB;
 
 #ABSTRACT: Moose glue to write MIB roles
 
@@ -34,7 +34,7 @@ sub has_scalar {
 
     my $munger_code;
     if ( $options{munger} ) {
-        $munger_code = _load_munger( $options{munger} );
+        $munger_code = _load_munger( $meta, $options{munger} );
     }
 
     my %attribute_options = (
@@ -80,6 +80,8 @@ sub has_table {
 }
 
 sub _load_munger {
+    
+    
     warn "_load_munger not implemented yet";
 }
 
@@ -92,7 +94,7 @@ sub _create_column {
 
     my $col_oid = "$table_oid.$sub_id";
     my $munger_code;
-    $munger and $munger_code = _load_munger($munger);
+    $munger and $munger_code = _load_munger($meta, $munger);
 
     my %attribute_options = (
         traits  => ['MIBEntry'],

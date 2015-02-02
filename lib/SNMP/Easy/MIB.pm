@@ -13,7 +13,9 @@ requires 'session';
 sub _mib_read_scalar {
     my ( $self, $oid, $munger ) = @_;
 
-    $self->session->get_scalar($oid);
+    my $v = $self->session->get_scalar($oid);
+    $munger and $v = munger->($v);
+    return $v;
 }
 
 sub _mib_read_tablerow {
@@ -23,6 +25,7 @@ sub _mib_read_tablerow {
 
     foreach (@$row) {
         $_->[0] =~ /^$oid\.(.*)/o and $_->[0] = $1;
+        $munger and $_->[1] = munger->($_->[1]);
     }
 
     return $row;

@@ -26,7 +26,7 @@ sub open {
 
     my $classifier_class = $args{classifier} || 'SNMP::Easy::Classifier';
     my $classifier = _load_class( $classifier_class, 'SNMP::Easy::Classifier',
-        device => $device );
+                                  device => $device );
 
     my $device_role = $classifier->classify();
 
@@ -85,6 +85,10 @@ A Perl 5 module that provides a simple Moose object-oriented access to SNMP enab
 SNMP::Easy uses Net::SNMP for a pure Perl SNMP implementation.
 It's based on Moose to provide simple mechanisms to add support for
 more MIBs and agents.
+
+=head1 SEE ALSO
+
+<Moose> <Net::SNMP> <SNMP::Info> 
 
 =head1 AUTHOR
 

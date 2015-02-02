@@ -1,4 +1,4 @@
-package SNMP::Easy::Device::Catalyst;
+package SNMP::Easy::Device::Cisco::Catalyst;
 
 # ABSTRACT: Support for Cisco Catalyst devices
 

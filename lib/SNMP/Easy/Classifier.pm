@@ -27,8 +27,8 @@ sub classify {
     my $desc     = $device->sysDescr;
     $desc =~ s/[\r\n\l]+/ /g;
 
-    $ENV{SNMP_EASY_DEBUG}
-      and print
+    SNMP::Easy::debug()
+	  and print
 "SNMP::Easy::classifier services:$services id:$id sysDescr:\"$desc\" vendor: $vendor\n";
 
     # Some devices don't implement sysServices, but do return a description.
@@ -46,11 +46,15 @@ sub classify {
     }
 
     my $device_type;
-    $device_type = $self->guess_by_desc($desc);
-    $device_type ||= $self->guess_by_vendor();
 
-    $ENV{SNMP_EASY_DEBUG}
-      and print "SNMP::Easy::classifier got $device_type";
+    $device_type = $self->guess_by_desc($desc);
+    SNMP::Easy::debug()
+	  and print "SNMP::Easy::classifier by description %s\n", $device_type || 'undef';
+
+    
+    $device_type ||= $self->guess_by_vendor();
+    SNMP::Easy::debug()
+	  and printf "SNMP::Easy::classifier by vendor %s\n", $device_type || 'undef';
 
     return $device_type;
 }
@@ -81,96 +85,81 @@ sub guess_by_desc {
     #------------------------------------------------------------------#
 
     #  Catalyst 1900
-    return 'C1900'
+    return 'Cisco::C1900'
       if ( $desc =~ /catalyst/i and $desc =~ /\D19\d{2}/ );
 
     # Catalyst 2900 and 3500XL (IOS)
-    return 'C2900'
+    return 'Cisco::C2900'
       if ( $desc =~ /(C2900XL|C2950|C3500XL|C2940|CGESM|CIGESM)/i );
 
     # Cisco Catalyst 3550 3560
-    return 'C3550' if $desc =~ /(C3550|C3560)/;
-
-    # Cisco 3400 w/ Layer3 capable image
-    return 'C3550'
-      if $desc =~ /(ME340x)/;
-
     #   Catalyst 3550 / 3548 Layer2 only switches
     #   Cisco 3400 w/ MetroBase Image
-    return 'C3550'
-      if ( $desc =~ /(C3550|ME340x)/ );
+    return 'Cisco::C3550' if $desc =~ /(C3550|C3560|ME340x)/;
 
     # Cisco 4000-4500
-    return 'C4000' if $desc =~ /Catalyst 4[05]00/;
-
-    # Cisco Aironet
-    return 'Aironet'
-      if ( $desc =~ /Cisco/ && $desc =~ /\D(CAP340|AP340|CAP350|350|1200)\D/ );
-    return 'Aironet' if ( $desc =~ /Aironet/ && $desc =~ /\D(AP4800)\D/ );
+    return 'Cisco::C4000' if $desc =~ /Catalyst 4[05]00/;
 
     # Cat6k with older SUPs (hybrid CatOS/IOS?)
-    return 'C6500' if $desc =~ /(c6sup2|c6sup1)/;
+    return 'Cisco::C6500' if $desc =~ /(c6sup2|c6sup1)/;
 
     # Cat6k with Sup720, Sup720 or Sup2T (and Sup2 running native IOS?)
-    return 'C6500'
+    return 'Cisco::C6500'
       if $desc =~ /(s72033_rp|s3223_rp|s32p3_rp|s222_rp|s2t54)/;
 
     # IOS 15.x on Catalyst 3850
-    return 'C6500'
+    return 'Cisco::C6500'
       if ( $desc =~ /cisco/i and $desc =~ /CAT3K/ );
 
     #   Cisco 2970
-    return 'C6500' if ( $desc =~ /(C2970|C2960)/ );
+    return 'Cisco::C6500' if ( $desc =~ /(C2970|C2960)/ );
 
     # Various Cisco blade switches, CBS30x0 and CBS31x0 models
-    return 'C6500'
+    return 'Cisco::C6500'
       if ( $desc =~ /cisco/i and $desc =~ /CBS3[0-9A-Za-z]{3}/ );
 
-    # Catalyst WS-C series override 2926,4k,5k,6k in Hybrid
-    return 'Catalyst' if ( $desc =~ /WS-C\d{4}/ );
-
     # Cisco blade switches, CBS30x0 and CBS31x0 models with L2 only
-    return 'C6500'
+    return 'Cisco::C6500'
       if ( $desc =~ /cisco/i and $desc =~ /CBS3[0-9A-Za-z]{3}/ );
 
     # Cisco 2970
-    return 'C6500'
+    return 'Cisco::C6500'
       if ( $desc =~ /(C2970|C2960)/ );
 
     # Cisco Nexus running NX-OS
-    return 'Nexus'
+    return 'Cisco::Nexus'
       if ( $desc =~ /^Cisco\s+NX-OS/ );
+    
+    # Catalyst WS-C series override 2926,4k,5k,6k in Hybrid
+    return 'Cisco::Catalyst' if ( $desc =~ /WS-C\d{4}/ );
 
     #  Aironet - IOS
-    return 'Aironet'
-      if ( $desc =~ /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250)\b/
+    return 'Cisco::AironetIOS'
+      if ( $desc =~ /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250|C2700|C3700)\b/
         && $desc =~ /\bIOS\b/ );
 
     # Aironet - non IOS
-    return 'Aironet'
-      if ( $desc =~ /Cisco/ and $desc =~ /\D(BR500)\D/ );
+    return 'Cisco::Aironet'
+      if ( $desc =~ /Cisco/ && $desc =~ /\D(BR500|CAP340|AP340|CAP350|350|1200)\D/ );
 
-    # Aironet - IOS
-    return 'Aironet'
-      if ( $desc =~
-        /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250|C2700|C3700)\b/
-        and $desc =~ /\bIOS\b/ );
+    return 'Cisco::Aironet'
+	if ( $desc =~ /Aironet/ && $desc =~ /\D(AP4800)\D/ );
 
     # Airespace (WLC) Module
-    return 'Airespace'
+    return 'Cisco::Airespace'
       if ( $desc =~ /^Cisco Controller$/ );
 
     # Cisco ASA, newer versions which report layer 3 functionality
     # version >= 8.2 are known to do this
-    return 'CiscoASA'
+    return 'Cisco::ASA'
       if ( $desc =~ /Cisco Adaptive Security Appliance/i );
 
     # Cisco PIX
-    return 'Cisco'
+    return 'Cisco::Generic'
       if ( $desc =~ /Cisco PIX Security Appliance/i );
 
     # Cisco FWSM
-    return 'CiscoFWSM'
+    return 'Cisco::FWSM'
       if ( $desc =~ /Cisco Firewall Services Module/i );
 
     #------------------------------------------------------------------#
@@ -178,27 +167,15 @@ sub guess_by_desc {
     #------------------------------------------------------------------#
 
     # HP, older ProCurve models (1600, 2400, 2424m, 4000, 8000)
-    return 'HP4000'
+    return 'HP::HP4000'
       if $desc =~ /\b(J4093A|J4110A|J4120A|J4121A|J4122A|J4122B)\b/;
 
     # HP, Foundry OEM
-    return 'HP9300'
+    return 'HP::HP9300'
       if $desc =~ /\b(J4874A|J4138A|J4139A|J4840A|J4841A)\b/;
 
     # HP Virtual Connect blade switches
-    return 'HPVC'
-      if ( $desc =~ /HP\sVC\s/ );
-
-    # HP, older ProCurve models (1600, 2400, 2424m, 4000, 8000)
-    return 'SNMP::Info::Layer2::HP4000'
-      if $desc =~ /\b(J4093A|J4110A|J4120A|J4121A|J4122A|J4122B)\b/;
-
-    # HP, Foundry OEM
-    return 'HP9300'
-      if $desc =~ /\b(J4874A|J4138A|J4139A|J4840A|J4841A)\b/;
-
-    # HP Virtual Connect blade switches
-    return 'SNMP::Info::Layer2::HPVC'
+    return 'HP::HPVC'
       if $desc =~ /HP\sVC\s/;
 
     #------------------------------------------------------------------#
