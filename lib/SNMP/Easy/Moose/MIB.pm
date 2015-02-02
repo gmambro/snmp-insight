@@ -63,6 +63,9 @@ sub has_table {
         _create_column( $meta, $table_oid, $col_name, $col_opts );
     }
 
+    my $index = $options{index};
+    # TODO check index
+    
     $meta->add_attribute(
         $name,
 
@@ -74,15 +77,16 @@ sub has_table {
 
         default => sub {
             my $self = shift;
-            $self->_mib_read_table( keys %$columns );
+            $self->_mib_read_table( $index, [ keys %$columns ]);
         },
     );
 }
 
 sub _load_munger {
-    
-    
-    warn "_load_munger not implemented yet";
+    my ($meta, $munger) = @_;
+       
+    warn "_load_munger not implemented yet, using dummy sub";
+    return sub { $_[0] };
 }
 
 sub _create_column {
@@ -103,7 +107,7 @@ sub _create_column {
         oid     => $col_oid,
         default => sub {
             my $self = shift;
-            $self->_mib_read_tablerow( $col_oid, $munger );
+            $self->_mib_read_tablerow( $col_oid, $munger_code );
         },
     );
     $munger and $attribute_options{munger} = $munger;
