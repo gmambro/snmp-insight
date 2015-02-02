@@ -59,7 +59,7 @@ sub classify {
     return $device_type;
 }
 
-sub gueess_by_vendor {
+sub guess_by_vendor {
     my $self = shift;
 
     my $device = $self->device;
