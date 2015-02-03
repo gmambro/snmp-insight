@@ -4,7 +4,7 @@ package SNMP::Easy::Meta::Class::Trait::MIB;
 
 use Moose::Role;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 Moose::Util::meta_class_alias('MIB');
 

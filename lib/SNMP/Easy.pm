@@ -9,7 +9,7 @@ use Module::Runtime 0.014 'use_package_optimistically';
 use Moose::Util 'is_role';
 use SNMP::Easy::Device;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 sub open {
     my %args = @_;

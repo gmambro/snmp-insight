@@ -5,7 +5,7 @@ package SNMP::Easy::Device::Cisco::C6500;
 use Moose::Role;
 use namespace::autoclean;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 with
   'SNMP::Easy::MIB::RFC1213',

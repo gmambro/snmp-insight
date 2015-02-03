@@ -4,7 +4,7 @@ package SNMP::Easy::Device;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.0.0';
+#VERSION:
 use SNMP::Easy::Session;
 use SNMP::Easy::MIB::Utils qw(sysObjectID2vendor);
 

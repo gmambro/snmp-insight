@@ -5,7 +5,7 @@ package SNMP::Easy::Device::NetSNMP;
 use Moose::Role;
 use namespace::autoclean;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 with
   'SNMP::Easy::MIB::UCD',

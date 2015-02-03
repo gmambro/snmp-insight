@@ -4,7 +4,7 @@ package SNMP::Easy::Meta::Attribute::Trait::MIBEntry;
 
 use Moose::Role;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 Moose::Util::meta_attribute_alias('MIBEntry');
 

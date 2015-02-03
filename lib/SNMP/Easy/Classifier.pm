@@ -9,7 +9,7 @@ package SNMP::Easy::Classifier;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 has device => (
     is  => 'ro',

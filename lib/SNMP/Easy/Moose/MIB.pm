@@ -6,7 +6,7 @@ use Moose;
 use Moose::Exporter;
 use Carp;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 use SNMP::Easy::Meta::Attribute::Trait::MIBEntry;
 

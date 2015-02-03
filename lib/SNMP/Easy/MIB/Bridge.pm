@@ -4,7 +4,7 @@ package SNMP::Easy::MIB::Bridge;
 
 use Moose::Role;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 use SNMP::Easy::Moose::MIB;
 

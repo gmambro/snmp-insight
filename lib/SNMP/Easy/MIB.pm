@@ -4,7 +4,7 @@ package SNMP::Easy::MIB;
 
 use Moose::Role;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 use namespace::autoclean;
 

@@ -3,7 +3,7 @@ package SNMP::Easy::Session::NetSNMP;
 #ABSTRACT: Net::SNMP based implementation for SNMP::Easy::Session
 use Moose;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 with 'SNMP::Easy::Session';
 

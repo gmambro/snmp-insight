@@ -3,7 +3,7 @@ package SNMP::Easy::Session;
 #ABSTRACT: Role for SNMP client implementantions
 use Moose::Role;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 use namespace::autoclean;
 

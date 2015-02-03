@@ -4,7 +4,7 @@ package SNMP::Easy::Device::3Com;
 use Moose::Role;
 use namespace::autoclean;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 with
   'SNMP::Easy::MIB::RFC1213',

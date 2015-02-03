@@ -5,7 +5,7 @@ package SNMP::Easy::MIB::Utils;
 use strict;
 use warnings;
 
-our $VERSION = '0.0.0';
+#VERSION:
 
 use base qw( Exporter );
 our @EXPORT_OK = qw( sysObjectID2vendor );
