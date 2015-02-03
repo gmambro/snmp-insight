@@ -35,21 +35,18 @@ sub _build_driver {
     $options{-privpassword} = $self->privpassword if $self->privpassword;
     $options{-privprotocol} = $self->privprotocol if $self->privprotocol;
 
-    $options{-translate}     = 
-        [
-            '-all'            => 1 ,
-            '-octetstring'    => 0 ,
-            '-null'           => 1 ,
-            '-timeticks'      => 0 ,
-            '-opaque'         => 1 ,
-            '-nosuchobject'   => 1 ,
-            '-nosuchinstance' => 1 ,
-            '-endofmibview'   => 1 ,
-            '-unsigned'       => 1 ,
-        ];
+    $options{-translate} = [
+        '-all'            => 1,
+        '-octetstring'    => 0,
+        '-null'           => 1,
+        '-timeticks'      => 0,
+        '-opaque'         => 1,
+        '-nosuchobject'   => 1,
+        '-nosuchinstance' => 1,
+        '-endofmibview'   => 1,
+        '-unsigned'       => 1,
+    ];
 
-
-    
     return Net::SNMP->session(%options);
 
 }
@@ -78,7 +75,7 @@ sub get_subtree {
     $oid eq '.' and $oid = '0';
 
     SNMP::Easy::debug() and print "fetching subtree $oid\n";
-    
+
     my $last_oid = $oid;
 
     if ( $s->version() == SNMP_VERSION_1 ) {
@@ -98,7 +95,7 @@ sub get_subtree {
 
     }
     else {
-        
+
       GET_BULK:
         while (
             defined $s->get_bulk_request(

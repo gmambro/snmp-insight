@@ -28,7 +28,7 @@ sub classify {
     $desc =~ s/[\r\n\l]+/ /g;
 
     SNMP::Easy::debug()
-	  and print
+      and print
 "SNMP::Easy::classifier services:$services id:$id sysDescr:\"$desc\" vendor: $vendor\n";
 
     # Some devices don't implement sysServices, but do return a description.
@@ -49,12 +49,13 @@ sub classify {
 
     $device_type = $self->guess_by_desc($desc);
     SNMP::Easy::debug()
-	  and print "SNMP::Easy::classifier by description %s\n", $device_type || 'undef';
+      and print "SNMP::Easy::classifier by description %s\n",
+      $device_type || 'undef';
 
-    
     $device_type ||= $self->guess_by_vendor();
     SNMP::Easy::debug()
-	  and printf "SNMP::Easy::classifier by vendor %s\n", $device_type || 'undef';
+      and printf "SNMP::Easy::classifier by vendor %s\n",
+      $device_type || 'undef';
 
     return $device_type;
 }
@@ -129,21 +130,23 @@ sub guess_by_desc {
     # Cisco Nexus running NX-OS
     return 'Cisco::Nexus'
       if ( $desc =~ /^Cisco\s+NX-OS/ );
-    
+
     # Catalyst WS-C series override 2926,4k,5k,6k in Hybrid
     return 'Cisco::Catalyst' if ( $desc =~ /WS-C\d{4}/ );
 
     #  Aironet - IOS
     return 'Cisco::AironetIOS'
-      if ( $desc =~ /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250|C2700|C3700)\b/
+      if ( $desc =~
+        /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250|C2700|C3700)\b/
         && $desc =~ /\bIOS\b/ );
 
     # Aironet - non IOS
     return 'Cisco::Aironet'
-      if ( $desc =~ /Cisco/ && $desc =~ /\D(BR500|CAP340|AP340|CAP350|350|1200)\D/ );
+      if ( $desc =~ /Cisco/
+        && $desc =~ /\D(BR500|CAP340|AP340|CAP350|350|1200)\D/ );
 
     return 'Cisco::Aironet'
-	if ( $desc =~ /Aironet/ && $desc =~ /\D(AP4800)\D/ );
+      if ( $desc =~ /Aironet/ && $desc =~ /\D(AP4800)\D/ );
 
     # Airespace (WLC) Module
     return 'Cisco::Airespace'

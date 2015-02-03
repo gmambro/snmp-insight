@@ -68,9 +68,11 @@ sub has_table {
 
     my $index = $options{index};
     $index or croak "Table $name has no index defined";
-    $meta->has_attribute($index) or croak "Cannot find index $index for table $name";
+    $meta->has_attribute($index)
+      or croak "Cannot find index $index for table $name";
+
     # TODO check index
-    
+
     $meta->add_attribute(
         $name,
 
@@ -82,19 +84,20 @@ sub has_table {
 
         default => sub {
             my $self = shift;
-            $self->_mib_read_table( $index, [ keys %$columns ]);
+            $self->_mib_read_table( $index, [ keys %$columns ] );
         },
     );
 }
 
 sub _load_munger {
-    my ($meta, $munger) = @_;
+    my ( $meta, $munger ) = @_;
 
     # easy case
     return $munger if ref($munger) eq "CODE";
 
-    my $metamethod = $meta->find_method_by_name($munger) or croak "No $munger found";
-    return $metamethod->body
+    my $metamethod = $meta->find_method_by_name($munger)
+      or croak "No $munger found";
+    return $metamethod->body;
 }
 
 sub _create_column {
@@ -106,7 +109,7 @@ sub _create_column {
 
     my $col_oid = "$table_oid.$sub_id";
     my $munger_code;
-    $munger and $munger_code = _load_munger($meta, $munger);
+    $munger and $munger_code = _load_munger( $meta, $munger );
 
     my %attribute_options = (
         traits  => ['MIBEntry'],

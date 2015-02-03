@@ -71,7 +71,6 @@ has_table "ifXTable" => (
     }
 );
 
-
 1;
 
 # Local Variables:

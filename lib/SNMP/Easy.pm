@@ -26,7 +26,7 @@ sub open {
 
     my $classifier_class = $args{classifier} || 'SNMP::Easy::Classifier';
     my $classifier = _load_class( $classifier_class, 'SNMP::Easy::Classifier',
-                                  device => $device );
+        device => $device );
 
     my $device_role = $classifier->classify();
 

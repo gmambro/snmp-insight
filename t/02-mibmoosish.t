@@ -8,6 +8,7 @@ BEGIN {
 }
 
 {
+
     package MockSession;
     use Moose;
 

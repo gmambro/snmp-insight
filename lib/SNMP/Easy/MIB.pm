@@ -22,36 +22,36 @@ sub _mib_read_tablerow {
     my ( $self, $oid, $munger ) = @_;
 
     my $row = $self->session->get_subtree($oid);
-    
+
     foreach (@$row) {
+
         # Don't optimize this RE!
         $_->[0] =~ /^$oid\.(.*)/ and $_->[0] = $1;
-        $munger and $_->[1] = $munger->($_->[1]);
+        $munger                  and $_->[1] = $munger->( $_->[1] );
     }
 
     return $row;
 }
 
 sub _mib_read_table {
-    my ( $self, $index, $columns) = @_;
-    
+    my ( $self, $index, $columns ) = @_;
+
     my $table = {};
 
     # TODO index handling
     # if ( ! $self->can($index) ) {
     #    carp "Cannot find index $index";
-    # }    
-    
+    # }
+
     for my $col (@$columns) {
         my $col_values = $self->$col();
         foreach my $pair (@$col_values) {
-            $table->{$pair->[0]}->{$col} = $pair->[1];
+            $table->{ $pair->[0] }->{$col} = $pair->[1];
         }
     }
 
     return $table;
 }
-
 
 sub munge_macaddress {
     my $mac = shift;
