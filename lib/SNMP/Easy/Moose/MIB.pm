@@ -4,6 +4,7 @@ package SNMP::Easy::Moose::MIB;
 
 use Moose;
 use Moose::Exporter;
+use Carp;
 
 our $VERSION = '0.0.0';
 
@@ -47,7 +48,7 @@ sub has_scalar {
             $self->_mib_read_scalar( $oid, $munger_code );
         },
     );
-    $options{munger} and $attribute_options{munger} = $options{munger};
+    $options{munger} and $attribute_options{munger} = $munger_code;
 
     $meta->add_attribute( $name, %attribute_options );
 }
@@ -56,14 +57,18 @@ sub has_table {
     my ( $meta, $name, %options ) = @_;
 
     my $table_oid = $options{oid};
+    $table_oid or croak "Table $name has no oid";
     $table_oid =~ /^\./ and $table_oid = $meta->mib_oid . $table_oid;
 
     my $columns = $options{columns};
+    $columns or croak "Table $name has no columns definition";
     while ( my ( $col_name, $col_opts ) = each(%$columns) ) {
         _create_column( $meta, $table_oid, $col_name, $col_opts );
     }
 
     my $index = $options{index};
+    $index or croak "Table $name has no index defined";
+    $meta->has_attribute($index) or croak "Cannot find index $index for table $name";
     # TODO check index
     
     $meta->add_attribute(
@@ -84,9 +89,12 @@ sub has_table {
 
 sub _load_munger {
     my ($meta, $munger) = @_;
-       
-    warn "_load_munger not implemented yet, using dummy sub";
-    return sub { $_[0] };
+
+    # easy case
+    return $munger if ref($munger) eq "CODE";
+
+    my $metamethod = $meta->find_method_by_name($munger) or croak "No $munger found";
+    return $metamethod->body
 }
 
 sub _create_column {
@@ -110,7 +118,7 @@ sub _create_column {
             $self->_mib_read_tablerow( $col_oid, $munger_code );
         },
     );
-    $munger and $attribute_options{munger} = $munger;
+    $munger and $attribute_options{munger} = $munger_code;
 
     $meta->add_attribute( $col_name, %attribute_options );
 }

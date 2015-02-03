@@ -20,10 +20,10 @@ mib_name "UCD-SNMP-MIB";
 #TODO
 
 # --   prTable          OBJECT IDENTIFIER ::= { ucdavis   2 }
-has_table "prTable" => (
-    oid     => '.2',
-    columns => {}
-);
+#has_table "prTable" => (
+#   oid     => '.2',
+#    columns => {}
+#);
 
 # --   memory           OBJECT IDENTIFIER ::= { ucdavis   4 }
 # --   extTable         OBJECT IDENTIFIER ::= { ucdavis   8 }

@@ -17,7 +17,7 @@ has oid => (
 
 has munger => (
     is        => 'rw',
-    isa       => 'Str',
+    isa       => 'CodeRef',
     required  => 0,
     predicate => 'has_munger',
 );

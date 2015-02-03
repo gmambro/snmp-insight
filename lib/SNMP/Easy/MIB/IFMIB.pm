@@ -18,6 +18,7 @@ has_scalar 'ifNumber' => ( oid => "1.3.6.1.2.1.2.1" );
 
 has_table 'ifTable' => (
     oid     => "1.3.6.1.2.1.2.2.1",
+    index   => 'ifIndex',
     columns => {
         'ifIndex'           => 1,
         'ifDescr'           => 2,
@@ -45,7 +46,8 @@ has_table 'ifTable' => (
 );
 
 has_table "ifXTable" => (
-    oid     => "1.1",
+    oid     => ".1.1.1",
+    index   => "ifIndex",
     columns => {
         'ifName'                     => 1,
         'ifInMulticastPkts'          => 2,
@@ -68,6 +70,7 @@ has_table "ifXTable" => (
         'ifCounterDiscontinuityTime' => 19,
     }
 );
+
 
 1;
 

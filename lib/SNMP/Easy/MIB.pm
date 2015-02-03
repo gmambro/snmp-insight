@@ -52,6 +52,15 @@ sub _mib_read_table {
     return $table;
 }
 
+
+sub munge_macaddress {
+    my $mac = shift;
+    $mac or return "";
+    $mac = join( ':', map { sprintf "%02x", $_ } unpack( 'C*', $mac ) );
+    return $mac if $mac =~ /^([0-9A-F][0-9A-F]:){5}[0-9A-F][0-9A-F]$/i;
+    return "ERROR";
+}
+
 1;
 
 # Local Variables:
