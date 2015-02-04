@@ -1,15 +1,21 @@
 package SNMP::Easy;
-
 # ABSTRACT: SNMP Moose interface
+
 use 5.010;
 use strict;
 use warnings FATAL => 'all';
+
+# VERSION:
 
 use Module::Runtime 0.014 'use_package_optimistically';
 use Moose::Util 'is_role';
 use SNMP::Easy::Device;
 
-#VERSION:
+=func open()
+
+Create a SNMP::Easy::Device object, loading all the needed MIBS.
+
+=cut
 
 sub open {
     my %args = @_;
@@ -19,7 +25,7 @@ sub open {
         my $session_class =
           $args{session_class} || 'SNMP::Easy::Session::NetSNMP';
         $session = _load_class( $session_class,
-            'SNMP::Easy::Session', @{ $args{session_args} } );
+            'SNMP::Easy::Session', @{ $args{snmp_params} } );
     }
 
     my $device = SNMP::Easy::Device->new( session => $session );
@@ -30,10 +36,13 @@ sub open {
 
     my $device_role = $classifier->classify();
 
-    debug() and print "debug: classifier $device_role";
-
-    my $role_package = _load_device_role( $device_role, 'SNMP::Easy::Device' );
-    $role_package->meta->apply($device);
+    if ($device_role) {
+        debug() and print "debug: classifier returned $device_role";
+        my $role_package = _load_device_role( $device_role, 'SNMP::Easy::Device' );
+        $role_package->meta->apply($device);
+    } else {
+        debug() and print "debug: no info from classifier";
+    }
 
     return $device;
 }
@@ -75,60 +84,33 @@ SNMP Moose interface:
 
     use SNMP::Easy;
 
-    my $foo = SNMP::Easy->new();
+    my $device = SNMP::Easy::open( 
+        snmp_params => { 
+            hostname  => 'localhost',
+            community => 'public',
+            version   => "snmpv2c",
+        });
+
     ...
 
 =head1 DESCRIPTION
 
-A Perl 5 module that provides a simple Moose object-oriented access to SNMP enabled devices and SNMP MIBs.
+SNMP::Easy is a Perl 5 module that provides a simple Object Oriented inteface to access SNMP enabled devices and to describe SNMP MIBs and devices. SNMP::Easy it's based on Moose and uses Net::SNMP for a pure Perl SNMP implementation.
 
-SNMP::Easy uses Net::SNMP for a pure Perl SNMP implementation.
-It's based on Moose to provide simple mechanisms to add support for
-more MIBs and agents.
+Warning: this release is still alpha quality!
 
 =head1 SEE ALSO
 
-<Moose> <Net::SNMP> <SNMP::Info> 
+=for :list
 
-=head1 AUTHOR
+* In the SNMP::Easy distribution 
+L<SNMP::Easy::Session>
+L<SNMP::Easy::Device> 
+L<SNMP::Easy::Classifier>
+L<SNMP::Easy::MIB>
 
-Gabriele Mambrini, C<< <g.mambrini at gmail.com> >>
+* Similar modules on CPAN <SNMP::Info> 
 
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-snmp-easy at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=SNMP-Easy>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc SNMP::Easy
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=SNMP-Easy>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/SNMP-Easy>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/SNMP-Easy>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/SNMP-Easy/>
-
-=back
 =cut
 
 1;    # End of SNMP::Easy

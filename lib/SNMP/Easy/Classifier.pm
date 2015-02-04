@@ -11,10 +11,44 @@ use namespace::autoclean;
 
 #VERSION:
 
+=head1 DESCRIPTION
+
+Autodiscovery of device type applying heuristics on SNMPv2 entities
+
+=cut
+
+=attr device
+
+The instance of L<SNMP::Easy::Device> on which perform device type guessing.
+
+=cut
+
 has device => (
     is  => 'ro',
     isa => 'SNMP::Easy::Device',
 );
+
+=attr desc 
+
+A cleaned sysDescr (no new lines nor special characters).
+
+=cut
+
+has desc => (
+    is  => 'ro',
+    isa => 'Str',
+    default => sub {
+	my $desc = $_[0]->device->sysDescr;
+	$desc =~ s/[\r\n\l]+/ /g;
+	return $desc;
+    }
+);
+
+=method classify
+
+Return a suitable device role for the associated device.
+
+=cut
 
 sub classify {
     my $self = shift;
@@ -24,8 +58,7 @@ sub classify {
     my $id       = $device->sysObjectID;
     my $vendor   = $device->vendor;
     my $services = $device->sysServices;
-    my $desc     = $device->sysDescr;
-    $desc =~ s/[\r\n\l]+/ /g;
+    my $desc     = $self->desc;
 
     SNMP::Easy::debug()
       and print
@@ -33,18 +66,11 @@ sub classify {
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
-    if ( !defined($services) ) {
-        if ( !defined($desc) ) {
-            warn(
-"Device doesn't implement sysServices but did return sysDescr. Might give unexpected results.\n"
-            );
-        }
-        else {
-            # No sysServices, no sysDescr
-            return;
-        }
+    if ( !defined($services) &&  !defined($desc) ) {	
+	SNMP::Easy::debug() and print "No sysServices nor sysDescr, giving up";
+	return;
     }
-
+    
     my $device_type;
 
     $device_type = $self->guess_by_desc($desc);
@@ -59,6 +85,12 @@ sub classify {
 
     return $device_type;
 }
+
+=method guess_by_vendor
+
+Use sysObjectID to guess device type.
+
+=cut
 
 sub guess_by_vendor {
     my $self = shift;
@@ -75,9 +107,16 @@ sub guess_by_vendor {
     return 'NetSNMP' if $vendor eq 'NetSNMP';
 }
 
+=method guess_by_desc
+
+Use sysObjectID to guess device type.
+
+=cut
+
 sub guess_by_desc {
     my $self = shift;
-    my $desc = shift;
+
+    my $desc = $self->desc;
 
     return unless $desc =~ /\S/o;
 
