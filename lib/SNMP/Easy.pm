@@ -1,4 +1,5 @@
 package SNMP::Easy;
+
 # ABSTRACT: SNMP Moose interface
 
 use 5.010;
@@ -38,9 +39,11 @@ sub open {
 
     if ($device_role) {
         debug() and print "debug: classifier returned $device_role";
-        my $role_package = _load_device_role( $device_role, 'SNMP::Easy::Device' );
+        my $role_package =
+          _load_device_role( $device_role, 'SNMP::Easy::Device' );
         $role_package->meta->apply($device);
-    } else {
+    }
+    else {
         debug() and print "debug: no info from classifier";
     }
 

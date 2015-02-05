@@ -23,7 +23,7 @@ BEGIN {
     with 'SNMP::Easy::MIB';
 
     mib_oid "1.1.1";
-    has_scalar "fooScalar" => ( oid => '.1' );
+    has_scalar "fooScalar" => ( oid => '1' );
 
     package BaseDevice;
     use Moose;
@@ -61,7 +61,7 @@ use_ok 'TestDevice';
     with 'SNMP::Easy::MIB';
 
     mib_oid "1.1.2";
-    has_scalar "barScalar" => ( oid => '.2' );
+    has_scalar "barScalar" => ( oid => '2' );
 
     package TestDevice2;
     use Moose;

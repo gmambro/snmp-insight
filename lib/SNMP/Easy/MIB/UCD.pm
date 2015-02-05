@@ -21,7 +21,7 @@ mib_name "UCD-SNMP-MIB";
 
 # --   prTable          OBJECT IDENTIFIER ::= { ucdavis   2 }
 #has_table "prTable" => (
-#   oid     => '.2',
+#   oid     => '2',
 #    columns => {}
 #);
 
@@ -34,7 +34,6 @@ mib_name "UCD-SNMP-MIB";
 # --   logMatch         OBJECT IDENTIFIER ::= { ucdavis  16 }
 
 # --   version          OBJECT IDENTIFIER ::= { ucdavis 100 }
-has_scalar "versionIndex" => ( oid => '.100.1', );
 
 # --   snmperrs         OBJECT IDENTIFIER ::= { ucdavis 101 }
 

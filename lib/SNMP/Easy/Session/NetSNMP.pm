@@ -10,6 +10,13 @@ with 'SNMP::Easy::Session';
 use Net::SNMP 6.0 qw( :snmp DEBUG_ALL ENDOFMIBVIEW );
 use SNMP::Easy 'debug';
 
+has '_driver' => (
+    is      => 'ro',
+    isa     => 'Object',
+    lazy    => 1,
+    builder => '_build_driver',
+);
+
 sub _build_driver {
     my $self = shift;
 
@@ -59,8 +66,9 @@ sub get_scalar {
     #add istance number to the oid
     $oid .= '.0';
 
-    my $result = $session->get_request( '-varbindlist' => [$oid] );
+    SNMP::Easy::debug() and print "SNMP::Easy fetching scalar $oid\n";
 
+    my $result = $session->get_request( '-varbindlist' => [$oid] );
     $result or die "SNMP error " . $session->error();
 
     return $result->{$oid};
@@ -74,7 +82,7 @@ sub get_subtree {
     my $s = $self->_driver;
     $oid eq '.' and $oid = '0';
 
-    SNMP::Easy::debug() and print "fetching subtree $oid\n";
+    SNMP::Easy::debug() and print "SNMP::Easy fetching subtree $oid\n";
 
     my $last_oid = $oid;
 

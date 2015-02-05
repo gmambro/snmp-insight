@@ -31,7 +31,7 @@ sub has_scalar {
     my ( $meta, $name, %options ) = @_;
 
     my $oid = $options{oid};
-    $oid =~ /^\./ and $oid = $meta->mib_oid . $oid;
+    $oid =~ /^\./ or $oid = $meta->mib_oid . "." . $oid;
 
     my $munger_code;
     if ( $options{munger} ) {
@@ -58,7 +58,7 @@ sub has_table {
 
     my $table_oid = $options{oid};
     $table_oid or croak "Table $name has no oid";
-    $table_oid =~ /^\./ and $table_oid = $meta->mib_oid . $table_oid;
+    $table_oid =~ /^\./ or $table_oid = $meta->mib_oid . "." . $table_oid;
 
     my $columns = $options{columns};
     $columns or croak "Table $name has no columns definition";

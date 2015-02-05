@@ -24,7 +24,7 @@ has vendor => (
     isa     => 'Str',
     default => sub {
         my $self = shift;
-        return sysObjectID2vendor( $self->sysObjectID );
+        return sysObjectID2vendor( $self->sysObjectID ) || "";
     }
 );
 

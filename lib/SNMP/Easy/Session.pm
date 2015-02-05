@@ -14,16 +14,8 @@ enum 'SnmpVersion' => [qw(snmpv1 snmpv2c snmpv3)];
 no Moose::Util::TypeConstraints;
 
 requires
-  '_build_driver',
   'get_scalar',
   'get_subtree';
-
-has '_driver' => (
-    is      => 'ro',
-    isa     => 'Object',
-    lazy    => 1,
-    builder => '_build_driver',
-);
 
 has hostname => (
     is       => 'ro',

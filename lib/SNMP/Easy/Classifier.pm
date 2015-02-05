@@ -17,6 +17,8 @@ Autodiscovery of device type applying heuristics on SNMPv2 entities
 
 =cut
 
+use SNMP::Easy 'debug';
+
 =attr device
 
 The instance of L<SNMP::Easy::Device> on which perform device type guessing.
@@ -35,12 +37,13 @@ A cleaned sysDescr (no new lines nor special characters).
 =cut
 
 has desc => (
-    is  => 'ro',
-    isa => 'Str',
+    is      => 'ro',
+    isa     => 'Str',
+    lazy    => 1,
     default => sub {
-	my $desc = $_[0]->device->sysDescr;
-	$desc =~ s/[\r\n\l]+/ /g;
-	return $desc;
+        my $desc = $_[0]->device->sysDescr or return '';
+        $desc =~ s/[\r\n\l]+/ /g;
+        return $desc;
     }
 );
 
@@ -66,17 +69,17 @@ sub classify {
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
-    if ( !defined($services) &&  !defined($desc) ) {	
-	SNMP::Easy::debug() and print "No sysServices nor sysDescr, giving up";
-	return;
+    if ( !defined($services) && !defined($desc) ) {
+        SNMP::Easy::debug() and print "No sysServices nor sysDescr, giving up";
+        return;
     }
-    
+
     my $device_type;
 
     $device_type = $self->guess_by_desc($desc);
     SNMP::Easy::debug()
-      and print "SNMP::Easy::classifier by description %s\n",
-      $device_type || 'undef';
+      and printf( "SNMP::Easy::classifier by description %s\n",
+        $device_type || 'undef' );
 
     $device_type ||= $self->guess_by_vendor();
     SNMP::Easy::debug()
@@ -151,7 +154,7 @@ sub guess_by_desc {
     return 'Cisco::C6500'
       if ( $desc =~ /cisco/i and $desc =~ /CAT3K/ );
 
-    #   Cisco 2970
+    # Cisco 2970
     return 'Cisco::C6500' if ( $desc =~ /(C2970|C2960)/ );
 
     # Various Cisco blade switches, CBS30x0 and CBS31x0 models
@@ -165,6 +168,10 @@ sub guess_by_desc {
     # Cisco 2970
     return 'Cisco::C6500'
       if ( $desc =~ /(C2970|C2960)/ );
+
+    # Cisco 3750
+    return 'Cisco::C6500'
+      if ( $desc =~ /cisco/i and $desc =~ /3750/ );
 
     # Cisco Nexus running NX-OS
     return 'Cisco::Nexus'

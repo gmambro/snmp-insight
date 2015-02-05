@@ -60,12 +60,10 @@ my %ID_VENDOR_MAP = (
 
 sub sysObjectID2vendor {
     my ($id) = @_;
-    defined $id or return;
+    defined $id or return "NO VENDOR";
 
-    my $vendor_id;
-    $vendor_id = $1 if $id =~ /^1\.3\.6\.1\.4\.1\.(\d+)/;
-    $vendor_id and return $ID_VENDOR_MAP{$1};
-    return;
+    $id =~ /^\.?1\.3\.6\.1\.4\.1\.(\d+)/ and return $ID_VENDOR_MAP{$1};
+    return "UNKNOWN";
 }
 
 1;

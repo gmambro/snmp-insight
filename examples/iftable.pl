@@ -9,7 +9,7 @@ use SNMP::Easy;
 use Getopt::Long;
 
 my $hostname  = 'localhost';
-my $community = 'community';
+my $community = 'public';
 
 GetOptions(
     'host=s'      => \$hostname,
@@ -24,11 +24,10 @@ my $session = SNMP::Easy::Session::NetSNMP->new(
 
 my $device = SNMP::Easy::open( session => $session );
 
-print "Description ", $device->sysDescr,     "\n";
-print "Object ID ",   $device->sysObjectID,  "\n";
-print "Services ",    $device->sysServices,  "\n";
-print "Vendor ",      $device->vendor,       "\n";
-print "Version ",     $device->versionIndex, "\n";
+print "Description ", $device->sysDescr,    "\n";
+print "Object ID ",   $device->sysObjectID, "\n";
+print "Services ",    $device->sysServices, "\n";
+print "Vendor ",      $device->vendor,      "\n";
 
 use Data::Dumper;
 
