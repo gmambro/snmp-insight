@@ -7,7 +7,7 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Easy::MIB::RFC1213',
+  'SNMP::Easy::MIB::IFMIB',
   'SNMP::Easy::MIB::BRIDGE';
 
 1;
