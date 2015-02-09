@@ -8,7 +8,7 @@ use namespace::autoclean;
 
 with
   'SNMP::Easy::MIB::IFMIB',
-  'SNMP::Easy::MIB::BRIDGE';
+  'SNMP::Easy::MIB::Bridge';
 
 1;
 

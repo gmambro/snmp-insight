@@ -9,7 +9,7 @@ use namespace::autoclean;
 
 with
   'SNMP::Easy::MIB::IFMIB',
-  'SNMP::Easy::MIB::BRIDGE',
+  'SNMP::Easy::MIB::Bridge',
   ;
 
 __PACKAGE__->meta->make_immutable;
