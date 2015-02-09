@@ -16,13 +16,14 @@ mib_oid "1.3.6.1.4.1.9.9.23";
 mib_name "CISCO-CDP-MIB";
 
 has_table 'cdpCacheTable' => (
-    oid     => '1.2.1',
+    oid     => '1.2.1.1',
+    index   => 'cdpCacheAddress',
     columns => {
-        "cdpCacheAddress"    => [ '4', 'ipaddress' ],
+        "cdpCacheAddress"    => [ '4', 'munge_ipaddress' ],
         "cdpCacheDevicePort" => '7',
         "cdpCacheDeviceId"   => '6',
         "cdpCacheSysName"    => '17',
-    };
+    }
 );
 
 1;

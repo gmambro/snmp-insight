@@ -47,6 +47,7 @@ sub _load_data {
             # a new entry, check if there is an old one pending
             if ( defined $oid ) {
                 $data{$oid} = $value;
+                $oid = undef;
             }
 
             ( $oid, $type, $value ) = ( $1, $2, $3 );
@@ -70,7 +71,10 @@ sub get_scalar {
     my $self = shift;
     my $oid  = shift;
 
+    SNMP::Easy::debug() and print "SNMP::Easy fetching scalar $oid\n";
+    
     $oid .= '.0';
+
     return $self->_data->{$oid};
 }
 
@@ -78,11 +82,13 @@ sub get_subtree {
     my $self     = shift;
     my $root_oid = shift;
 
+    SNMP::Easy::debug() and print "SNMP::Easy fetching subtree $root_oid\n";
+
     my $result = [];
 
-    foreach my $oid ( $self->_oids ) {
-        $oid =~ /^$root_oid/ or next;
-        push @$result, [ $oid, $self->_data->{$oid} ];
+    foreach my $oid ( @{$self->_oids} ) {
+        $oid =~ /^$root_oid\./ or next;       
+        push @$result, [ $oid, $self->_data->{$oid} ];       
     }
 
     return $result;

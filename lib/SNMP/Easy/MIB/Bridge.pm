@@ -25,6 +25,7 @@ has_scalar "dot1dBaseNumPorts" => ( oid => "1.2" );
 
 has_table "dot1dBasePortTable" => (
     oid     => "1.4",
+    index   => "dot1dBasePort",
     columns => {
         "dot1dBasePort"        => 1,
         "dot1dBasePortIfIndex" => 2
@@ -35,8 +36,9 @@ has_table "dot1dBasePortTable" => (
 
 has_table "dot1dTpFdbEntry" => (
     oid     => "4.3",
+    index   => "dot1dTpFdbAddress",
     columns => {
-        "dot1dTpFdbAddress" => 1,
+        "dot1dTpFdbAddress" => [ 1, 'munge_macaddress' ],
         "dot1dTpFdbPort"    => 2,
         "dot1dTpFdbStatus"  => 3,
     }
