@@ -17,8 +17,8 @@ mib_name "Bridge-MIB";
 # .1 dot1dBase
 
 has_scalar "dot1dBaseBridgeAddress" => (
-    oid   => "1.1",
-    munge => 'macaddress'
+    oid    => "1.1",
+    munger => 'munge_macaddress',
 );
 
 has_scalar "dot1dBaseNumPorts" => ( oid => "1.2" );
