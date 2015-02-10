@@ -14,7 +14,7 @@ sub _mib_read_scalar {
     my ( $self, $oid, $munger ) = @_;
 
     my $v = $self->session->get_scalar($oid);
-    $munger and $v = munger->($v);
+    $munger and $v = $munger->($v);
     return $v;
 }
 
@@ -76,7 +76,7 @@ sub munge_ipaddress {
     return join( '.', unpack( 'C4', $ip ) );
 }
 
-=head2 munge_mac()
+=head2 munge_macaddress()
 
 Takes an octet stream (HEX-STRING) and returns a colon separated ASCII hex
 string.
