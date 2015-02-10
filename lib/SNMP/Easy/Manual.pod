@@ -1,0 +1,8 @@
+# PODNAME: SNMP::Easy::Manual
+# ABSTRACT: What is SNMP-Easy and how to use it.
+
+__END__
+
+=head1 INTRO
+
+=cut
