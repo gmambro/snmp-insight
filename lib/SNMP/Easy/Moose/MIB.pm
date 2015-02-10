@@ -33,7 +33,7 @@ sub has_scalar {
     my $oid = $options{oid};
     $oid =~ /^\./ or $oid = $meta->mib_oid . "." . $oid;
     $oid =~ s/^\.//o;
-    
+
     my $munger_code;
     if ( $options{munger} ) {
         $munger_code = _load_munger( $meta, $options{munger} );
@@ -61,7 +61,7 @@ sub has_table {
     $table_oid or croak "Table $name has no oid";
     $table_oid =~ /^\./ or $table_oid = $meta->mib_oid . "." . $table_oid;
     $table_oid =~ s/^\.//o;
-    
+
     my $columns = $options{columns};
     $columns or croak "Table $name has no columns definition";
     while ( my ( $col_name, $col_opts ) = each(%$columns) ) {

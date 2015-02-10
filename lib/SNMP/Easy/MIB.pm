@@ -60,9 +60,9 @@ sub _mib_read_table {
 
 sub munge_bool {
     my $bool = shift;
-    my @ARR = qw ( nop  false true);
-   
-     return $ARR[$bool];
+    my @ARR  = qw ( nop  false true);
+
+    return $ARR[$bool];
 }
 
 =head2 munge_ipaddress() 
@@ -101,8 +101,6 @@ sub munge_octet2hex {
     my $oct = shift;
     return join( '', map { sprintf "%x", $_ } unpack( 'C*', $oct ) );
 }
-
-
 
 1;
 

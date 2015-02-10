@@ -20,7 +20,7 @@ has_scalar "sysUpTime"   => ( oid => "3" );
 has_scalar "sysContact"  => ( oid => "4" );
 has_scalar "sysName"     => ( oid => "5" );
 has_scalar "sysLocation" => ( oid => "6" );
-has_scalar "sysServices" => ( oid => "7", );
+has_scalar "sysServices" => ( oid => "7" );
 
 1;
 

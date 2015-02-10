@@ -72,7 +72,7 @@ sub get_scalar {
     my $oid  = shift;
 
     SNMP::Easy::debug() and print "SNMP::Easy fetching scalar $oid\n";
-    
+
     $oid .= '.0';
 
     return $self->_data->{$oid};
@@ -86,9 +86,9 @@ sub get_subtree {
 
     my $result = [];
 
-    foreach my $oid ( @{$self->_oids} ) {
-        $oid =~ /^$root_oid\./ or next;       
-        push @$result, [ $oid, $self->_data->{$oid} ];       
+    foreach my $oid ( @{ $self->_oids } ) {
+        $oid =~ /^$root_oid\./ or next;
+        push @$result, [ $oid, $self->_data->{$oid} ];
     }
 
     return $result;
