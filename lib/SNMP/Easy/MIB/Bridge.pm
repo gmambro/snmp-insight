@@ -11,7 +11,7 @@ use SNMP::Easy::Moose::MIB;
 use namespace::autoclean;
 with 'SNMP::Easy::MIB';
 
-mib_oid "1.3.6.1.2.1.18";
+mib_oid "1.3.6.1.2.1.17";
 mib_name "Bridge-MIB";
 
 # .1 dot1dBase
