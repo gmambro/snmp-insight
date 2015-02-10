@@ -17,25 +17,42 @@ with 'SNMP::Easy::MIB';
 mib_oid ".1.3.6.1.4.1.2021";
 mib_name "UCD-SNMP-MIB";
 
-#TODO
+has_scalar memTotalSwap => ( oid => '4.3' );
+has_scalar memAvailSwap => ( oid => '4.4' );
+has_scalar memTotalReal => ( oid => '4.5' );
+has_scalar memAvailReal => ( oid => '4.6' );
 
-# --   prTable          OBJECT IDENTIFIER ::= { ucdavis   2 }
-#has_table "prTable" => (
-#   oid     => '2',
-#    columns => {}
-#);
 
-# --   memory           OBJECT IDENTIFIER ::= { ucdavis   4 }
-# --   extTable         OBJECT IDENTIFIER ::= { ucdavis   8 }
-# --   diskTable        OBJECT IDENTIFIER ::= { ucdavis   9 }
-# --   loadTable        OBJECT IDENTIFIER ::= { ucdavis  10 }
-# --   systemStats      OBJECT IDENTIFIER ::= { ucdavis  11 }
-# --   fileTable        OBJECT IDENTIFIER ::= { ucdavis  15 }
-# --   logMatch         OBJECT IDENTIFIER ::= { ucdavis  16 }
+has_table prTable => (
+   oid     => '2.1',
+   index   => 'prIndex',
+   columns => {
+       prIndex   => 1,
+       prNames   => 2,
+       prMin     => 3,
+       prMax     => 4,
+       prCount   => 5,
+   }
+);
 
-# --   version          OBJECT IDENTIFIER ::= { ucdavis 100 }
+has_table dskTable => (
+    oid    => '9.1',
+    index  => 'dskIndex',
+    columns => {
+        dskIndex	=> 1,
+        dskPath		=> 2,
+        dskDevice	=> 3,
+        dskMinimum	=> 4,
+        dskMinPercent	=> 5,
+        dskTotal	=> 6,
+        dskAvail	=> 7,
+        dskUsed		=> 8,
+        dskPercent      => 9,
+        dskPercentNode	=> 10
+    },
+);
 
-# --   snmperrs         OBJECT IDENTIFIER ::= { ucdavis 101 }
+
 
 1;
 
