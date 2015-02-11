@@ -58,6 +58,12 @@ my %ID_VENDOR_MAP = (
     35098 => 'Pica8',
 );
 
+=func sysObjectID2vendor
+
+Try to extract a vendor string from a sysObjectID.
+
+=cut
+
 sub sysObjectID2vendor {
     my ($id) = @_;
     defined $id or return "NO VENDOR";

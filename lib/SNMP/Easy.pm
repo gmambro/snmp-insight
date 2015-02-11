@@ -77,6 +77,12 @@ sub _load_device_role {
     die "Cannot load device $role_name";
 }
 
+=func debug
+
+Internal
+
+=cut
+
 sub debug {
     return $ENV{SNMP_EASY_DEBUG};
 }

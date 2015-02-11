@@ -5,4 +5,12 @@ __END__
 
 =head1 INTRO
 
+TBD
+
+=head1 TABLE OF CONTENTS
+
+=for :list
+
+* L<SNMP::Easy::Manual::Extending>
+
 =cut
