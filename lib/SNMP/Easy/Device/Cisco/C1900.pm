@@ -8,9 +8,13 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Easy::MIB::IFMIB',
-  'SNMP::Easy::MIB::Bridge',
-  'SNMP::Easy::MIB::CISCO_CDP';
+    'SNMP::Easy::MIB::IFMIB',
+    'SNMP::Easy::MIB::Bridge',
+    'SNMP::Easy::MIB::CISCO_CDP',
+    # 'SNMP::Easy::MIB::Cisco_Agg',
+    # 'SNMP::Easy::MIB::Cisco_Stats',
+    # 'SNMP::Easy::MIB::Cisco_StpExtensions',
+    ;
 
 warn "To be implemented yet";
 

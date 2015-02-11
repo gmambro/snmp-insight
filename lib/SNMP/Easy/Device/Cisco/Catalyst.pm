@@ -8,17 +8,9 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Easy::MIB::IFMIB',
-  'SNMP::Easy::MIB::Bridge',
-  'SNMP::Easy::MIB::CISCO_VTP',
-  'SNMP::Easy::MIB::CISCO_CDP',
-  'SNMP::Easy::MIB::IP',
-  'SNMP::Easy::MIB::CISCO_2900',
-  'SNMP::Easy::MIB::CISCO_PORT_SECURITY',
-  'SNMP::Easy::MIB::CISCO_VLAN_MEMB',
-  'SNMP::Easy::MIB::IF_TABLE_REL',
-  'SNMP::Easy::MIB::CISCO_VTP',
-  'SNMP::Easy::MIB::ETHERLIKE';
+   'SNMP::Easy::Device::Cisco::L2Device',
+#    'SNMP::Easy::MIB::Cisco::Stack',
+    ;
 
 sub os {
     my $self = shift;

@@ -9,10 +9,7 @@ use namespace::autoclean;
 
 with
   'SNMP::Easy::MIB::IFMIB',
-  'SNMP::Easy::MIB::Bridge',
   'SNMP::Easy::MIB::CISCO_CDP';
-
-warn "To be implemented yet";
 
 1;
 

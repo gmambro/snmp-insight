@@ -8,8 +8,8 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Easy::MIB::IFMIB',
-  'SNMP::Easy::MIB::Bridge',
+  'SNMP::Easy::Device::Cisco::L2Device',
+#  'SNMP::Easy::MIB::CISCO_C2900',
   'SNMP::Easy::MIB::CISCO_CDP';
 
 warn "To be implemented yet";
