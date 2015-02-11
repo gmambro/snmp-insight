@@ -53,8 +53,9 @@ sub _mib_read_table {
     return $table;
 }
 
-=function munge_bool()
+=func munge_bool()
 
+Takes a BOOLEAN and makes it a nop|true|false string
 
 =cut
 
@@ -65,7 +66,7 @@ sub munge_bool {
     return $ARR[$bool];
 }
 
-=head2 munge_ipaddress() 
+=func munge_ipaddress() 
 
 Takes a binary IP and makes it dotted ASCII
 
@@ -76,7 +77,7 @@ sub munge_ipaddress {
     return join( '.', unpack( 'C4', $ip ) );
 }
 
-=head2 munge_macaddress()
+=func munge_macaddress()
 
 Takes an octet stream (HEX-STRING) and returns a colon separated ASCII hex
 string.
@@ -91,7 +92,7 @@ sub munge_macaddress {
     return "ERROR";
 }
 
-=function munge_octet2hex()
+=func munge_octet2hex()
 
 Takes a binary octet stream and returns an ASCII hex string
 

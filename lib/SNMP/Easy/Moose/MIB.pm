@@ -17,15 +17,39 @@ Moose::Exporter->setup_import_methods(
     },
 );
 
+=method mib_oid
+
+Declare the oid of the current MIB. E.g. in IFMIB.pm
+
+  mib_oid '1.3.6.1.2.1.31';
+
+=cut
+
 sub mib_oid {
     my $meta = shift;
     $meta->mib_oid(shift);
 }
 
+=method mib_name
+
+Declare the name of the current MIB. E.g.
+
+  mib_name 'IF-MIB';
+
+=cut
+
 sub mib_name {
     my $meta = shift;
     $meta->mib_name(shift);
 }
+
+=method has_scalar
+
+  has_scalar $name %options
+
+This will declare a scalar entry of a given C<$name> into the current MIB role.
+
+=cut
 
 sub has_scalar {
     my ( $meta, $name, %options ) = @_;
@@ -53,6 +77,22 @@ sub has_scalar {
 
     $meta->add_attribute( $name, %attribute_options );
 }
+
+=method has_scalar
+
+  has_table $name %options
+
+This will declare a table of a given C<$name> into the current MIB role.
+
+=for :list
+
+* oid => $oid
+
+* index => $index
+
+* columns => %columns
+
+=cut
 
 sub has_table {
     my ( $meta, $name, %options ) = @_;
