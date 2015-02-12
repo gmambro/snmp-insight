@@ -232,31 +232,35 @@ sub guess_by_desc {
     #------------------------------------------------------------------#
 
     # Nortel 2270
-    return 'N2270'
+    return 'Nortel::N2270'
       if ( $desc =~ /Nortel\s+(Networks\s+)??WLAN\s+-\s+Security\s+Switch/ );
 
     # Nortel (Trapeze) WSS 2300 Series
-    return 'NWSS2300'
+    return 'Nortel::WSS2300'
       if ( $desc =~ /^(Nortel\s)??Wireless\sSecurity\sSwitch\s23[568][012]\b/ );
 
     # Nortel ERS (Passport) 1600 Series < version 2.1
-    return 'N1600'
+    return 'Nortel::ERS1600'
       if $desc =~ /(Passport|Ethernet\s+Routing\s+Switch)-16/i;
 
     # Nortel Contivity
-    return 'Contivity' if $desc =~ /(\bCES\b|\bNVR\sV\d)/;
+    return 'NortelContivity' if $desc =~ /(\bCES\b|\bNVR\sV\d)/;
 
     #  Nortel Business Ethernet Switch
-    return 'Baystack'
+    return 'Nortel::Baystack'
       if ( $desc =~ /^Business Ethernet Switch\s[12]\d\d/i );
 
-    #  Nortel AP 222X
-    return 'NAP222x'
-      if ( $desc =~ /Access\s+Point\s+222/ );
+    #  ERS - BayStack Numbered
+    return 'Nortel::Baystack'
+      if $desc =~ /^(BayStack|Ethernet\s+Routing\s+Switch)\s[2345](\d){2,3}/i;
 
-    #Nortel 2270
-    return 'N2270'
-      if ( $desc =~ /Nortel\s+(Networks\s+)??WLAN\s+-\s+Security\s+Switch/ );
+    #  BPS
+    return 'Nortel::Baystack' if $desc =~ /Business\sPolicy\sSwitch/i;
+
+    
+    #  Nortel AP 222X
+    return 'Nortel::AP222x'
+      if ( $desc =~ /Access\s+Point\s+222/ );
 
     #------------------------------------------------------------------#
 
@@ -281,16 +285,7 @@ sub guess_by_desc {
       if ( $desc =~ /\bNMM.*Agent/ );
     return 'Bayhub'
       if ( $desc =~ /\bBay\s*Stack.*Hub/i );
-
-    #  ERS - BayStack Numbered
-    return 'Baystack'
-      if (
-        $desc =~ /^(BayStack|Ethernet\s+Routing\s+Switch)\s[2345](\d){2,3}/i );
-
-    #  BPS
-    return 'Baystack'
-      if ( $desc =~ /Business\sPolicy\sSwitch/i );
-
+    
     #  Centillion ATM
     return 'Centillion' if ( $desc =~ /MCP/ );
 
@@ -324,10 +319,6 @@ sub guess_by_desc {
     # Avaya Secure Router
     return 'Tasman'
       if ( $desc =~ /^(avaya|nortel)\s+(SR|secure\srouter)\s+\d{4}/i );
-
-    return 'ZyXEL_DSLAM'
-      if ( $desc =~ /8-port .DSL Module\(Annex .\)/i );
-
 }
 
 1;
