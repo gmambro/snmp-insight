@@ -37,14 +37,19 @@ sub open {
 
     my $device_role = $classifier->classify();
 
-    if ($device_role) {
-        debug() and print "debug: classifier returned $device_role";
-        my $role_package =
-          _load_device_role( $device_role, 'SNMP::Easy::Device' );
+    if (!$device_role) {
+        debug() and print "debug: no info from classifier";
+        return $device;
+    }
+                
+    debug() and print "debug: classifier returned $device_role";
+    my $role_package =
+        _load_device_role( $device_role, 'SNMP::Easy::Device' );
+    if ($role_package) {
         $role_package->meta->apply($device);
     }
     else {
-        debug() and print "debug: no info from classifier";
+        warn "$role_package not found, using bare device";
     }
 
     return $device;
@@ -60,7 +65,7 @@ sub _load_class {
         $package->can('new') and return $package->new(%options);
     }
 
-    die "Cannot load classifier $class_name";
+    return;
 }
 
 sub _load_device_role {
@@ -74,7 +79,7 @@ sub _load_device_role {
         is_role($package) and return $package;
     }
 
-    die "Cannot load device $role_name";
+    return;
 }
 
 =func debug
