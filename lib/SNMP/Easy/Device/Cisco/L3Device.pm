@@ -11,3 +11,12 @@ with
     'SNMP::Easy::Device::Cisco::L2Device',
     # 'SNMP::Easy::MIB::Cisco_QOS',    
     ;
+
+1;
+
+# Local Variables:
+# mode: cperl
+# indent-tabs-mode: nil
+# cperl-indent-level: 4
+# cperl-indent-parens-as-block: t
+# End:

@@ -10,10 +10,18 @@ use namespace::autoclean;
 with
     'SNMP::Easy::MIB::Cisco_VTP',
     'SNMP::Easy::MIB::Cisco_CDP',
+    # 'SNMP::Easy::MIB::Cisco_Agg',
     # 'SNMP::Easy::MIB::Cisco_Stats',
     # 'SNMP::Easy::MIB::Cisco_RTT',    
     # 'SNMP::Easy::MIB::Cisco_Config',
     # 'SNMP::Easy::MIB::Cisco_PortSecurity',
     # 'SNMP::Easy::MIB::Cisco_StpExtensions',
-    # 'SNMP::Easy::MIB::Cisco_Agg'
     ;
+1;
+
+# Local Variables:
+# mode: cperl
+# indent-tabs-mode: nil
+# cperl-indent-level: 4
+# cperl-indent-parens-as-block: t
+# End:
