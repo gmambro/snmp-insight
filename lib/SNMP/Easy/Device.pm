@@ -8,16 +8,55 @@ use namespace::autoclean;
 use SNMP::Easy::Session;
 use SNMP::Easy::MIB::Utils qw(sysObjectID2vendor);
 
+=attr session
+
+An L<SNMP::Easy::Session> instance used to retrieve SNMP info.
+
+=cut
+
 has 'session' => (
     isa => 'SNMP::Easy::Session',
     is  => 'ro',
 );
 
-sub model { return }
+=attr model
 
-sub os { return }
+Guessed device model. May be overridden by device roles.
 
-sub os_ver { return }
+=cut
+
+has model => (
+    is     => 'ro',
+    isa    => 'Str'
+);
+
+=attr os
+
+Guessed device operating system. May be overridden by device roles.
+
+=cut
+
+has os  => (
+    is     => 'ro',
+    isa    => 'Str'
+);
+
+=attr os_ver
+
+Guessed device operating system version. May be overridden by device roles.
+
+=cut
+
+has os_ver => (
+    is     => 'ro',
+    isa    => 'Str'
+);
+
+=attr os_ver
+
+Guessed device vendor. May be overridden by device roles.
+
+=cut
 
 has vendor => (
     is      => 'ro',
