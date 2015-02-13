@@ -1,6 +1,6 @@
-package SNMP::Easy::Device::Cisco::L2Switch;
+package SNMP::Easy::Device::Cisco::L2Device;
 
-# ABSTRACT: Support for Generic Cisco L2 switch
+# ABSTRACT: Support for Generic Cisco L2 device
 
 use Moose::Role;
 use namespace::autoclean;

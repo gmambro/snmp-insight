@@ -1,6 +1,6 @@
-package SNMP::Easy::Device::Cisco::L3Switch;
+package SNMP::Easy::Device::Cisco::L3Device;
 
-# ABSTRACT: Support for Generic Cisco L3 switch
+# ABSTRACT: Support for Generic Cisco L3 device
 
 use Moose::Role;
 use namespace::autoclean;

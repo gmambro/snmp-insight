@@ -1,4 +1,4 @@
-package SNMP::Easy::Device::Cisco::Generic;
+package SNMP::Easy::Device::Cisco;
 
 # ABSTRACT: Support for generic Cisco devices
 
