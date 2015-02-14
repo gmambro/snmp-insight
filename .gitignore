@@ -21,4 +21,4 @@ nytprof.out
 *.bak
 .#*
 .DS_Store
-
+*.ERR
