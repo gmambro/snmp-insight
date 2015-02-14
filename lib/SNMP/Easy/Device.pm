@@ -67,6 +67,22 @@ has vendor => (
     }
 );
 
+=method get_all_mib_roles
+
+Return all the MIB roles for this device.
+
+=cut
+
+sub get_all_mib_roles {
+    my $self = shift;
+    
+    my @roles = grep {
+        $_->can('mib_name')
+    } $self->meta->calculate_all_roles_with_inheritance;
+
+    return @roles;
+}
+
 with 'SNMP::Easy::MIB::SNMPv2';
 
 __PACKAGE__->meta->make_immutable;

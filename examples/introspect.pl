@@ -27,10 +27,8 @@ my $session = SNMP::Easy::Session::NetSNMP->new(
 
 my $device = SNMP::Easy::open( session => $session );
 
-my @roles = $device->meta->calculate_all_roles_with_inheritance;
+my @roles = $device->get_all_mib_roles;
 foreach my $role (@roles) {
-    $role->can('mib_name') or next;
-
     print "MIB ", $role->mib_name, "\n";
 
     if ($verbose) {
