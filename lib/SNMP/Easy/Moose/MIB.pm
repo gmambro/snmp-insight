@@ -151,7 +151,7 @@ sub _create_column {
 
     my ( $sub_id, $munger ) = @$col_opts;
 
-    my $col_oid = "$table_oid.$sub_id";
+    my $col_oid = "$table_oid.1.$sub_id";
     my $munger_code;
     $munger and $munger_code = _load_munger( $meta, $munger );
 

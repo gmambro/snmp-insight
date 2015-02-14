@@ -21,7 +21,7 @@ has_scalar 'vtpMaxVlanStorage' => ( oid => '1.1.2', );
 
 # This table contains information on the VLANs which currently exist.
 has_table 'vtpVlanTable' => (
-    oid     => '1.3.1',
+    oid     => '1.3',
     index   => 'vtpVlanIndex',
     columns => {
         vtpVlanIndex   => 1,

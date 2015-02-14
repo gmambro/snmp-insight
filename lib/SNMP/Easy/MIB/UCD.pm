@@ -23,7 +23,7 @@ has_scalar memTotalReal => ( oid => '4.5' );
 has_scalar memAvailReal => ( oid => '4.6' );
 
 has_table prTable => (
-    oid     => '2.1',
+    oid     => '2',
     index   => 'prIndex',
     columns => {
         prIndex => 1,
@@ -35,7 +35,7 @@ has_table prTable => (
 );
 
 has_table dskTable => (
-    oid     => '9.1',
+    oid     => '9',
     index   => 'dskIndex',
     columns => {
         dskIndex       => 1,
