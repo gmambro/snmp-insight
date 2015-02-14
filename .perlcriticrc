@@ -1,2 +1,2 @@
 [TestingAndDebugging::RequireUseStrict]
-equivalent_modules = SNMP::Easy::MIB::Mooseish
+equivalent_modules = SNMP::Insight::Moose::MIB
