@@ -9,7 +9,8 @@ use namespace::autoclean;
 
 with
   'SNMP::Easy::Device::Cisco::L2Device',
-#  'SNMP::Easy::MIB::CISCO_C2900',
+
+  #  'SNMP::Easy::MIB::CISCO_C2900',
   'SNMP::Easy::MIB::CISCO_CDP';
 
 warn "To be implemented yet";

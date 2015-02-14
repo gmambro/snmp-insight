@@ -8,9 +8,10 @@ use namespace::autoclean;
 #VERSION:
 
 with
-    'SNMP::Easy::Device::Cisco::L2Device',
-    # 'SNMP::Easy::MIB::Cisco_QOS',    
-    ;
+  'SNMP::Easy::Device::Cisco::L2Device',
+
+  # 'SNMP::Easy::MIB::Cisco_QOS',
+  ;
 
 1;
 

@@ -26,9 +26,9 @@ has munger => (
 );
 
 has entry_type => (
-    is        => 'rw',
-    isa       => 'MIBEntryType',
-    required  => 1,    
+    is       => 'rw',
+    isa      => 'MIBEntryType',
+    required => 1,
 );
 
 sub is_scalar {
@@ -42,7 +42,7 @@ sub is_table {
 sub is_column {
     return $_[0]->entry_type eq 'table';
 }
-    
+
 1;
 
 # Local Variables:

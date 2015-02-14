@@ -65,7 +65,7 @@ sub classify {
 
     SNMP::Easy::debug()
       and print
-"SNMP::Easy::classifier services:$services id:$id sysDescr:\"$desc\" vendor: $vendor\n";
+      "SNMP::Easy::classifier services:$services id:$id sysDescr:\"$desc\" vendor: $vendor\n";
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
@@ -78,8 +78,10 @@ sub classify {
 
     $device_type = $self->guess_by_desc($desc);
     SNMP::Easy::debug()
-      and printf( "SNMP::Easy::classifier by description %s\n",
-        $device_type || 'undef' );
+      and printf(
+        "SNMP::Easy::classifier by description %s\n",
+        $device_type || 'undef'
+      );
 
     $device_type ||= $self->guess_by_vendor();
     SNMP::Easy::debug()
@@ -182,8 +184,8 @@ sub guess_by_desc {
 
     #  Aironet - IOS
     return 'Cisco::AironetIOS'
-      if ( $desc =~
-        /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250|C2700|C3700)\b/
+      if ( $desc
+        =~ /\b(C1100|C1130|C1140|AP1200|C350|C1200|C1240|C1250|C2700|C3700)\b/
         && $desc =~ /\bIOS\b/ );
 
     # Aironet - non IOS
@@ -257,7 +259,6 @@ sub guess_by_desc {
     #  BPS
     return 'Nortel::Baystack' if $desc =~ /Business\sPolicy\sSwitch/i;
 
-    
     #  Nortel AP 222X
     return 'Nortel::AP222x'
       if ( $desc =~ /Access\s+Point\s+222/ );
@@ -285,7 +286,7 @@ sub guess_by_desc {
       if ( $desc =~ /\bNMM.*Agent/ );
     return 'Bayhub'
       if ( $desc =~ /\bBay\s*Stack.*Hub/i );
-    
+
     #  Centillion ATM
     return 'Centillion' if ( $desc =~ /MCP/ );
 
@@ -295,8 +296,8 @@ sub guess_by_desc {
 
     # Linksys 2024/2048
     return 'Dell'
-      if ( $desc =~
-        /^(24|48)-Port 10\/100\/1000 Gigabit Switch (with |w\/)WebView$/ );
+      if ( $desc
+        =~ /^(24|48)-Port 10\/100\/1000 Gigabit Switch (with |w\/)WebView$/ );
 
     # Foundry
     return 'Foundry' if $desc =~ /foundry/i;

@@ -33,18 +33,18 @@ foreach my $role (@roles) {
 
     print "MIB ", $role->mib_name, "\n";
 
-    if ($verbose) {	
-	foreach my $attr_name ( $role->get_attribute_list ) {
-	    my $attr = $device->meta->find_attribute_by_name($attr_name);
+    if ($verbose) {
+        foreach my $attr_name ( $role->get_attribute_list ) {
+            my $attr = $device->meta->find_attribute_by_name($attr_name);
 
-	    $attr->does('SNMP::Easy::Meta::Attribute::Trait::MIBEntry') or next;
+            $attr->does('SNMP::Easy::Meta::Attribute::Trait::MIBEntry') or next;
 
-	    $attr->is_scalar and
-		 print " $attr_name: ", $device->$attr_name, "\n";
+            $attr->is_scalar
+              and print " $attr_name: ", $device->$attr_name, "\n";
 
-	    $attr->is_table and	    
-		print " $attr_name: ", Dumper( $device->$attr_name );
-	}
+            $attr->is_table
+              and print " $attr_name: ", Dumper( $device->$attr_name );
+        }
 
     }
 }

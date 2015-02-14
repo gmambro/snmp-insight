@@ -1,23 +1,19 @@
--l=78
--i=4
--ci=4
--ce
--se
--b
--bar
--boc
+-b     # backup and modify in place
+-w     # show all warnings
+-l=80  # line 
+-i=4   # indent
+-ci=2  # continuation indent
+-boc   # break at comma breakpoints
 -vt=0
 -vtc=0
 -cti=0
--pt=1
+-pt=1  # parent tightness
 -bt=1
 -sbt=1
 -bbt=1
 -nolq
--npro
 -nsfs
 --opening-hash-brace-right
 --no-outdent-long-comments 
 --blank-lines-before-packages=0
 -wbb="% + - * / x != == >= <= =~ !~ < > | & >= < = **= += *= &= <<= &&= -= /= |= >>= ||= .= %= ^= x="
-

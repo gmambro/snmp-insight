@@ -8,9 +8,10 @@ use namespace::autoclean;
 #VERSION:
 
 with
-   'SNMP::Easy::Device::Cisco::L2Device',
-#    'SNMP::Easy::MIB::Cisco::Stack',
-    ;
+  'SNMP::Easy::Device::Cisco::L2Device',
+
+  #    'SNMP::Easy::MIB::Cisco::Stack',
+  ;
 
 sub os {
     my $self = shift;

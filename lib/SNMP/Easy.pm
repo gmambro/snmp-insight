@@ -23,28 +23,31 @@ sub open {
 
     my $session = $args{session};
     if ( !defined($session) ) {
-        my $session_class =
-          $args{session_class} || 'SNMP::Easy::Session::NetSNMP';
-        $session = _load_class( $session_class,
-            'SNMP::Easy::Session', @{ $args{snmp_params} } );
+        my $session_class
+          = $args{session_class} || 'SNMP::Easy::Session::NetSNMP';
+        $session = _load_class(
+            $session_class,
+            'SNMP::Easy::Session', @{ $args{snmp_params} }
+        );
     }
 
     my $device = SNMP::Easy::Device->new( session => $session );
 
     my $classifier_class = $args{classifier} || 'SNMP::Easy::Classifier';
-    my $classifier = _load_class( $classifier_class, 'SNMP::Easy::Classifier',
-        device => $device );
+    my $classifier = _load_class(
+        $classifier_class, 'SNMP::Easy::Classifier',
+        device => $device
+    );
 
     my $device_role = $classifier->classify();
 
-    if (!$device_role) {
+    if ( !$device_role ) {
         debug() and print "debug: no info from classifier";
         return $device;
     }
-                
+
     debug() and print "debug: classifier returned $device_role";
-    my $role_package =
-        _load_device_role( $device_role, 'SNMP::Easy::Device' );
+    my $role_package = _load_device_role( $device_role, 'SNMP::Easy::Device' );
     if ($role_package) {
         $role_package->meta->apply($device);
     }

@@ -27,15 +27,15 @@ has_scalar 'hrSystemProcesses' => (
 );
 
 has_table 'hrStorageTable' => (
-    oid => '2.3.1',
-    index => 'hrStorageIndex',
+    oid     => '2.3.1',
+    index   => 'hrStorageIndex',
     columns => {
-	'hrStorageIndex' => 1,
-	'hrStorageType' => 2,
-	'hrStorageAllocationUnits' => 3,
-	'hrStorageSize' => 4,
-	'hrStorageUsed' => 5,
-	'hrStorageAllocationFailures' => 6,	
+        'hrStorageIndex'              => 1,
+        'hrStorageType'               => 2,
+        'hrStorageAllocationUnits'    => 3,
+        'hrStorageSize'               => 4,
+        'hrStorageUsed'               => 5,
+        'hrStorageAllocationFailures' => 6,
     },
 );
 

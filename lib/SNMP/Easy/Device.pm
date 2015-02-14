@@ -26,8 +26,8 @@ Guessed device model. May be overridden by device roles.
 =cut
 
 has model => (
-    is     => 'ro',
-    isa    => 'Str'
+    is  => 'ro',
+    isa => 'Str'
 );
 
 =attr os
@@ -36,9 +36,9 @@ Guessed device operating system. May be overridden by device roles.
 
 =cut
 
-has os  => (
-    is     => 'ro',
-    isa    => 'Str'
+has os => (
+    is  => 'ro',
+    isa => 'Str'
 );
 
 =attr os_ver
@@ -48,8 +48,8 @@ Guessed device operating system version. May be overridden by device roles.
 =cut
 
 has os_ver => (
-    is     => 'ro',
-    isa    => 'Str'
+    is  => 'ro',
+    isa => 'Str'
 );
 
 =attr os_ver
