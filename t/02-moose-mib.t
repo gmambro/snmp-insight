@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use Test::More;
 
 BEGIN {
-    use_ok 'SNMP::Easy::MIB';
+    use_ok 'SNMP::Insight::MIB';
 }
 
 {
@@ -19,8 +19,8 @@ BEGIN {
 
     package FooMIB;
     use Moose::Role;
-    use SNMP::Easy::Moose::MIB;
-    with 'SNMP::Easy::MIB';
+    use SNMP::Insight::Moose::MIB;
+    with 'SNMP::Insight::MIB';
 
     mib_oid "1.1.1";
     has_scalar "fooScalar" => ( oid => '1' );
@@ -57,8 +57,8 @@ use_ok 'TestDevice';
 
     package BarMIB;
     use Moose::Role;
-    use SNMP::Easy::Moose::MIB;
-    with 'SNMP::Easy::MIB';
+    use SNMP::Insight::Moose::MIB;
+    with 'SNMP::Insight::MIB';
 
     mib_oid "1.1.2";
     has_scalar "barScalar" => ( oid => '2' );

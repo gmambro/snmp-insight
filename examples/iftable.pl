@@ -2,8 +2,8 @@
 use strict;
 use warnings;
 
-use SNMP::Easy::Session::NetSNMP;
-use SNMP::Easy;
+use SNMP::Insight::Session::NetSNMP;
+use SNMP::Insight;
 
 use Getopt::Long;
 
@@ -15,13 +15,13 @@ GetOptions(
     'community=s' => \$community
 ) or die("Error in command line arguments");
 
-my $session = SNMP::Easy::Session::NetSNMP->new(
+my $session = SNMP::Insight::Session::NetSNMP->new(
     hostname  => $hostname,
     community => $community,
     version   => "snmpv2c",
 );
 
-my $device = SNMP::Easy::open( session => $session );
+my $device = SNMP::Insight::open( session => $session );
 
 print "Description ", $device->sysDescr,    "\n";
 print "Object ID ",   $device->sysObjectID, "\n";

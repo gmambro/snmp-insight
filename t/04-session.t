@@ -3,7 +3,7 @@ use warnings FATAL => 'all';
 use Test::More;
 
 BEGIN {
-    use_ok("SNMP::Easy::Session::NetSNMP");
+    use_ok("SNMP::Insight::Session::NetSNMP");
 }
 
 done_testing;

@@ -1,0 +1,22 @@
+# PODNAME: SNMP::Insight::Manual::Extending
+# ABSTRACT: Extending SNMP Easy
+
+__END__
+
+=head1 Defining new device
+
+TBD
+
+=head1 Extending MIB support
+
+=head2 New MIB
+
+TBD
+
+=head2 Partial MIB implementation
+
+  with 'FooMIB' => {
+    -excludes => [qw( notImplementedScalar unsupportedTable )]
+  };
+
+=cut

@@ -1,0 +1,16 @@
+# PODNAME: SNMP::Insight::Manual
+# ABSTRACT: What is SNMP-Easy and how to use it.
+
+__END__
+
+=head1 INTRO
+
+TBD
+
+=head1 TABLE OF CONTENTS
+
+=for :list
+
+* L<SNMP::Insight::Manual::Extending>
+
+=cut

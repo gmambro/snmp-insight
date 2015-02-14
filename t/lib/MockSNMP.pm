@@ -2,7 +2,7 @@ package MockSNMP;
 
 use Moose;
 
-with 'SNMP::Easy::Session';
+with 'SNMP::Insight::Session';
 
 has _filename => (
     is       => 'ro',
@@ -71,7 +71,7 @@ sub get_scalar {
     my $self = shift;
     my $oid  = shift;
 
-    SNMP::Easy::debug() and print "SNMP::Easy fetching scalar $oid\n";
+    SNMP::Insight::debug() and print "SNMP::Insight fetching scalar $oid\n";
 
     $oid .= '.0';
 
@@ -82,7 +82,7 @@ sub get_subtree {
     my $self     = shift;
     my $root_oid = shift;
 
-    SNMP::Easy::debug() and print "SNMP::Easy fetching subtree $root_oid\n";
+    SNMP::Insight::debug() and print "SNMP::Insight fetching subtree $root_oid\n";
 
     my $result = [];
 

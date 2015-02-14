@@ -7,7 +7,7 @@ use Test::More;
 BEGIN {
     plan tests => 5;
 
-    use_ok('SNMP::Easy::Meta::Class::Trait::MIB');
+    use_ok('SNMP::Insight::Meta::Class::Trait::MIB');
 }
 
 {

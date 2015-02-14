@@ -6,7 +6,7 @@ use lib 't/lib';
 use MockSNMP;
 
 BEGIN {
-    use_ok("SNMP::Easy::Classifier");
+    use_ok("SNMP::Insight::Classifier");
 }
 
 {
@@ -18,8 +18,8 @@ BEGIN {
         }
     );
 
-    my $device = SNMP::Easy::Device->new( session => $session );
-    my $classifier = SNMP::Easy::Classifier->new( device => $device );
+    my $device = SNMP::Insight::Device->new( session => $session );
+    my $classifier = SNMP::Insight::Classifier->new( device => $device );
     is( $classifier->classify(), 'NetSNMP' );
 }
 

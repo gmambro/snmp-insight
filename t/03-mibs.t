@@ -3,9 +3,9 @@ use strict;
 use warnings FATAL => 'all';
 use Test::More;
 
-use_ok 'SNMP::Easy::MIB::SNMPv2';
-use_ok 'SNMP::Easy::MIB::IFMIB';
-use_ok 'SNMP::Easy::MIB::UCD';
+use_ok 'SNMP::Insight::MIB::SNMPv2';
+use_ok 'SNMP::Insight::MIB::IFMIB';
+use_ok 'SNMP::Insight::MIB::UCD';
 
 done_testing;
 
