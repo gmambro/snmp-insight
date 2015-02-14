@@ -27,7 +27,7 @@ has_scalar 'hrSystemProcesses' => (
 );
 
 has_table 'hrStorageTable' => (
-    oid     => '2.3.1',
+    oid     => '2.3',
     index   => 'hrStorageIndex',
     columns => {
         'hrStorageIndex'              => 1,
@@ -39,6 +39,86 @@ has_table 'hrStorageTable' => (
     },
 );
 
+has_table 'hrDeviceTable' => (
+    oid     => '3.2',
+    index   => 'hrDeviceIndex',
+    columns => {
+        'hrDeviceIndex'  => 1,
+        'hrDeviceType'   => 2,
+        'hrDeviceDescr'  => 3,
+        'hrDeviceID'     => 4,
+        'hrDeviceStatus' => [ 5, 'munge_device_status' ],
+        'hrDeviceErrors' => 6,
+    },
+);
+
+has_table 'hrProcessorTable' => (
+    oid     => '3.2',
+    index   => 'hrDeviceIndex',
+    columns => {
+        'hrProcessorFrwID' => 1,
+        'hrProcessorLoad'  => 2,
+    },
+);
+
+has_table 'hrDiskStorageTable' => (
+    oid     => '3.6',
+    index   => 'hrDiskStorageAccess',
+    columns => {
+        'hrDiskStorageAccess'    => 1,
+        'hrDiskStorageMedia'     => 2,
+        'hrDiskStorageRemoveble' => 3,
+        'hrDiskStorageCapacity'  => 4,
+    },
+);
+
+#TODO hrPartitionTable
+#TODO hrFSTable
+
+has_table 'hrSWRunTable' => (
+    oid     => '4.2',
+    index   => 'hrSWRunIndex',
+    columns => {
+        'hrSWRunIndex'      => 1,
+        'hrSWRunName'       => 2,
+        'hrSWRunID'         => 3,
+        'hrSWRunPath'       => 4,
+        'hrSWRunParameters' => 5,
+        'hrSWRunType'       => 6,
+        'hrSWRunStatus'     => 7,
+
+    },
+);
+
+# TODO hrSWRunPerl
+
+has_table 'hrSWInstalledEntry' => (
+    oid     => '6.3',
+    index   => 'hrSWInstalledIndex',
+    columns => {
+        'hrSWInstalledIndex' => 1,
+        'hrSWInstalledIndex' => 2,
+        'hrSWInstalledID'    => 3,
+        'hrSWInstalledType'  => 4,
+        'hrSWInstalledDate'  => [ 5, 'munge_installed_date' ],
+    },
+);
+
+sub munge_device_status {
+    my $val = shift;
+    my @stati = qw(INVALID unknown running warning testing down);
+    return $stati[$val];
+}
+
+sub munge_installed_date {
+    my $val = shift;
+
+    my ($y, $m, $d, $hour, $min, $sec ) = unpack( 'nCCCCC', $val );
+
+    return "$y-$m-$d $hour-$min-$sec";
+    
+}
+
 1;
 
 # Local Variables:
@@ -47,3 +127,4 @@ has_table 'hrStorageTable' => (
 # cperl-indent-level: 4
 # cperl-indent-parens-as-block: t
 # End:
+
