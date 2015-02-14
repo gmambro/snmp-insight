@@ -68,6 +68,7 @@ sub has_scalar {
         is      => 'ro',
         lazy    => 1,
         oid     => $oid,
+        entry_type => 'scalar',
         default => sub {
             my $self = shift;
             $self->_mib_read_scalar( $oid, $munger_code );
@@ -118,9 +119,10 @@ sub has_table {
     $meta->add_attribute(
         $name,
 
-        # is it needed?
-        # traits => ['MIBEntry'],
-
+        traits => ['MIBEntry'],
+        entry_type => 'table',
+        oid => $table_oid,
+        
         is   => 'ro',
         lazy => 1,
 
@@ -154,10 +156,13 @@ sub _create_column {
     $munger and $munger_code = _load_munger( $meta, $munger );
 
     my %attribute_options = (
-        traits  => ['MIBEntry'],
         is      => 'ro',
         lazy    => 1,
+
+        traits  => ['MIBEntry'],
         oid     => $col_oid,
+        entry_type => 'column',
+        
         default => sub {
             my $self = shift;
             $self->_mib_read_tablerow( $col_oid, $munger_code );

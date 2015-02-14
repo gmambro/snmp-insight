@@ -11,10 +11,12 @@ use Getopt::Long;
 
 my $hostname  = 'localhost';
 my $community = 'public';
+my $verbose;
 
 GetOptions(
     'host=s'      => \$hostname,
-    'community=s' => \$community
+    'community=s' => \$community,
+    'verbose'     => \$verbose,
 ) or die("Error in command line arguments");
 
 my $session = SNMP::Easy::Session::NetSNMP->new(
@@ -25,14 +27,24 @@ my $session = SNMP::Easy::Session::NetSNMP->new(
 
 my $device = SNMP::Easy::open( session => $session );
 
-my @roles = $device->meta->calculate_all_roles;
+my @roles = $device->meta->calculate_all_roles_with_inheritance;
 foreach my $role (@roles) {
     $role->can('mib_name') or next;
 
     print "MIB ", $role->mib_name, "\n";
 
-    foreach my $attr ( $role->get_attribute_list ) {
-        print " $attr ", Dumper( $device->$attr ), "\n";
-    }
+    if ($verbose) {	
+	foreach my $attr_name ( $role->get_attribute_list ) {
+	    my $attr = $device->meta->find_attribute_by_name($attr_name);
 
+	    $attr->does('SNMP::Easy::Meta::Attribute::Trait::MIBEntry') or next;
+
+	    $attr->is_scalar and
+		 print " $attr_name: ", $device->$attr_name, "\n";
+
+	    $attr->is_table and	    
+		print " $attr_name: ", Dumper( $device->$attr_name );
+	}
+
+    }
 }
