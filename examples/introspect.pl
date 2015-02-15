@@ -22,7 +22,7 @@ GetOptions(
 my $session = SNMP::Insight::Session::NetSNMP->new(
     hostname  => $hostname,
     community => $community,
-    version   => "snmpv2c",
+    version   => "2c",
 );
 
 my $device = SNMP::Insight::open( session => $session );

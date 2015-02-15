@@ -106,7 +106,7 @@ SNMP Moose interface:
         snmp_params => { 
             hostname  => 'localhost',
             community => 'public',
-            version   => "snmpv2c",
+            version   => "2c",
         });
 
     ...
@@ -127,11 +127,11 @@ L<SNMP::Insight::Device>
 L<SNMP::Insight::Classifier>
 L<SNMP::Insight::MIB>
 
-* Similar modules on CPAN <SNMP::Info> 
+* Similar modules on CPAN L<SNMP::Info> 
 
 =cut
 
-1;    # End of SNMP::Insight
+1; # End of SNMP::Insight
 
 # Local Variables:
 # mode: cperl

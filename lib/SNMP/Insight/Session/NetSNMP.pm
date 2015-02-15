@@ -23,7 +23,9 @@ sub _build_driver {
     my %options;
     $options{-hostname} = $self->hostname;
     $options{-port}     = $self->port;
-    $options{-version}  = $self->version;
+
+    my %version_map = ( 1 => 'snmpv1', '2c' => 'snmpv2c', 3 => 'snmpv3' );
+    $options{-version}  = $version_map{$self->version};
 
     #    $options{-domain}        = $self->domain;
     $options{-timeout} = $self->timeout;
@@ -58,6 +60,12 @@ sub _build_driver {
 
 }
 
+=method get_scalar($oid)
+
+Implements get_scalar using Net::SNMP session
+
+=cut
+
 sub get_scalar {
     my ( $self, $oid ) = @_;
 
@@ -73,6 +81,13 @@ sub get_scalar {
 
     return $result->{$oid};
 }
+
+=method get_subtree($oid)
+
+Implements get_subtree using Net::SNMP session
+
+
+=cut
 
 sub get_subtree {
     my ( $self, $oid ) = @_;
@@ -141,6 +156,12 @@ sub get_subtree {
     return \@result;
 }
 
+
+=head1 SEE ALSO
+
+Session interface L<SNMP::Insight::Session> 
+
+=cut
 1;
 
 # Local Variables:

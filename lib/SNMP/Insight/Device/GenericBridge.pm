@@ -12,7 +12,6 @@ with
   'SNMP::Insight::MIB::Bridge',
   ;
 
-__PACKAGE__->meta->make_immutable;
 1;
 
 # Local Variables:

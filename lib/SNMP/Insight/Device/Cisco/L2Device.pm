@@ -9,15 +9,14 @@ use namespace::autoclean;
 
 with
   'SNMP::Insight::MIB::Cisco_VTP',
-  'SNMP::Insight::MIB::Cisco_CDP',
-
+  'SNMP::Insight::MIB::Cisco_CDP';
   # 'SNMP::Insight::MIB::Cisco_Agg',
   # 'SNMP::Insight::MIB::Cisco_Stats',
   # 'SNMP::Insight::MIB::Cisco_RTT',
   # 'SNMP::Insight::MIB::Cisco_Config',
   # 'SNMP::Insight::MIB::Cisco_PortSecurity',
   # 'SNMP::Insight::MIB::Cisco_StpExtensions',
-  ;
+
 1;
 
 # Local Variables:

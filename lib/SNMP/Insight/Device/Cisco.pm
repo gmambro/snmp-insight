@@ -9,7 +9,7 @@ use namespace::autoclean;
 
 with
   'SNMP::Insight::MIB::IFMIB',
-  'SNMP::Insight::MIB::CISCO_CDP';
+  'SNMP::Insight::MIB::Cisco_CDP';
 
 1;
 

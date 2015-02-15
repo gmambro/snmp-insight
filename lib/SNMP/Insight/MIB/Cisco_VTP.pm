@@ -1,4 +1,4 @@
-package SNMP::Insight::MIB::CISCO_VTP;
+package SNMP::Insight::MIB::Cisco_VTP;
 
 #ABSTRACT: Support for data in CISCO-VTP-MIB
 

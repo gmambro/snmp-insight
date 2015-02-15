@@ -13,6 +13,12 @@ with
   #    'SNMP::Insight::MIB::Cisco::Stack',
   ;
 
+=method os
+
+Ovveride method from SNMP::Insight::Device
+
+=cut
+
 sub os {
     my $self = shift;
     my $descr = $self->sysDescr || '';
@@ -23,6 +29,12 @@ sub os {
     return 'catalyst' if ( $descr =~ /catalyst/i );
     return;
 }
+
+=method model
+
+Ovveride method from SNMP::Insight::Device
+
+=cut
 
 sub model {
     my $self = shift;
@@ -41,6 +53,12 @@ sub model {
     $model =~ s/^cat//;
     return $model;
 }
+
+=method os_ver
+
+Ovveride method from SNMP::Insight::Device
+
+=cut
 
 sub os_ver {
     my $self  = shift;

@@ -43,11 +43,12 @@ sub mib_name {
     $meta->mib_name(shift);
 }
 
-=method has_scalar
+=method has_scalar $name => %options
 
-  has_scalar $name %options
+  has_scalar 'fooVal' => ( oid => '3' );
 
-This will declare a scalar entry of a given C<$name> into the current MIB role.
+Declare a scalar entry of a given C<$name> into the current MIB role.
+Oid is relative to the MIB oid declare with mib_oid, unless it starts with a dot.
 
 =cut
 
@@ -79,11 +80,19 @@ sub has_scalar {
     $meta->add_attribute( $name, %attribute_options );
 }
 
-=method has_scalar
+=method has_table $name %options
 
-  has_table $name %options
-
-This will declare a table of a given C<$name> into the current MIB role.
+Declare a table of a given C<$name> into the current MIB role.
+ 
+  has_table "fooTable" => (
+    oid     => "1.1",
+    index   => "fooTableIndex",
+    columns => {
+        'fooTableIndex'    => 1,
+        'fooTableBars'     => 2,
+        'fooTableBaazes'     => [ 3, 'munge_baazes' ],
+    }
+  );
 
 =for :list
 

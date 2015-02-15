@@ -1,4 +1,4 @@
-package SNMP::Insight::MIB::CISCO_CDP;
+package SNMP::Insight::MIB::Cisco_CDP;
 
 #ABSTRACT: Support for data in CISCO-CDP-MIB
 

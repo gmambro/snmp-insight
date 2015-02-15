@@ -9,9 +9,8 @@ use namespace::autoclean;
 
 with
   'SNMP::Insight::Device::Cisco::L2Device',
-
   #  'SNMP::Insight::MIB::CISCO_C2900',
-  'SNMP::Insight::MIB::CISCO_CDP';
+  'SNMP::Insight::MIB::Cisco_CDP';
 
 warn "To be implemented yet";
 
