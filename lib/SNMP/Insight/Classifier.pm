@@ -70,7 +70,8 @@ sub classify {
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
     if ( !defined($services) && !defined($desc) ) {
-        SNMP::Insight::debug() and print "No sysServices nor sysDescr, giving up";
+        SNMP::Insight::debug()
+          and print "No sysServices nor sysDescr, giving up";
         return;
     }
 
