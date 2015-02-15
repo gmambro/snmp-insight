@@ -27,7 +27,6 @@ requires
   'get_scalar',
   'get_subtree';
 
-
 =attr hostname
 
 Required.
@@ -56,7 +55,7 @@ has port => (
 
 Optional. Can be used to set local address to bind to.
 
-=
+=cut
 
 has localaddr => (
     is  => 'ro',
@@ -67,7 +66,7 @@ has localaddr => (
 
 Optional. Can be used to set local port to bind to.
 
-=
+=cut
 
 has localport => (
     is  => 'ro',
