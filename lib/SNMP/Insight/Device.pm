@@ -75,10 +75,9 @@ Return all the MIB roles for this device.
 
 sub get_all_mib_roles {
     my $self = shift;
-    
-    my @roles = grep {
-        $_->can('mib_name')
-    } $self->meta->calculate_all_roles_with_inheritance;
+
+    my @roles = grep { $_->can('mib_name') }
+      $self->meta->calculate_all_roles_with_inheritance;
 
     return @roles;
 }

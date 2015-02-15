@@ -47,7 +47,8 @@ sub open {
     }
 
     debug() and print "debug: classifier returned $device_role";
-    my $role_package = _load_device_role( $device_role, 'SNMP::Insight::Device' );
+    my $role_package
+      = _load_device_role( $device_role, 'SNMP::Insight::Device' );
     if ($role_package) {
         $role_package->meta->apply($device);
     }

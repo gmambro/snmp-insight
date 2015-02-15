@@ -82,7 +82,8 @@ sub get_subtree {
     my $self     = shift;
     my $root_oid = shift;
 
-    SNMP::Insight::debug() and print "SNMP::Insight fetching subtree $root_oid\n";
+    SNMP::Insight::debug()
+      and print "SNMP::Insight fetching subtree $root_oid\n";
 
     my $result = [];
 

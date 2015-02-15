@@ -105,7 +105,7 @@ has_table 'hrSWInstalledEntry' => (
 );
 
 sub munge_device_status {
-    my $val = shift;
+    my $val   = shift;
     my @stati = qw(INVALID unknown running warning testing down);
     return $stati[$val];
 }
@@ -113,10 +113,10 @@ sub munge_device_status {
 sub munge_installed_date {
     my $val = shift;
 
-    my ($y, $m, $d, $hour, $min, $sec ) = unpack( 'nCCCCC', $val );
+    my ( $y, $m, $d, $hour, $min, $sec ) = unpack( 'nCCCCC', $val );
 
-    return "$y-$m-$d $hour-$min-$sec";
-    
+    return "$y-$m-$d $hour:$min:$sec";
+
 }
 
 1;
