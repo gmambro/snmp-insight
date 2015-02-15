@@ -6,6 +6,7 @@ use SNMP::Insight::Session::NetSNMP;
 use SNMP::Insight;
 
 use Getopt::Long;
+use Data::Dumper;
 
 my $hostname  = 'localhost';
 my $community = 'public';
@@ -28,7 +29,5 @@ print "Object ID ",   $device->sysObjectID, "\n";
 print "Services ",    $device->sysServices, "\n";
 print "Vendor ",      $device->vendor,      "\n";
 
-use Data::Dumper;
-
-print Dumper ( $device->ifTable );
-print Dumper ( $device->ifXTable );
+print Dumper( $device->ifTable );
+print Dumper( $device->ifXTable );

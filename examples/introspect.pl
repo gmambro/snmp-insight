@@ -35,7 +35,8 @@ foreach my $role (@roles) {
         foreach my $attr_name ( $role->get_attribute_list ) {
             my $attr = $device->meta->find_attribute_by_name($attr_name);
 
-            $attr->does('SNMP::Insight::Meta::Attribute::Trait::MIBEntry') or next;
+            $attr->does('SNMP::Insight::Meta::Attribute::Trait::MIBEntry')
+              or next;
 
             $attr->is_scalar
               and print " $attr_name: ", $device->$attr_name, "\n";
