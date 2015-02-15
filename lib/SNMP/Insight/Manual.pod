@@ -1,16 +1,22 @@
 # PODNAME: SNMP::Insight::Manual
-# ABSTRACT: What is SNMP-Easy and how to use it.
+# ABSTRACT: What is SNMP::Insight and how to use it.
 
 __END__
 
-=head1 INTRO
+=head1 WHY SNMP-INSIGHT 
 
-TBD
+SNMP::Insight makes retrieving MIB data easy to use and easy to
+extend.  You don't need to use numeric OIDs, mess with MIB files and
+you can use it without having to install net-snmp, making it
+perlbrew-friendly.
 
 =head1 TABLE OF CONTENTS
 
 =for :list
 
+* L<SNMP::Insight::Manual::Intro>
+
 * L<SNMP::Insight::Manual::Extending>
 
+* L<SNMP::Insight::Manual::DeviceCompatibility>
 =cut

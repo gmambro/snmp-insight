@@ -27,7 +27,7 @@ sub open {
           = $args{session_class} || 'SNMP::Insight::Session::NetSNMP';
         $session = _load_class(
             $session_class,
-            'SNMP::Insight::Session', @{ $args{snmp_params} }
+            'SNMP::Insight::Session', %{ $args{snmp_params} }
         );
     }
 
@@ -113,7 +113,10 @@ SNMP Moose interface:
 
 =head1 DESCRIPTION
 
-SNMP::Insight is a Perl 5 module that provides a simple Object Oriented inteface to access SNMP enabled devices and to describe SNMP MIBs and devices. SNMP::Insight it's based on Moose and uses Net::SNMP for a pure Perl SNMP implementation.
+SNMP::Insight is a Perl 5 module that provides a simple Object
+Oriented inteface to access SNMP enabled devices and to describe SNMP
+MIBs and devices. SNMP::Insight it's based on Moose and uses Net::SNMP
+for a pure Perl SNMP implementation.
 
 Warning: this release is still alpha quality!
 
@@ -131,7 +134,7 @@ L<SNMP::Insight::MIB>
 
 =cut
 
-1; # End of SNMP::Insight
+1;    # End of SNMP::Insight
 
 # Local Variables:
 # mode: cperl

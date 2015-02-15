@@ -19,13 +19,13 @@ GetOptions(
     'verbose'     => \$verbose,
 ) or die("Error in command line arguments");
 
-my $session = SNMP::Insight::Session::NetSNMP->new(
-    hostname  => $hostname,
-    community => $community,
-    version   => "2c",
+my $device = SNMP::Insight::open(
+    snmp_params => {
+        hostname  => $hostname,
+        community => $community,
+        version   => "2c"
+    }
 );
-
-my $device = SNMP::Insight::open( session => $session );
 
 my @roles = $device->get_all_mib_roles;
 foreach my $role (@roles) {

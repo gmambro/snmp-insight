@@ -25,7 +25,7 @@ sub _build_driver {
     $options{-port}     = $self->port;
 
     my %version_map = ( 1 => 'snmpv1', '2c' => 'snmpv2c', 3 => 'snmpv3' );
-    $options{-version}  = $version_map{$self->version};
+    $options{-version} = $version_map{ $self->version };
 
     #    $options{-domain}        = $self->domain;
     $options{-timeout} = $self->timeout;
@@ -156,12 +156,12 @@ sub get_subtree {
     return \@result;
 }
 
-
 =head1 SEE ALSO
 
 Session interface L<SNMP::Insight::Session> 
 
 =cut
+
 1;
 
 # Local Variables:

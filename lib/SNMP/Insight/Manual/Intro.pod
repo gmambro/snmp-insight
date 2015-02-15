@@ -1,0 +1,37 @@
+# PODNAME: SNMP::Insight::Manual::Intro
+# ABSTRACT: First steps with SNMP::Insight
+
+__END__
+
+=head1 First steps
+
+=head2 Connecting to a device
+
+  my $device = SNMP::Insight::open(
+    snmp_params => {
+        hostname  => $hostname,
+        community => $community,
+        version   => "2c"
+    }
+  );
+
+If you prefer you can use the session parameter to specify a custom
+session object (must implement the L<SNMP::Insight::Session> role). So
+the previous call is the same as:
+
+  my $session = SNMP::Insight::Session::NetSNMP->new(
+    hostname  => $hostname,
+    community => $community,
+    version   => "2c",
+  );
+
+  my $device = SNMP::Insight::open( session => $session );
+
+C<$device> is a L<SNMP::Insight::Device> object, to which have also been applied the roles 
+
+
+=head2 Reading a scalar
+
+   $device->sysDescr
+
+=cut
