@@ -14,7 +14,7 @@ perlbrew-friendly.
 
 =for :list
 
-* L<SNMP::Insight::Manual::Intro>
+* L<SNMP::Insight::Manual::Usage>
 
 * L<SNMP::Insight::Manual::Extending>
 
