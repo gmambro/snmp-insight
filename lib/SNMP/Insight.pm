@@ -10,11 +10,14 @@ use warnings FATAL => 'all';
 
 use Module::Runtime 0.014 'use_package_optimistically';
 use Moose::Util 'is_role';
+
+use Scalar::Util qw(blessed);
+
 use SNMP::Insight::Device;
 
 =func open()
 
-Create a SNMP::Insight::Device object, loading all the needed MIBS.
+Create a SNMP::Insight::Device object, loading all the needed MIB roles.
 
 =cut
 
@@ -33,13 +36,26 @@ sub open {
 
     my $device = SNMP::Insight::Device->new( session => $session );
 
-    my $classifier_class = $args{classifier} || 'SNMP::Insight::Classifier';
-    my $classifier = _load_class(
-        $classifier_class, 'SNMP::Insight::Classifier',
-        device => $device
-    );
 
-    my $device_role = $classifier->classify();
+    my $device_role;
+    
+    # if classifier exists but is undef it means we should not use any
+    # classifier
+
+    if ($args{classifier} || !exists($args{classifier} ) {
+
+        my $classifier =  $args{classifier};
+
+        if ( !$classifier || !blessed($classifier) ) {
+            my $classifier_class = $classifier || 'SNMP::Insight::Classifier';
+            $classifier = _load_class(
+                $classifier_class, 'SNMP::Insight::Classifier',
+                device => $device
+            );
+        }
+        
+        my $device_role = $classifier->classify();        
+    }
 
     if ( !$device_role ) {
         debug() and print "debug: no info from classifier";
