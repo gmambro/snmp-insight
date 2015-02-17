@@ -1,5 +1,5 @@
-# PODNAME: SNMP::Insight::Manual::Intro
-# ABSTRACT: First steps with SNMP::Insight
+# PODNAME: SNMP::Insight::Manual::Usage
+# ABSTRACT: SNMP::Insight basic usage
 
 __END__
 
@@ -33,5 +33,20 @@ C<$device> is a L<SNMP::Insight::Device> object, to which have also been applied
 =head2 Reading a scalar
 
    $device->sysDescr
+
+=head2 Reading a table
+
+TBD
+
+=head1 Customizing device object
+
+=head2 Adding MIB
+
+TBD
+
+
+=head2 Classifier
+
+TBD
 
 =cut
