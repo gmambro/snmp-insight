@@ -32,12 +32,13 @@ has_table "dot1dBasePortTable" => (
     }
 );
 
+
 has_scalar "dot1dStpProtocolSpecification" => (
     oid => "2.1"
 );
 
 
-# .4 to1dTp
+# .4 dot1dTp
 
 has_table "dot1dTpFdbEntry" => (
     oid     => "4.3",
