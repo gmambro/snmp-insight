@@ -56,18 +56,18 @@ has port => (
 
 Optional. Can be used to set local address to bind to.
 
-=
+=cut
 
 has localaddr => (
     is  => 'ro',
     isa => 'Str',
 );
 
-=attr localaddr
+=attr localport
 
 Optional. Can be used to set local port to bind to.
 
-=
+=cut
 
 has localport => (
     is  => 'ro',
