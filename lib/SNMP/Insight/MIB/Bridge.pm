@@ -32,7 +32,7 @@ has_table "dot1dBasePortTable" => (
     }
 );
 
-# .4 to1dTp
+# .4 dot1dTp
 
 has_table "dot1dTpFdbEntry" => (
     oid     => "4.3",

@@ -39,7 +39,7 @@ sub _build_driver {
     $options{-username}     = $self->username     if $self->username;
     $options{-authkey}      = $self->authkey      if $self->authkey;
     $options{-authpassword} = $self->authpassword if $self->authpassword;
-    $options{-authprotocol} = $self->authproto    if $self->authprotocol;
+    $options{-authprotocol} = $self->authprotocol if $self->authprotocol;
     $options{-privkey}      = $self->privkey      if $self->privkey;
     $options{-privpassword} = $self->privpassword if $self->privpassword;
     $options{-privprotocol} = $self->privprotocol if $self->privprotocol;
