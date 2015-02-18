@@ -82,7 +82,9 @@ sub get_all_mib_roles {
     return @roles;
 }
 
-with 'SNMP::Insight::MIB::SNMPv2';
+with
+  'SNMP::Insight::MIB::SNMPv2',
+  'SNMP::Insight::MIB::IFMIB';
 
 __PACKAGE__->meta->make_immutable;
 1;
