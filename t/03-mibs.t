@@ -3,12 +3,16 @@ use strict;
 use warnings FATAL => 'all';
 use Test::More;
 
-use_ok 'SNMP::Insight::MIB::SNMPv2';
+use_ok 'SNMP::Insight::MIB::Bridge';
+use_ok 'SNMP::Insight::MIB::Cisco_CDP';
+use_ok 'SNMP::Insight::MIB::Cisco_VTP';
+use_ok 'SNMP::Insight::MIB::HostResources';
 use_ok 'SNMP::Insight::MIB::IFMIB';
+use_ok 'SNMP::Insight::MIB::QBridge';
+use_ok 'SNMP::Insight::MIB::SNMPv2';
 use_ok 'SNMP::Insight::MIB::UCD';
 
 done_testing;
-
 1;
 
 # Local Variables:
