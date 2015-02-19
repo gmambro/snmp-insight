@@ -125,7 +125,6 @@ Return a Math::BigInt object.
 sub munge_counter64 {
     my $counter = shift;
     return          unless defined $counter;
-    return $counter unless $BIGINT;
     my $bigint = Math::BigInt->new($counter);
     return $bigint;
 }
@@ -146,7 +145,7 @@ sub munge_ifoperstatus {
         '6' => 'notPresent',
         '7' => 'lowerLayerDown'
     );
-    return $ifOperStatusMap{$val} || $i_up;
+    return $ifOperStatusMap{$val} || $val;
 }
 
 =func munge_port_list
