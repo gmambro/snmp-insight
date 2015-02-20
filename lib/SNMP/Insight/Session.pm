@@ -62,7 +62,7 @@ has localaddr => (
     isa => 'Str',
 );
 
-=attr localaddr
+=attr localport
 
 Optional. Can be used to set local port to bind to.
 
