@@ -119,11 +119,13 @@ sub has_table {
     }
 
     my $index = $options{index};
-    $index or croak "Table $name has no index defined";
-    $meta->has_attribute($index)
-      or croak "Cannot find index $index for table $name";
+    if ($index) {
 
-    # TODO check index
+        # TODO handle multi column index
+
+        $meta->has_attribute($index)
+          or croak "Cannot find index $index for table $name";
+    }
 
     $meta->add_attribute(
         $name,
@@ -137,7 +139,8 @@ sub has_table {
 
         default => sub {
             my $self = shift;
-            $self->_mib_read_table( $index, [ keys %$columns ] );
+            $self->_mib_read_table( index => $index,
+                columns => [ keys %$columns ] );
         },
     );
 }

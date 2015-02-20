@@ -3,6 +3,7 @@ package SNMP::Insight::MIB;
 #ABSTRACT: Base role for MIBs
 
 use Moose::Role;
+use Carp;
 
 #VERSION:
 
@@ -34,7 +35,11 @@ sub _mib_read_tablerow {
 }
 
 sub _mib_read_table {
-    my ( $self, $index, $columns ) = @_;
+    my $self = shift;
+    my %args = @_;
+
+    my $index = $args{index};
+    my $columns = $args{columns} or croak "Missing parameter columns";
 
     my $table = {};
 
@@ -124,7 +129,7 @@ Return a Math::BigInt object.
 
 sub munge_counter64 {
     my $counter = shift;
-    return          unless defined $counter;
+    return unless defined $counter;
     my $bigint = Math::BigInt->new($counter);
     return $bigint;
 }
