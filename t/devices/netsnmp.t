@@ -5,6 +5,7 @@ use Test::More;
 use lib 't/lib';
 use MockSNMP;
 
+use SNMP::Insight;
 use SNMP::Insight::Classifier;
 use SNMP::Insight::Device;
 

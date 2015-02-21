@@ -10,6 +10,7 @@ BEGIN {
 }
 
 {
+    use SNMP::Insight::Device;
     my $session = MockSNMP->new(
         data => {
             '1.3.6.1.2.1.1.1.0' =>

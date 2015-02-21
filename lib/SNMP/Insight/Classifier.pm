@@ -17,7 +17,7 @@ Autodiscovery of device type applying heuristics on SNMPv2 entities
 
 =cut
 
-use SNMP::Insight 'debug';
+use SNMP::Insight::Utils qw( _debug );
 
 =attr device
 
@@ -63,31 +63,25 @@ sub classify {
     my $services = $device->sysServices;
     my $desc     = $self->desc;
 
-    SNMP::Insight::debug()
-      and print
-      "SNMP::Insight::classifier services:$services id:$id sysDescr:\"$desc\" vendor: $vendor\n";
+    _debug("SNMP::Insight::classifier services: ", $services || 'UNDEF', "id:$id sysDescr:\"$desc\" vendor: $vendor\n");
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
     if ( !defined($services) && !defined($desc) ) {
-        SNMP::Insight::debug()
-          and print "No sysServices nor sysDescr, giving up";
+	_debug("No sysServices nor sysDescr, giving up");
         return;
     }
 
     my $device_type;
 
     $device_type = $self->guess_by_desc($desc);
-    SNMP::Insight::debug()
-      and printf(
-        "SNMP::Insight::classifier by description %s\n",
-        $device_type || 'undef'
-      );
+    _debug("SNMP::Insight::classifier by description %s\n",
+	   $device_type || 'undef'
+       );
 
     $device_type ||= $self->guess_by_vendor();
-    SNMP::Insight::debug()
-      and printf "SNMP::Insight::classifier by vendor %s\n",
-      $device_type || 'undef';
+    _debug("SNMP::Insight::classifier by vendor %s\n",
+	   $device_type || 'undef');
 
     return $device_type;
 }

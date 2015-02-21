@@ -1,5 +1,4 @@
 package SNMP::Insight;
-
 # ABSTRACT: SNMP Moose interface
 
 use 5.010;
@@ -8,12 +7,14 @@ use warnings FATAL => 'all';
 
 # VERSION:
 
+
 use Module::Runtime 0.014 'use_package_optimistically';
 use Moose::Util 'is_role';
 
 use Scalar::Util qw(blessed);
 
 use SNMP::Insight::Device;
+use SNMP::Insight::Utils qw(_debug);
 
 =func open()
 
@@ -57,11 +58,11 @@ sub open {
     }
 
     if ( !$device_role ) {
-        debug() and print "debug: no info from classifier";
+        _debug("debug: no info from classifier");
         return $device;
     }
 
-    debug() and print "debug: classifier returned $device_role";
+    _debug("debug: classifier returned $device_role");
     my $role_package
       = _load_device_role( $device_role, 'SNMP::Insight::Device' );
     if ($role_package) {
@@ -99,16 +100,6 @@ sub _load_device_role {
     }
 
     return;
-}
-
-=func debug
-
-Internal
-
-=cut
-
-sub debug {
-    return $ENV{SNMP_EASY_DEBUG};
 }
 
 =head1 SYNOPSIS
