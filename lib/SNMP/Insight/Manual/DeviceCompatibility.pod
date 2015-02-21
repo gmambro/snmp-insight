@@ -5,4 +5,9 @@
 
 =head1 NetSNMP
 
-Tested with CentOS7. 
+=for :list
+
+* Tested with CentOS7. 
+* Tested with Winddows
+
+=cut

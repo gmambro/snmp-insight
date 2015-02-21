@@ -1,4 +1,5 @@
 package SNMP::Insight::Utils;
+
 # ABSTRACT: Support code for SNMP::Insight
 
 use 5.010;
@@ -7,10 +8,11 @@ use warnings FATAL => 'all';
 
 # VERSION:
 
-our (@ISA, @EXPORT_OK);
+our ( @ISA, @EXPORT_OK );
+
 BEGIN {
     require Exporter;
-    @ISA = qw(Exporter);
+    @ISA       = qw(Exporter);
     @EXPORT_OK = qw( _debug _debug_level);
 }
 
@@ -21,7 +23,6 @@ sub _debug {
 sub _debug_level {
     $ENV{SNMP_INSIGHT_DEBUG};
 }
-
 
 1;
 

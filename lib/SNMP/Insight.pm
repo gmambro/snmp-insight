@@ -1,4 +1,5 @@
 package SNMP::Insight;
+
 # ABSTRACT: SNMP Moose interface
 
 use 5.010;
@@ -6,7 +7,6 @@ use strict;
 use warnings FATAL => 'all';
 
 # VERSION:
-
 
 use Module::Runtime 0.014 'use_package_optimistically';
 use Moose::Util 'is_role';
@@ -137,6 +137,14 @@ L<SNMP::Insight::Classifier>
 L<SNMP::Insight::MIB>
 
 * Similar modules on CPAN L<SNMP::Info> 
+
+=head2 CONTRIBUTORS
+
+=for :list
+
+* Vittorio Nesta
+
+* Enrico Liguori
 
 =cut
 

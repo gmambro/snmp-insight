@@ -35,12 +35,13 @@ Return true if abstraction C<$name> is implemented by the device.
 =cut
 
 sub provides {
-    my ($self, $name);
+    my ( $self, $name );
 
-    return $self->does('SNMP::Insight::Abstraction', $name);
+    return $self->does( 'SNMP::Insight::Abstraction', $name );
 }
 
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil

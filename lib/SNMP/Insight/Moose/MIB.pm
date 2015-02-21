@@ -139,8 +139,10 @@ sub has_table {
 
         default => sub {
             my $self = shift;
-            $self->_mib_read_table( index => $index,
-                columns => [ keys %$columns ] );
+            $self->_mib_read_table(
+                index   => $index,
+                columns => [ keys %$columns ]
+            );
         },
     );
 }
