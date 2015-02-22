@@ -3,6 +3,7 @@ package SNMP::Insight::MIB;
 #ABSTRACT: Base role for MIBs
 
 use Moose::Role;
+use Carp;
 
 #VERSION:
 
@@ -23,18 +24,25 @@ sub _mib_read_tablerow {
 
     my $row = $self->session->get_subtree($oid);
 
+    my $ret = {};
     foreach (@$row) {
 
         # Don't optimize this RE!
         $_->[0] =~ /^$oid\.(.*)/ and $_->[0] = $1;
         $munger                  and $_->[1] = $munger->( $_->[1] );
+
+        $ret->{$_->[0]} = $_->[1];
     }
 
-    return $row;
+    return $ret;
 }
 
 sub _mib_read_table {
-    my ( $self, $index, $columns ) = @_;
+    my $self = shift;
+    my %args = @_;
+
+    my $index = $args{index};
+    my $columns = $args{columns} or croak "Missing parameter columns";
 
     my $table = {};
 
@@ -45,8 +53,8 @@ sub _mib_read_table {
 
     for my $col (@$columns) {
         my $col_values = $self->$col();
-        foreach my $pair (@$col_values) {
-            $table->{ $pair->[0] }->{$col} = $pair->[1];
+        while (my ($k, $v) = each(%$col_values)) {
+            $table->{ $k }->{$col} = $v;
         }
     }
 
@@ -124,7 +132,7 @@ Return a Math::BigInt object.
 
 sub munge_counter64 {
     my $counter = shift;
-    return          unless defined $counter;
+    return unless defined $counter;
     my $bigint = Math::BigInt->new($counter);
     return $bigint;
 }

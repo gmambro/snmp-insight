@@ -92,15 +92,15 @@ has_table 'hrSWRunTable' => (
 
 # TODO hrSWRunPerl
 
-has_table 'hrSWInstalledEntry' => (
+has_table 'hrSWInstalledTable' => (
     oid     => '6.3',
     index   => 'hrSWInstalledIndex',
     columns => {
         'hrSWInstalledIndex' => 1,
-        'hrSWInstalledIndex' => 2,
+        'hrSWInstalledName'  => [2, 'munge_sw_installed_name'],
         'hrSWInstalledID'    => 3,
         'hrSWInstalledType'  => 4,
-        'hrSWInstalledDate'  => [ 5, 'munge_installed_date' ],
+        'hrSWInstalledDate'  => [ 5, 'munge_sw_installed_date' ],
     },
 );
 
@@ -122,13 +122,26 @@ Convert hrSWInstalledDate to a human readble date time.
 
 =cut
 
-sub munge_installed_date {
+sub munge_sw_installed_date {
     my $val = shift;
 
-    my ( $y, $m, $d, $hour, $min, $sec ) = unpack( 'nCCCCC', $val );
+    my ( $y, $m, $d, $hour, $min, $sec ) = unpack( 'n C6 a C2', $val );
 
     return "$y-$m-$d $hour:$min:$sec";
 
+}
+
+=func munge_sw_installed_name
+
+Clean hrSWInstalledName
+
+=cut
+
+sub munge_sw_installed_name {
+    my $val = shift;
+    $val =~ s/^"//o;
+    $val =~ s/"$//o;
+    return $val;
 }
 
 1;

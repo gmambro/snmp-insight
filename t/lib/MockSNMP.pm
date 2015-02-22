@@ -71,8 +71,6 @@ sub get_scalar {
     my $self = shift;
     my $oid  = shift;
 
-    SNMP::Insight::debug() and print "SNMP::Insight fetching scalar $oid\n";
-
     $oid .= '.0';
 
     return $self->_data->{$oid};
@@ -81,9 +79,6 @@ sub get_scalar {
 sub get_subtree {
     my $self     = shift;
     my $root_oid = shift;
-
-    SNMP::Insight::debug()
-      and print "SNMP::Insight fetching subtree $root_oid\n";
 
     my $result = [];
 

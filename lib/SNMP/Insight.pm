@@ -14,6 +14,7 @@ use Moose::Util 'is_role';
 use Scalar::Util qw(blessed);
 
 use SNMP::Insight::Device;
+use SNMP::Insight::Utils qw(_debug);
 
 =func open()
 
@@ -57,11 +58,11 @@ sub open {
     }
 
     if ( !$device_role ) {
-        debug() and print "debug: no info from classifier";
+        _debug("debug: no info from classifier");
         return $device;
     }
 
-    debug() and print "debug: classifier returned $device_role";
+    _debug("debug: classifier returned $device_role");
     my $role_package
       = _load_device_role( $device_role, 'SNMP::Insight::Device' );
     if ($role_package) {
@@ -101,16 +102,6 @@ sub _load_device_role {
     return;
 }
 
-=func debug
-
-Internal
-
-=cut
-
-sub debug {
-    return $ENV{SNMP_EASY_DEBUG};
-}
-
 =head1 SYNOPSIS
 
 SNMP Moose interface:
@@ -145,7 +136,20 @@ L<SNMP::Insight::Device>
 L<SNMP::Insight::Classifier>
 L<SNMP::Insight::MIB>
 
-* Similar modules on CPAN L<SNMP::Info> 
+* Modules on CPAN L<SNMP::Info> 
+
+=head1 ACKNOWLEDGEMENTS
+
+Heavily inspired by L<SNMP::Info>, many pieces of code in
+SNMP::Insight are based on the great work of its authors.
+
+Patch and support provided by
+
+=for :list
+
+* Vittorio Nesta
+
+* Enrico Liguori
 
 =cut
 

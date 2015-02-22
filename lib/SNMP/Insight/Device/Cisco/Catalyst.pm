@@ -7,36 +7,22 @@ use namespace::autoclean;
 
 #VERSION:
 
+=head1 EXTENDS
+
+=for :list
+
+* L<SNMP::Insight::Device::Cisco::L2>
+
+=cut
+
 with
-  'SNMP::Insight::Device::Cisco::L2Device',
+  'SNMP::Insight::Device::Cisco::L2',
 
   #    'SNMP::Insight::MIB::Cisco::Stack',
   ;
 
-=method os
 
-Ovveride method from SNMP::Insight::Device
-
-=cut
-
-sub os {
-    my $self = shift;
-    my $descr = $self->sysDescr || '';
-
-    # order here matters - there are Catalysts that run IOS and have catalyst
-    # in their description field.
-    return 'ios'      if ( $descr =~ /IOS/ );
-    return 'catalyst' if ( $descr =~ /catalyst/i );
-    return;
-}
-
-=method model
-
-Ovveride method from SNMP::Insight::Device
-
-=cut
-
-sub model {
+sub _build_model {
     my $self = shift;
     my $id   = $self->sysObjectID;
 
@@ -54,13 +40,8 @@ sub model {
     return $model;
 }
 
-=method os_ver
 
-Ovveride method from SNMP::Insight::Device
-
-=cut
-
-sub os_ver {
+sub _build_os_ver {
     my $self  = shift;
     my $os    = $self->os();
     my $descr = $self->sysDescr();

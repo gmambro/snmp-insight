@@ -1,15 +1,17 @@
 package SNMP::Insight::Device::Microsoft;
 
-#ABSTRACT: Support for Net-SNMP agent
+#ABSTRACT: Support for Microsoft Windows agent
 
 use Moose::Role;
 use namespace::autoclean;
 
 #VERSION:
 
-with
-  'SNMP::Insight::MIB::IFMIB',
-  'SNMP::Insight::MIB::HostResources';
+with 'SNMP::Insight::MIB::HostResources';
+
+sub _build_vendor {
+    return 'Microsoft';
+}
 
 1;
 

@@ -8,7 +8,7 @@ use Moose;
 with 'SNMP::Insight::Session';
 
 use Net::SNMP 6.0 qw( :snmp DEBUG_ALL ENDOFMIBVIEW );
-use SNMP::Insight 'debug';
+use SNMP::Insight::Utils qw( _debug_level _debug );
 
 has '_driver' => (
     is      => 'ro',
@@ -31,7 +31,7 @@ sub _build_driver {
     $options{-timeout} = $self->timeout;
     $options{-retries} = $self->retries;
 
-    $options{-debug} = DEBUG_ALL if SNMP::Insight::debug();
+    $options{-debug} = DEBUG_ALL if (defined(_debug_level) && _debug_level > 1);
 
     $options{-localaddr}    = $self->localaddr    if $self->localaddr;
     $options{-localport}    = $self->localport    if $self->localport;
@@ -74,7 +74,7 @@ sub get_scalar {
     #add istance number to the oid
     $oid .= '.0';
 
-    SNMP::Insight::debug() and print "SNMP::Insight fetching scalar $oid\n";
+    _debug("SNMP::Insight fetching scalar $oid\n");
 
     my $result = $session->get_request( '-varbindlist' => [$oid] );
     $result or die "SNMP error " . $session->error();
@@ -97,7 +97,7 @@ sub get_subtree {
     my $s = $self->_driver;
     $oid eq '.' and $oid = '0';
 
-    SNMP::Insight::debug() and print "SNMP::Insight fetching subtree $oid\n";
+    _debug("SNMP::Insight fetching subtree $oid\n");
 
     my $last_oid = $oid;
 

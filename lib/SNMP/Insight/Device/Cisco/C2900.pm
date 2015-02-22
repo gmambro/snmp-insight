@@ -8,11 +8,10 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::Device::Cisco::L2Device',
+  'SNMP::Insight::Device::Cisco::L2',
 
-  #  'SNMP::Insight::MIB::CISCO_C2900',
-  'SNMP::Insight::MIB::Cisco_CDP';
-
+  #  'SNMP::Insight::MIB::CISCO_C2900'
+  ;
 warn "To be implemented yet";
 
 1;

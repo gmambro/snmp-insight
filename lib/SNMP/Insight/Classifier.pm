@@ -17,7 +17,7 @@ Autodiscovery of device type applying heuristics on SNMPv2 entities
 
 =cut
 
-use SNMP::Insight 'debug';
+use SNMP::Insight::Utils qw( _debug );
 
 =attr device
 
@@ -63,31 +63,31 @@ sub classify {
     my $services = $device->sysServices;
     my $desc     = $self->desc;
 
-    SNMP::Insight::debug()
-      and print
-      "SNMP::Insight::classifier services:$services id:$id sysDescr:\"$desc\" vendor: $vendor\n";
+    _debug(
+        "SNMP::Insight::classifier services: ", $services || 'UNDEF',
+        "id:$id sysDescr:\"$desc\" vendor: $vendor\n"
+    );
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
     if ( !defined($services) && !defined($desc) ) {
-        SNMP::Insight::debug()
-          and print "No sysServices nor sysDescr, giving up";
+        _debug("No sysServices nor sysDescr, giving up");
         return;
     }
 
     my $device_type;
 
     $device_type = $self->guess_by_desc($desc);
-    SNMP::Insight::debug()
-      and printf(
+    _debug(
         "SNMP::Insight::classifier by description %s\n",
         $device_type || 'undef'
-      );
+    );
 
     $device_type ||= $self->guess_by_vendor();
-    SNMP::Insight::debug()
-      and printf "SNMP::Insight::classifier by vendor %s\n",
-      $device_type || 'undef';
+    _debug(
+        "SNMP::Insight::classifier by vendor %s\n",
+        $device_type || 'undef'
+    );
 
     return $device_type;
 }
@@ -201,18 +201,17 @@ sub guess_by_desc {
     return 'Cisco::Airespace'
       if ( $desc =~ /^Cisco Controller$/ );
 
-    # Cisco ASA, newer versions which report layer 3 functionality
-    # version >= 8.2 are known to do this
+    # Cisco ASA
     return 'Cisco::ASA'
       if ( $desc =~ /Cisco Adaptive Security Appliance/i );
-
-    # Cisco PIX
-    return 'Cisco::Generic'
-      if ( $desc =~ /Cisco PIX Security Appliance/i );
 
     # Cisco FWSM
     return 'Cisco::FWSM'
       if ( $desc =~ /Cisco Firewall Services Module/i );
+
+    # Cisco PIX
+    return 'Cisco'
+      if ( $desc =~ /Cisco PIX Security Appliance/i );
 
     #------------------------------------------------------------------#
     #                        HP Devices                                #
