@@ -8,7 +8,7 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::Device::Cisco',
+  'SNMP::Insight::Device::Cisco::L3',
   'SNMP::Insight::MIB::Bridge';
 
 warn "To be implemented yet";
