@@ -25,15 +25,17 @@ with
   'SNMP::Insight::MIB::Bridge',
   'SNMP::Insight::MIB::Cisco_VTP',
   'SNMP::Insight::MIB::Cisco_PAGP',
+  'SNMP::Insight::MIB::Cisco_PortSecurity',
   'SNMP::Insight::MIB::Cisco_StpExtensions',
+
   'SNMP::Insight::MIB::IEEE8023_LAG',
   'SNMP::Insight::MIB::Cisco_RTTMON',
   'SNMP::Insight::Abstraction::Bridge',
+
   'SNMP::Insight::Device::Cisco::AggRole';
 
 # 'SNMP::Insight::MIB::Cisco_Stats',
 # 'SNMP::Insight::MIB::Cisco_Config',
-# 'SNMP::Insight::MIB::Cisco_PortSecurity',
 
 1;
 

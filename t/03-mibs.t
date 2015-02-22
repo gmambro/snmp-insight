@@ -5,6 +5,7 @@ use Test::More;
 
 use_ok 'SNMP::Insight::MIB::Bridge';
 use_ok 'SNMP::Insight::MIB::Cisco_CDP';
+use_ok 'SNMP::Insight::MIB::Cisco_PortSecurity';
 use_ok 'SNMP::Insight::MIB::Cisco_RTTMON';
 use_ok 'SNMP::Insight::MIB::Cisco_PAGP';
 use_ok 'SNMP::Insight::MIB::Cisco_VTP';
