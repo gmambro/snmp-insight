@@ -1,4 +1,4 @@
-package SNMP::Insight::MIB::SNMPv2;
+package SNMP::Insight::MIB::EtherLike;
 
 #ABSTRACT: Support for data in EtherLike MIB
 
