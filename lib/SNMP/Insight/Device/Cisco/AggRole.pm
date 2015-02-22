@@ -8,7 +8,7 @@ use namespace::autoclean;
 
 #VERSION:
 
-requires 'aggregated_ports', 'pagpGroupIfIndex';
+#requires 'aggregated_ports', 'pagpGroupIfIndex';
 
 sub _agg_ports_pagp {
     my $self = shift;

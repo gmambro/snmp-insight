@@ -24,14 +24,17 @@ sub _mib_read_tablerow {
 
     my $row = $self->session->get_subtree($oid);
 
+    my $ret = {};
     foreach (@$row) {
 
         # Don't optimize this RE!
         $_->[0] =~ /^$oid\.(.*)/ and $_->[0] = $1;
         $munger                  and $_->[1] = $munger->( $_->[1] );
+
+        $ret->{$_->[0]} = $_->[1];
     }
 
-    return $row;
+    return $ret;
 }
 
 sub _mib_read_table {
@@ -50,8 +53,8 @@ sub _mib_read_table {
 
     for my $col (@$columns) {
         my $col_values = $self->$col();
-        foreach my $pair (@$col_values) {
-            $table->{ $pair->[0] }->{$col} = $pair->[1];
+        while (my ($k, $v) = each(%$col_values)) {
+            $table->{ $k }->{$col} = $v;
         }
     }
 

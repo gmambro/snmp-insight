@@ -79,19 +79,19 @@ has vendor => (
 =attr interfaces
 
 Mapping between the Interface Table Index (iid) and the physical port name.
-
+Cisco/AggRole.pm
 =cut
 
 has interfaces => (
     is      => 'ro',
-    isa     => 'Hash',
+    isa     => 'HashRef',
     lazy    => 1,
     builder => '_build_interfaces',
 );
 
 sub _build_interfaces {
     my $self = shift;
-    return $self->ifIndex;
+    return $self->ifName;
 }
 
 =cut

@@ -12,7 +12,7 @@ warn "This is a stub";
 
 has mac_address_table => (
     is      => 'ro',
-    isa     => 'Hash',
+    isa     => 'HashRef',
     lazy    => 1,
     builder => '_build_mac_address_table',
 );
@@ -23,9 +23,9 @@ sub _build_mac_address_table {
     my $interfaces = $self->interfaces;
 
     my $fw_mac    = $self->dot1dTpFdbAddress;
-    my $fw_port   = $self->dot1dTpFdbPortt();
-    my $fw_status = $self->dot1dTpFdbStatus();
-    my $bp_index  = $self->dot1dBasePortIfIndex();
+    my $fw_port   = $self->dot1dTpFdbPort;
+    my $fw_status = $self->dot1dTpFdbStatus;
+    my $bp_index  = $self->dot1dBasePortIfIndex;
 
     my $mat = {};
 
@@ -56,7 +56,7 @@ sub _build_mac_address_table {
 
 has aggregated_ports => (
     is      => 'ro',
-    isa     => 'Hash',
+    isa     => 'HashRef',
     lazy    => 1,
     builder => '_build_aggregated_ports',
 );
@@ -69,8 +69,8 @@ sub _build_aggregated_ports {
     my $masters = $self->dot3adAggActorOperKey;
     my $slaves  = $self->dot3adAggPortActorOperKey;
 
-    return {} unless ref $masters eq 'HASH' and scalar keys %$masters;
-    return {} unless ref $slaves eq 'HASH'  and scalar keys %$slaves;
+    return {} unless scalar keys %$masters;
+    return {} unless scalar keys %$slaves;
 
     my $ret = {};
     foreach my $s ( keys %$slaves ) {

@@ -38,10 +38,10 @@ sub _build_os {
     return;
 }
 
-sub _build_os_ver {
+sub _build_os_version {
     my $self    = shift;
     my $os    = $self->os();
-    my $descr = $self->description();
+    my $descr = $self->sysDescr();
 
     # Older Catalysts
     if (    defined $os
