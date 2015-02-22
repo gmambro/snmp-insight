@@ -1,6 +1,6 @@
-package SNMP::Insight::Device::Cisco::AironetIOS;
+package SNMP::Insight::Device::Cisco::Router;
 
-# ABSTRACT: Support for Cisco AironetIOS devices
+# ABSTRACT: Support for Cisco Router devices
 
 use Moose::Role;
 use namespace::autoclean;

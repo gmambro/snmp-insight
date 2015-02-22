@@ -15,7 +15,7 @@ BEGIN {
     use_ok('SNMP::Insight::Device::Cisco::C3550');
     use_ok('SNMP::Insight::Device::Cisco::C4000');
     use_ok('SNMP::Insight::Device::Cisco::C6500');
-    use_ok('SNMP::Insight::Device::Cisco::Catalyst');
+    use_ok('SNMP::Insight::Device::Cisco::CatOS');
     use_ok('SNMP::Insight::Device::Cisco::FWSM');
     use_ok('SNMP::Insight::Device::Cisco::Nexus');
 }
