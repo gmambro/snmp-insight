@@ -181,7 +181,7 @@ sub guess_by_desc {
       if ( $desc =~ /^Cisco\s+NX-OS/ );
 
     # Catalyst WS-C series override 2926,4k,5k,6k in Hybrid
-    return 'Cisco::Catalyst' if ( $desc =~ /WS-C\d{4}/ );
+    return 'Cisco::CatOS' if ( $desc =~ /WS-C\d{4}/ );
 
     #  Aironet - IOS
     return 'Cisco::AironetIOS'

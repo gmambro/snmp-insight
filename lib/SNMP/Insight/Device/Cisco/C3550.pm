@@ -1,6 +1,6 @@
-package SNMP::Insight::Device::Cisco::C3500;
+package SNMP::Insight::Device::Cisco::C3550;
 
-# ABSTRACT: Support for Cisco Catalyst devices
+# ABSTRACT: Support for Cisco Catalyst 3550 devices
 
 use Moose::Role;
 use namespace::autoclean;
@@ -8,8 +8,9 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::Device::Cisco',
-  'SNMP::Insight::MIB::Bridge';
+  'SNMP::Insight::Device::Cisco::L3Switch';
+# 'SNMP::Insight::MIB::Cisco_Stack'
+# SNMP::Insight::MIB::Cisco_SWITCH 
 
 warn "To be implemented yet";
 

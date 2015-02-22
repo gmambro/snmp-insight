@@ -1,6 +1,6 @@
-package SNMP::Insight::Device::Cisco::C6500;
+package SNMP::Insight::Device::Cisco::C4000;
 
-# ABSTRACT: Support for Cisco Catalyst 6500 devices
+# ABSTRACT: Support for Cisco Catalyst 4000 devices
 
 use Moose::Role;
 use namespace::autoclean;
@@ -9,7 +9,6 @@ use namespace::autoclean;
 
 with
   'SNMP::Insight::Device::Cisco::L3Switch';
-# 'SNMP::Insight::MIB::Cisco_Stack';
 # 'SNMP::Insight::MIB::MAU
 
 warn "To be implemented yet";

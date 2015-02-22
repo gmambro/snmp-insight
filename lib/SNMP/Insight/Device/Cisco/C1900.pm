@@ -1,6 +1,6 @@
 package SNMP::Insight::Device::Cisco::C1900;
 
-# ABSTRACT: Support for Cisco Catalyst devices
+# ABSTRACT: Support for Cisco 1900 with CatOS
 
 use Moose::Role;
 use namespace::autoclean;
@@ -17,7 +17,9 @@ with
   'SNMP::Insight::Abstraction::Bridge',
   'SNMP::Insight::Device::Cisco::AggRole';
 
-warn "To be implemented yet";
+warn "STAND-ALONE-ETHERNET-SWITCH-MIB not implemented yet";
+
+sub _build_os { return 'CatOS' }
 
 1;
 

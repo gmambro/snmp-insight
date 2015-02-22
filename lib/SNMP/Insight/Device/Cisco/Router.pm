@@ -1,16 +1,16 @@
-package SNMP::Insight::Device::Cisco::C6500;
+package SNMP::Insight::Device::Cisco::AironetIOS;
 
-# ABSTRACT: Support for Cisco Catalyst 6500 devices
+# ABSTRACT: Support for Cisco AironetIOS devices
 
 use Moose::Role;
 use namespace::autoclean;
 
 #VERSION:
 
-with
-  'SNMP::Insight::Device::Cisco::L3Switch';
-# 'SNMP::Insight::MIB::Cisco_Stack';
-# 'SNMP::Insight::MIB::MAU
+with 'SNMP::Insight::Device::Cisco',
+    # 'SNMP::Insight::MIB::Cisco_QOS'
+    #CiscoConfig
+  ;
 
 warn "To be implemented yet";
 

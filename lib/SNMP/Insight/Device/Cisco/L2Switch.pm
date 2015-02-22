@@ -1,6 +1,6 @@
-package SNMP::Insight::Device::Cisco::L2;
+package SNMP::Insight::Device::Cisco::L2Switch;
 
-# ABSTRACT: Support for Generic Cisco L2 device
+# ABSTRACT: Support for Generic Cisco L2 devices
 
 use Moose::Role;
 use namespace::autoclean;

@@ -8,7 +8,7 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::Device::Cisco::L2',
+  'SNMP::Insight::Device::Cisco::L2Switch',
 
   #  'SNMP::Insight::MIB::CISCO_C2900'
   ;

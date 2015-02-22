@@ -12,7 +12,8 @@ BEGIN {
     use_ok('SNMP::Insight::Device::Cisco::AironetIOS');
     use_ok('SNMP::Insight::Device::Cisco::C1900');
     use_ok('SNMP::Insight::Device::Cisco::C2900');
-    use_ok('SNMP::Insight::Device::Cisco::C3500');
+    use_ok('SNMP::Insight::Device::Cisco::C3550');
+    use_ok('SNMP::Insight::Device::Cisco::C4000');
     use_ok('SNMP::Insight::Device::Cisco::C6500');
     use_ok('SNMP::Insight::Device::Cisco::Catalyst');
     use_ok('SNMP::Insight::Device::Cisco::FWSM');
