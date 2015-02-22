@@ -27,7 +27,14 @@ my $device = SNMP::Insight::open( session => $session );
 print "Description ", $device->sysDescr,    "\n";
 print "Object ID ",   $device->sysObjectID, "\n";
 print "Services ",    $device->sysServices, "\n";
+
+print "Abstraction\n";
 print "Vendor ",      $device->vendor,      "\n";
+print "OS ",          $device->os,          "\n";
+print "OS Version ",   $device->os_version, "\n";
+
+
+
 
 print Dumper( $device->ifTable );
 print Dumper( $device->ifXTable );

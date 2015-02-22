@@ -13,6 +13,24 @@ sub _build_vendor {
     return 'Microsoft';
 }
 
+sub _build_os {
+    my $self = shift;
+    my $descr = $self->sysDescr;
+
+    $descr =~ /Software: Windows/ and return "Windows";
+
+    return;
+}
+
+sub _build_os_version {
+    my $self = shift;
+    
+    my $descr = $self->sysDescr;
+    $descr =~ /Windows Version\s+([\d\.]+)/ and return $1;
+
+    return;
+}
+
 1;
 
 # Local Variables:

@@ -28,7 +28,7 @@ sub _build_os_version {
     my $os = $self->os;
 
     if($os eq "Linux") {
-        my @fields = split $self->sysDescr;
+        my @fields = split /\s+/, $self->sysDescr;
         return $fields[2];
     }
 }
