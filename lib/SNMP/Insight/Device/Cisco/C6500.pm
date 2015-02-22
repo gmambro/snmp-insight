@@ -1,6 +1,6 @@
 package SNMP::Insight::Device::Cisco::C6500;
 
-# ABSTRACT: Support for Cisco Catalyst devices
+# ABSTRACT: Support for Cisco Catalyst 6500 devices
 
 use Moose::Role;
 use namespace::autoclean;
@@ -8,9 +8,8 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::MIB::IFMIB',
-  'SNMP::Insight::MIB::Bridge',
-  'SNMP::Insight::MIB::Cisco_CDP';
+  'SNMP::Insight::Device::Cisco',
+  'SNMP::Insight::MIB::Bridge';
 
 warn "To be implemented yet";
 

@@ -7,10 +7,12 @@ use namespace::autoclean;
 
 #VERSION:
 
-with
-  'SNMP::Insight::MIB::IFMIB',
+with 'SNMP::Insight::Device::Cisco',
   'SNMP::Insight::MIB::Bridge',
-  'SNMP::Insight::MIB::Cisco_CDP';
+  'SNMP::Insight::MIB::EtherLike',
+
+  #CiscoConfig
+  ;
 
 warn "To be implemented yet";
 

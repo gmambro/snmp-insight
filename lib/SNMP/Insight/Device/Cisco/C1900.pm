@@ -8,14 +8,16 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::MIB::IFMIB',
-  'SNMP::Insight::MIB::Bridge',
-  'SNMP::Insight::MIB::Cisco_CDP',
+  'SNMP::Insight::Device::Cisco',
 
-  # 'SNMP::Insight::MIB::Cisco_Agg',
-  # 'SNMP::Insight::MIB::Cisco_Stats',
-  # 'SNMP::Insight::MIB::Cisco_StpExtensions',
-  ;
+  'SNMP::Insight::MIB::Bridge',
+  'SNMP::Insight::MIB::IEEE8023_LAG',
+  'SNMP::Insight::MIB::Cisco_PAGP',
+
+    'SNMP::Insight::Abstraction::Bridge',
+    'SNMP::Insight::Device::Cisco::AggRole';
+
+# 'SNMP::Insight::MIB::Cisco_StpExtensions',
 
 warn "To be implemented yet";
 

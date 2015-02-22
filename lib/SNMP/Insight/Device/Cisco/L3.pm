@@ -1,4 +1,4 @@
-package SNMP::Insight::Device::Cisco::L3Device;
+package SNMP::Insight::Device::Cisco::L3;
 
 # ABSTRACT: Support for Generic Cisco L3 device
 
@@ -7,11 +7,9 @@ use namespace::autoclean;
 
 #VERSION:
 
-with
-  'SNMP::Insight::Device::Cisco::L2Device',
+with 'SNMP::Insight::Device::Cisco::L2';
 
-  # 'SNMP::Insight::MIB::Cisco_QOS',
-  ;
+# 'SNMP::Insight::MIB::Cisco_QOS',
 
 1;
 

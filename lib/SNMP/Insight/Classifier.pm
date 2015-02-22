@@ -201,18 +201,17 @@ sub guess_by_desc {
     return 'Cisco::Airespace'
       if ( $desc =~ /^Cisco Controller$/ );
 
-    # Cisco ASA, newer versions which report layer 3 functionality
-    # version >= 8.2 are known to do this
+    # Cisco ASA
     return 'Cisco::ASA'
       if ( $desc =~ /Cisco Adaptive Security Appliance/i );
-
-    # Cisco PIX
-    return 'Cisco::Generic'
-      if ( $desc =~ /Cisco PIX Security Appliance/i );
 
     # Cisco FWSM
     return 'Cisco::FWSM'
       if ( $desc =~ /Cisco Firewall Services Module/i );
+
+    # Cisco PIX
+    return 'Cisco'
+      if ( $desc =~ /Cisco PIX Security Appliance/i );
 
     #------------------------------------------------------------------#
     #                        HP Devices                                #

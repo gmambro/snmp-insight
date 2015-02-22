@@ -9,6 +9,10 @@ use SNMP::Insight;
 use SNMP::Insight::Classifier;
 use SNMP::Insight::Device;
 
+BEGIN {
+    use_ok('SNMP::Insight::Device::NetSNMP');
+}
+
 {
     my $session = MockSNMP->new( filename => "t/devices/samples/linux.txt" );
     my $device = SNMP::Insight::Device->new( session => $session );

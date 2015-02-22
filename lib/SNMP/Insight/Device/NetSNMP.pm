@@ -9,7 +9,6 @@ use namespace::autoclean;
 
 with
   'SNMP::Insight::MIB::UCD',
-  'SNMP::Insight::MIB::IFMIB',
   'SNMP::Insight::MIB::HostResources';
 
 1;

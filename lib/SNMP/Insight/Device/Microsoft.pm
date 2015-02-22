@@ -7,8 +7,11 @@ use namespace::autoclean;
 
 #VERSION:
 
-with
-  'SNMP::Insight::MIB::HostResources';
+with 'SNMP::Insight::MIB::HostResources';
+
+sub _build_vendor {
+    return 'Microsoft';
+}
 
 1;
 

@@ -136,9 +136,14 @@ L<SNMP::Insight::Device>
 L<SNMP::Insight::Classifier>
 L<SNMP::Insight::MIB>
 
-* Similar modules on CPAN L<SNMP::Info> 
+* Modules on CPAN L<SNMP::Info> 
 
-=head2 CONTRIBUTORS
+=head1 ACKNOWLEDGEMENTS
+
+Heavily inspired by L<SNMP::Info>, many pieces of code in
+SNMP::Insight are based on the great work of its authors.
+
+Patch and support provided by
 
 =for :list
 

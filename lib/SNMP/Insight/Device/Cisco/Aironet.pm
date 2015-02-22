@@ -8,9 +8,12 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::MIB::IFMIB',
+  'SNMP::Insight::Device::Cisco',
   'SNMP::Insight::MIB::Bridge',
-  'SNMP::Insight::MIB::Cisco_CDP';
+
+  # AWCVX-MIB
+  # IEEE802dot11-MIB
+  ;
 
 warn "To be implemented yet";
 

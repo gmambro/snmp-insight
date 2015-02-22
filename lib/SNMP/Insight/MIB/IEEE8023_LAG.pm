@@ -14,7 +14,6 @@ with 'SNMP::Insight::MIB';
 mib_name 'IEEE8023-LAG-MIB';
 mib_oid '1.2.840.10006.300.43';
 
-
 =attr dot3adAggTable
 
 A table that contains information about every Aggregator that is
@@ -31,9 +30,9 @@ meaning of particular Key values is of local significance.
 =cut
 
 has_table 'dot3adAggTable' => (
-    oid => '1.1',
+    oid     => '1.1',
     columns => {
-	dot3adAggActorOperKey => 7,
+        dot3adAggActorOperKey => 7,
     }
 );
 
@@ -61,16 +60,13 @@ values is of local significance.
 
 has_table ' dot3adAggPortTable' => (
     oid => '1.2.1',
-#    index => 'dot3adAggPortIndex',
+    #    index => 'dot3adAggPortIndex',
     columns => {
-	dot3adAggPortIndex => 1,
-	# in
-	dot3adAggPortSelectedAggID => 12,
-	dot3adAggPortActorOperKey  => 5,
-    };
-    
+        dot3adAggPortIndex => 1,
+        dot3adAggPortSelectedAggID => 12,
+        dot3adAggPortActorOperKey  => 5,
+    }  
 );
-
 
 1;
 

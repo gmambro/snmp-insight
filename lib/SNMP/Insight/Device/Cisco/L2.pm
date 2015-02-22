@@ -1,4 +1,4 @@
-package SNMP::Insight::Device::Cisco::L2Device;
+package SNMP::Insight::Device::Cisco::L2;
 
 # ABSTRACT: Support for Generic Cisco L2 device
 
@@ -7,16 +7,33 @@ use namespace::autoclean;
 
 #VERSION:
 
-with
-  'SNMP::Insight::MIB::Cisco_VTP',
-  'SNMP::Insight::MIB::Cisco_CDP';
+=head1 EXTENDS
 
-# 'SNMP::Insight::MIB::Cisco_Agg',
-# 'SNMP::Insight::MIB::Cisco_Stats',
-# 'SNMP::Insight::MIB::Cisco_RTT',
-# 'SNMP::Insight::MIB::Cisco_Config',
-# 'SNMP::Insight::MIB::Cisco_PortSecurity',
-# 'SNMP::Insight::MIB::Cisco_StpExtensions',
+=for :list
+
+* L<SNMP::Insight::MIB::Bridge>
+
+* L<SNMP::Insight::MIB::Cisco_VTP>
+
+* L<SNMP::Insight::MIB::Cisco_CDP>
+
+=cut
+
+with
+  'SNMP::Insight::Device::Cisco',
+
+  'SNMP::Insight::MIB::Bridge',
+  'SNMP::Insight::MIB::Cisco_VTP',
+  'SNMP::Insight::MIB::Cisco_PAGP',
+  'SNMP::Insight::MIB::IEEE8023_LAG',
+
+  # 'SNMP::Insight::MIB::Cisco_Stats',
+  # 'SNMP::Insight::MIB::Cisco_RTT',
+  # 'SNMP::Insight::MIB::Cisco_Config',
+  # 'SNMP::Insight::MIB::Cisco_PortSecurity',
+  # 'SNMP::Insight::MIB::Cisco_StpExtensions',
+
+  'SNMP::Insight::Abstraction::Bridge', 'SNMP::Insight::Device::Cisco::AggRole';
 
 1;
 

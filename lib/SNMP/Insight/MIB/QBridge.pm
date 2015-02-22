@@ -14,7 +14,7 @@ with 'SNMP::Insight::MIB', 'SNMP::Insight::MIB::Bridge';
 mib_oid "1.3.6.1.2.1.17.7";
 mib_name "Q-BRIDGE-MIB";
 
-warn "QBridge stub: to be implemented";
+warn "QBridge stub: Dot1qTpFdbEntry to be implemented";
 
 # Q-BRIDGE-MIB is a subtree of BRIDGE-MIB
 

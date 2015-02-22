@@ -8,9 +8,17 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::MIB::IFMIB',
-  'SNMP::Insight::MIB::Bridge',
-  'SNMP::Insight::MIB::Cisco_CDP';
+  'SNMP::Insight::Device::Cisco',
+  'SNMP::Insight::MIB::Bridge';
+
+sub _build_os {
+    my $self = shift;
+    my $descr = $self->sysDescr || '';
+
+    return 'fwsm' if ( $descr =~ /Cisco Secure FWSM Firewall/ );
+
+    warn "Missing os recognition code";
+}
 
 warn "To be implemented yet";
 

@@ -1,6 +1,6 @@
 package SNMP::Insight::Device::Cisco::Airespace;
 
-# ABSTRACT: Support for Cisco Catalyst devices
+# ABSTRACT: Support for Cisco Airespace Wireless controllers
 
 use Moose::Role;
 use namespace::autoclean;
@@ -8,9 +8,16 @@ use namespace::autoclean;
 #VERSION:
 
 with
-  'SNMP::Insight::MIB::IFMIB',
+  'SNMP::Insight::Device::Cisco',
   'SNMP::Insight::MIB::Bridge',
-  'SNMP::Insight::MIB::Cisco_CDP';
+
+  # 'SNMP::Insight::MIB::Cisco_LWAPP_DOT11_CLIENT',
+  # 'SNMP::Insight::MIB::Cisco_LWAPP_DOT11',
+  # 'SNMP::Insight::MIB::Cisco_LWAPP_AP',
+  # 'SNMP::Insight::MIB::Airespace_Wireless',
+  # 'SNMP::Insight::MIB::Airespace_Switching',
+
+  ;
 
 warn "To be implemented yet";
 
