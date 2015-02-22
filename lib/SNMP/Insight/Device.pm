@@ -76,6 +76,26 @@ has vendor => (
     }
 );
 
+=attr interfaces
+
+Mapping between the Interface Table Index (iid) and the physical port name.
+
+=cut
+
+has interfaces => (
+    is      => 'ro',
+    isa     => 'Hash',
+    lazy    => 1,
+    builder => '_build_interfaces',
+);
+
+sub _build_interfaces {
+    my $self = shift;
+    return $self->ifIndex;
+}
+
+=cut
+
 =method get_all_mib_roles
 
 Return all the MIB roles for this device.
