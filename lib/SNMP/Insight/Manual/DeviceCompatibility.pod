@@ -1,0 +1,8 @@
+# PODNAME: SNMP::Insight::Manual::DeviceCompability
+# ABSTRACT: Recognized and tested device
+
+=head1 Cisco
+
+=head1 NetSNMP
+
+Tested with CentOS7. 

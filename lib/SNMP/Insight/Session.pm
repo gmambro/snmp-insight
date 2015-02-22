@@ -27,7 +27,6 @@ requires
   'get_scalar',
   'get_subtree';
 
-
 =attr hostname
 
 Required.

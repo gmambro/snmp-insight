@@ -103,6 +103,68 @@ sub munge_octet2hex {
     return join( '', map { sprintf "%x", $_ } unpack( 'C*', $oct ) );
 }
 
+=func munge_bits
+
+Takes a 'BITS' field and returns to an ASCII bit string
+
+=cut
+
+sub munge_bits {
+    my $bits = shift;
+    return unless defined $bits;
+
+    return unpack( "B*", $bits );
+}
+
+=func munge_counter64
+
+Return a Math::BigInt object.
+
+=cut
+
+sub munge_counter64 {
+    my $counter = shift;
+    return          unless defined $counter;
+    my $bigint = Math::BigInt->new($counter);
+    return $bigint;
+}
+
+=func munge_ifoperstatus
+
+Munge enumeration for C<ifOperStatus> in C<IF-MIB>. 
+
+=cut
+
+sub munge_ifoperstatus {
+    my $val = shift;
+    return unless $val;
+
+    my %ifOperStatusMap = (
+        '4' => 'unknown',
+        '5' => 'dormant',
+        '6' => 'notPresent',
+        '7' => 'lowerLayerDown'
+    );
+    return $ifOperStatusMap{$val} || $val;
+}
+
+=func munge_port_list
+
+Takes an octet string representing a set of ports and returns a reference
+to an array of binary values each array element representing a port. 
+
+
+=cut
+
+sub munge_port_list {
+    my $oct = shift;
+    return unless defined $oct;
+
+    my $list = [ split( //, unpack( "B*", $oct ) ) ];
+
+    return $list;
+}
+
 1;
 
 # Local Variables:

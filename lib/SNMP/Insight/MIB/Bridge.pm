@@ -12,7 +12,7 @@ use namespace::autoclean;
 with 'SNMP::Insight::MIB';
 
 mib_oid "1.3.6.1.2.1.17";
-mib_name "Bridge-MIB";
+mib_name "BRIDGE-MIB";
 
 # .1 dot1dBase
 
@@ -31,6 +31,12 @@ has_table "dot1dBasePortTable" => (
         "dot1dBasePortIfIndex" => 2
     }
 );
+
+
+has_scalar "dot1dStpProtocolSpecification" => (
+    oid => "2.1"
+);
+
 
 # .4 dot1dTp
 

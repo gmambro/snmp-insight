@@ -10,11 +10,14 @@ use warnings FATAL => 'all';
 
 use Module::Runtime 0.014 'use_package_optimistically';
 use Moose::Util 'is_role';
+
+use Scalar::Util qw(blessed);
+
 use SNMP::Insight::Device;
 
 =func open()
 
-Create a SNMP::Insight::Device object, loading all the needed MIBS.
+Create a SNMP::Insight::Device object, loading all the needed MIB roles.
 
 =cut
 
@@ -27,19 +30,31 @@ sub open {
           = $args{session_class} || 'SNMP::Insight::Session::NetSNMP';
         $session = _load_class(
             $session_class,
-            'SNMP::Insight::Session', @{ $args{snmp_params} }
+            'SNMP::Insight::Session', %{ $args{snmp_params} }
         );
     }
 
     my $device = SNMP::Insight::Device->new( session => $session );
 
-    my $classifier_class = $args{classifier} || 'SNMP::Insight::Classifier';
-    my $classifier = _load_class(
-        $classifier_class, 'SNMP::Insight::Classifier',
-        device => $device
-    );
+    my $device_role;
 
-    my $device_role = $classifier->classify();
+    # if classifier exists but is undef it means we should not use any
+    # classifier
+
+    if ( $args{classifier} || !exists $args{classifier} ) {
+
+        my $classifier = $args{classifier};
+
+        if ( !$classifier || !blessed($classifier) ) {
+            my $classifier_class = $classifier || 'SNMP::Insight::Classifier';
+            $classifier = _load_class(
+                $classifier_class, 'SNMP::Insight::Classifier',
+                device => $device
+            );
+        }
+
+        $device_role = $classifier->classify();
+    }
 
     if ( !$device_role ) {
         debug() and print "debug: no info from classifier";
@@ -113,7 +128,10 @@ SNMP Moose interface:
 
 =head1 DESCRIPTION
 
-SNMP::Insight is a Perl 5 module that provides a simple Object Oriented inteface to access SNMP enabled devices and to describe SNMP MIBs and devices. SNMP::Insight it's based on Moose and uses Net::SNMP for a pure Perl SNMP implementation.
+SNMP::Insight is a Perl 5 module that provides a simple Object
+Oriented inteface to access SNMP enabled devices and to describe SNMP
+MIBs and devices. SNMP::Insight it's based on Moose and uses Net::SNMP
+for a pure Perl SNMP implementation.
 
 Warning: this release is still alpha quality!
 
@@ -131,7 +149,7 @@ L<SNMP::Insight::MIB>
 
 =cut
 
-1; # End of SNMP::Insight
+1;    # End of SNMP::Insight
 
 # Local Variables:
 # mode: cperl
