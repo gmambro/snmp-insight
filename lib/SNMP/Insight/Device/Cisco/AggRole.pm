@@ -20,7 +20,7 @@ sub _agg_ports_pagp {
         next if ( $master == 0 || $slave == $master );
         $mapping->{$slave} = $master;
     }
-    
+
     return $mapping;
 }
 

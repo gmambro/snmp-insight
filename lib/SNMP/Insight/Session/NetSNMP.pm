@@ -31,7 +31,8 @@ sub _build_driver {
     $options{-timeout} = $self->timeout;
     $options{-retries} = $self->retries;
 
-    $options{-debug} = DEBUG_ALL if (defined(_debug_level) && _debug_level > 1);
+    $options{-debug} = DEBUG_ALL
+      if ( defined(_debug_level) && _debug_level > 1 );
 
     $options{-localaddr}    = $self->localaddr    if $self->localaddr;
     $options{-localport}    = $self->localport    if $self->localport;

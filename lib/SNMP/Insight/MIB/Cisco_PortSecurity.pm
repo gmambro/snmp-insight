@@ -138,8 +138,8 @@ has_table cpsIfMultiVlanTable => (
     }
 );
 
-
 1;
+
 # Local Variables:
 # mode: cperl
 # indent-tabs-mode: nil
