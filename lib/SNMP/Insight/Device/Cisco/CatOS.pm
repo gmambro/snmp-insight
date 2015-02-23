@@ -39,22 +39,6 @@ sub _build_model {
     # return $model;
 }
 
-sub _build_os {
-    return 'CatOS';
-}
-
-sub _build_os_ver {
-    my $self  = shift;
-    my $descr = $self->sysDescr();
-
-    return unless defined $descr;
-    
-    $descr =~ m/V(\d{1}\.\d{2}\.\d{2})/ and return $1;
-    
-    $descr =~ m/Version (\d+\.\d+\([^)]+\)[^,\s]*)(,|\s)+/ and return $1;
-
-    return;
-}
 
 1;
 

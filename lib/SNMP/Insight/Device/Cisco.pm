@@ -6,7 +6,6 @@ package SNMP::Insight::Device::Cisco;
 # Copyright (c) 2003-2012 Max Baker and SNMP::Info Developers
 # All rights reserved.
 
-
 use Moose::Role;
 use namespace::autoclean;
 
@@ -15,8 +14,8 @@ use namespace::autoclean;
 with 'SNMP::Insight::MIB::Cisco_CDP';
 
 sub _build_vendor {
-    return 'Cisco'
-};
+    return 'Cisco';
+}
 
 sub _build_os {
     my $self = shift;
@@ -39,75 +38,59 @@ sub _build_os {
 }
 
 sub _build_os_version {
-    my $self    = shift;
+    my $self  = shift;
     my $os    = $self->os();
     my $descr = $self->sysDescr();
 
-    # Older Catalysts
-    if (    defined $os
-        and $os eq 'catalyst'
-        and defined $descr
-        and $descr =~ m/V(\d{1}\.\d{2}\.\d{2})/ )
-    {
-        return $1;
+    if ( defined $os && defined $descr ) {
+
+        # Older Catalysts
+        if ( $os eq 'catalyst' && $descr =~ m/V(\d{1}\.\d{2}\.\d{2})/ ) {
+            return $1;
+        }
+
+        if (   $os eq 'css'
+            && $descr
+            =~ m/Content Switch SW Version ([0-9\.\(\)]+) with SNMPv1\/v2c Agent/
+          )
+        {
+            return $1;
+        }
+
+        if (   $os eq 'css-sca'
+            && $descr
+            =~ m/Cisco Systems Inc CSS-SCA-2FE-K9, ([0-9\.\(\)]+) Release / )
+        {
+            return $1;
+        }
+
+        if (   $os eq 'pix'
+            && $descr
+            =~ m/Cisco PIX Security Appliance Version ([0-9\.\(\)]+)/ )
+        {
+            return $1;
+        }
+
+        if (   $os eq 'asa'
+            && $descr
+            =~ m/Cisco Adaptive Security Appliance Version ([0-9\.\(\)]+)/ )
+        {
+            return $1;
+        }
+
+        if ( $os =~ /^fwsm/ && $descr =~ m/Version (\d+\.\d+(\(\d+\)){0,1})/ ) {
+            return $1;
+        }
+
+        if ( $os eq 'ios-xr' && $descr =~ m/Version (\d+[\.\d]+)/ ) {
+            return $1;
+        }
+
     }
 
-    if (    defined $os
-        and $os eq 'css'
-        and defined $descr
-        and $descr
-        =~ m/Content Switch SW Version ([0-9\.\(\)]+) with SNMPv1\/v2c Agent/ )
-    {
-        return $1;
-    }
-
-    if (    defined $os
-        and $os eq 'css-sca'
-        and defined $descr
-        and $descr
-        =~ m/Cisco Systems Inc CSS-SCA-2FE-K9, ([0-9\.\(\)]+) Release / )
-    {
-        return $1;
-    }
-
-    if (    defined $os
-        and $os eq 'pix'
-        and defined $descr
-        and $descr =~ m/Cisco PIX Security Appliance Version ([0-9\.\(\)]+)/ )
-    {
-        return $1;
-    }
-
-    if (    defined $os
-        and $os eq 'asa'
-        and defined $descr
-        and $descr
-        =~ m/Cisco Adaptive Security Appliance Version ([0-9\.\(\)]+)/ )
-    {
-        return $1;
-    }
-
-    #if ( defined $os
-    #    and $os =~ /^ace/ )
-    #{
-    #        
-    #    return $self->ent_physical_software_rev();
-    #}
-
-    if (    defined $os
-        and $os =~ /^fwsm/
-        and defined $descr
-        and $descr =~ m/Version (\d+\.\d+(\(\d+\)){0,1})/ )
-    {
-        return $1;
-    }
-
-    if (    defined $os
-        and $os eq 'ios-xr'
-        and defined $descr
-        and $descr =~ m/Version (\d+[\.\d]+)/ )
-    {
-        return $1;
+    if ( $os =~ /^ace/ && $self->can('entPhysicalSoftwareRev') ) {
+        my $ver = $self->entPhysicalSoftwareRev->{1};
+        $ver and return $ver;
     }
 
     # Newer Catalysts and IOS devices
