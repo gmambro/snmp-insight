@@ -7,9 +7,10 @@ use namespace::autoclean;
 
 #VERSION:
 
-with 'SNMP::Insight::Device::Cisco',
-    # 'SNMP::Insight::MIB::Cisco_QOS'
-    #CiscoConfig
+with 'SNMP::Insight::Device::Cisco', 'SNMP::Insight::MIB::IP',
+
+  # 'SNMP::Insight::MIB::Cisco_QOS'
+  #CiscoConfig
   ;
 
 warn "To be implemented yet";

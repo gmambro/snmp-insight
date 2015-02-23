@@ -11,7 +11,7 @@ use namespace::autoclean;
 
 #VERSION:
 
-with 'SNMP::Insight::MIB::Cisco_CDP';
+with 'SNMP::Insight::MIB::Cisco_CDP', 'SNMP::Insight::MIB::Entity';
 
 sub _build_vendor {
     return 'Cisco';

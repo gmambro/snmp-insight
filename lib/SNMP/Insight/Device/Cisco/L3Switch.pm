@@ -7,7 +7,7 @@ use namespace::autoclean;
 
 #VERSION:
 
-with 'SNMP::Insight::Device::Cisco::L2Switch';
+with 'SNMP::Insight::Device::Cisco::L2Switch', 'SNMP::Insight::MIB::IP';
 
 # 'SNMP::Insight::MIB::Cisco_QOS',
 
