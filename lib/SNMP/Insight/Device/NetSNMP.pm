@@ -6,31 +6,26 @@ use 5.010;
 use Moose::Role;
 use namespace::autoclean;
 
-
-
 #VERSION:
 
 with
+  'SNMP::Insight::MIB::IP',
   'SNMP::Insight::MIB::UCD',
   'SNMP::Insight::MIB::HostResources';
 
 sub _build_os {
-    my $self = shift;
+    my $self  = shift;
     my $descr = $self->sysDescr;
 
-    $descr =~ /^Linux/ and return "Linux";
-
-    return;
+    my @fields = split /\s+/, $self->sysDescr;
+    return $fields[0];
 }
 
 sub _build_os_version {
     my $self = shift;
-    my $os = $self->os;
 
-    if($os eq "Linux") {
-        my @fields = split /\s+/, $self->sysDescr;
-        return $fields[2];
-    }
+    my @fields = split /\s+/, $self->sysDescr;
+    return $fields[2];
 }
 
 1;
