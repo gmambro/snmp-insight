@@ -14,9 +14,27 @@ with 'SNMP::Insight::MIB', 'SNMP::Insight::MIB::Bridge';
 mib_oid "1.3.6.1.2.1.17.7";
 mib_name "Q-BRIDGE-MIB";
 
-warn "QBridge stub: Dot1qTpFdbEntry to be implemented";
+warn "QBridge stub: Dot1qTpFdbTable index to be implemented";
 
 # Q-BRIDGE-MIB is a subtree of BRIDGE-MIB
+
+=attr dot1qTpFdbTable
+
+A table that contains information about unicast entries for which the
+device has forwarding and/or filtering information. This information
+is used by the transparent bridging function in determining how to
+propagate a received frame."
+
+=cut
+
+has_table dot1qTpFdbTable => (
+    oid     => '1.2.2',
+    columns => {
+        dot1qTpFdbAddress => 1,
+        dot1qTpFdbPort    => 2,
+        dot1qTpFdbStatus  => 3,
+    }
+);
 
 # split Dot1qTpFdbEntry index into FDB ID and MAC Address.
 #sub munge_qtpfdb_index {
