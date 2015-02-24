@@ -114,17 +114,55 @@ sub has_table {
 
     my $columns = $options{columns};
     $columns or croak "Table $name has no columns definition";
+
+    # create column attributes
+    my @column_names = keys %$columns;
     while ( my ( $col_name, $col_opts ) = each(%$columns) ) {
         _create_column( $meta, $table_oid, $col_name, $col_opts );
     }
 
-    my $index = $options{index};
+    # handle index options
+    my $index           = $options{index};
+    my $index_generator = $options{index_generator};
+
+    if ( $index && $index_generator ) {
+        croak "Option index and index_generator cannot be both defined";
+    }
     if ($index) {
-
-        # TODO handle multi column index
-
         $meta->has_attribute($index)
           or croak "Cannot find index $index for table $name";
+    }
+    if ($index_generator) {
+        ref($index_generator) eq 'CODE'
+          or croak "index_munger option must be a coderef";
+    }
+
+    # if we have an index generator define an attribute for it
+    if ($index_generator) {
+
+        # we will generate index from a column, get its name
+        my $column_name = $column_names[0];
+
+        my $index_attr_name = $name . "_index";
+
+        my %attribute_options = (
+            is      => 'ro',
+            isa     => 'HashRef',
+            lazy    => 1,
+            default => sub {
+                my $self = shift;
+                my $col  = $self->$column_name;
+                my %ret;
+                foreach my $k ( keys %$col ) {
+                    $ret{$k} = [ $index_generator->($k) ];
+                }
+                return \%ret;
+            },
+        );
+
+        $meta->add_attribute( $index_attr_name, %attribute_options );
+
+        push @column_names, $index_attr_name;
     }
 
     $meta->add_attribute(
@@ -141,7 +179,7 @@ sub has_table {
             my $self = shift;
             $self->_mib_read_table(
                 index   => $index,
-                columns => [ keys %$columns ]
+                columns => \@column_names,
             );
         },
     );

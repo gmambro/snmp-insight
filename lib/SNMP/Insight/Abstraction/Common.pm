@@ -49,7 +49,7 @@ has vendor => (
     is      => 'ro',
     isa     => 'Str',
     lazy    => 1,
-    builder => '_build_vendor'       
+    builder => '_build_vendor'
 );
 
 sub _build_vendor {
@@ -64,13 +64,13 @@ Guessed device model. May be overridden by device roles.
 =cut
 
 has model => (
-    is  => 'ro',
-    isa => 'Str',
-    lazy => 1,
-    builder => '_build_model',       
+    is      => 'ro',
+    isa     => 'Str',
+    lazy    => 1,
+    builder => '_build_model',
 );
 
-sub _build_model {  return ''; }
+sub _build_model { return ''; }
 
 =attr interfaces
 
@@ -90,7 +90,6 @@ sub _build_interfaces {
     my $self = shift;
     return $self->ifName;
 }
-
 
 1;
 

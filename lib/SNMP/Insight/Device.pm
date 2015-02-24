@@ -18,7 +18,6 @@ has 'session' => (
     is  => 'ro',
 );
 
-
 =method get_all_mib_roles
 
 Return all the MIB roles for this device.
@@ -35,8 +34,8 @@ sub get_all_mib_roles {
 }
 
 with 'SNMP::Insight::MIB::SNMPv2',
-    'SNMP::Insight::MIB::IFMIB',
-    'SNMP::Insight::Abstraction::Common';
+  'SNMP::Insight::MIB::IFMIB',
+  'SNMP::Insight::Abstraction::Common';
 
 __PACKAGE__->meta->make_immutable;
 1;

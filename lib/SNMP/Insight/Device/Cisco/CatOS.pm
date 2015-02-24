@@ -21,13 +21,12 @@ with
   #    'SNMP::Insight::MIB::Cisco_Stack',
   ;
 
-
 sub _build_model {
     my $self = shift;
     my $id   = $self->sysObjectID;
 
     return $id;
-    
+
     # return unless defined $id;
 
     # my $model = $self->translate($id);
@@ -38,7 +37,6 @@ sub _build_model {
     # $model =~ s/^cat//;
     # return $model;
 }
-
 
 1;
 

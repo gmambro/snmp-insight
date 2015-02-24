@@ -1,6 +1,6 @@
 package SNMP::Insight::MIB::IP;
 
-#ABSTRACT: Support for data in IF-MIB
+#ABSTRACT: Support for data in IP-MIB
 
 use Moose::Role;
 

@@ -14,7 +14,7 @@ sub _build_vendor {
 }
 
 sub _build_os {
-    my $self = shift;
+    my $self  = shift;
     my $descr = $self->sysDescr;
 
     $descr =~ /Software: Windows/ and return "Windows";
@@ -24,7 +24,7 @@ sub _build_os {
 
 sub _build_os_version {
     my $self = shift;
-    
+
     my $descr = $self->sysDescr;
     $descr =~ /Windows Version\s+([\d\.]+)/ and return $1;
 

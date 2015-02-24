@@ -31,7 +31,7 @@ sub _mib_read_tablerow {
         $_->[0] =~ /^$oid\.(.*)/ and $_->[0] = $1;
         $munger                  and $_->[1] = $munger->( $_->[1] );
 
-        $ret->{$_->[0]} = $_->[1];
+        $ret->{ $_->[0] } = $_->[1];
     }
 
     return $ret;
@@ -53,8 +53,8 @@ sub _mib_read_table {
 
     for my $col (@$columns) {
         my $col_values = $self->$col();
-        while (my ($k, $v) = each(%$col_values)) {
-            $table->{ $k }->{$col} = $v;
+        while ( my ( $k, $v ) = each(%$col_values) ) {
+            $table->{$k}->{$col} = $v;
         }
     }
 

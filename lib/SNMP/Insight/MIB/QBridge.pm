@@ -29,6 +29,7 @@ propagate a received frame."
 
 has_table dot1qTpFdbTable => (
     oid     => '1.2.2',
+    index_generator => \&_munge_dot1qTpFdbTable_index,
     columns => {
         dot1qTpFdbAddress => 1,
         dot1qTpFdbPort    => 2,
@@ -37,12 +38,12 @@ has_table dot1qTpFdbTable => (
 );
 
 # split Dot1qTpFdbEntry index into FDB ID and MAC Address.
-#sub munge_qtpfdb_index {
-#    my $idx    = shift;
-#    my @values = split( /\./, $idx );
-#    my $fdb_id = shift(@values);
-#    return ( $fdb_id, join( ':', map { sprintf "%02x", $_ } @values ) );
-#}
+sub _munge_dot1qTpFdbTable_index {
+    my $idx    = shift;
+    my @values = split( /\./, $idx );
+    my $fdb_id = shift(@values);
+    return ( $fdb_id, join( ':', map { sprintf "%02x", $_ } @values ) );
+}
 
 =attr dot1qVlanCurrentTable
 

@@ -60,12 +60,13 @@ values is of local significance.
 
 has_table ' dot3adAggPortTable' => (
     oid => '1.2.1',
+
     #    index => 'dot3adAggPortIndex',
     columns => {
-        dot3adAggPortIndex => 1,
+        dot3adAggPortIndex         => 1,
         dot3adAggPortSelectedAggID => 12,
         dot3adAggPortActorOperKey  => 5,
-    }  
+    }
 );
 
 1;
