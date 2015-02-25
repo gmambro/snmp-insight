@@ -64,14 +64,14 @@ sub classify {
     my $desc     = $self->desc;
 
     _debug(
-        "SNMP::Insight::classifier services: ", $services || 'UNDEF',
+        "SNMP::Insight::classifier services: ", "$services\n" || "undef\n",
         "id:$id sysDescr:\"$desc\" vendor: $vendor\n"
     );
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
     if ( !defined($services) && !defined($desc) ) {
-        _debug("No sysServices nor sysDescr, giving up");
+        _debug("No sysServices nor sysDescr, giving up\n");
         return;
     }
 
@@ -79,14 +79,14 @@ sub classify {
 
     $device_type = $self->guess_by_desc($desc);
     _debug(
-        "SNMP::Insight::classifier by description %s\n",
-        $device_type || 'undef'
+        "SNMP::Insight::classifier by description %s: ",
+        "$device_type\n" || "undef\n"
     );
 
     $device_type ||= $self->guess_by_vendor();
     _debug(
-        "SNMP::Insight::classifier by vendor %s\n",
-        $device_type || 'undef'
+        "SNMP::Insight::classifier by vendor %s: ",
+        "$device_type\n" || "undef\n"
     );
 
     return $device_type;
@@ -108,7 +108,12 @@ sub guess_by_vendor {
     # Cisco Small Business (300 500) series override
     # This is for enterprises(1).cisco(9).otherEnterprises(6).ciscosb(1)
     return 'CiscoSB'
-      if ( $id =~ /^\.1\.3\.6\.1\.4\.1\.9\.6\.1/ );
+      if ( $id =~ /^1\.3\.6\.1\.4\.1\.9\.6\.1/ );
+
+    # Fortinet devices	
+    # This is for enterprises(1).fortinet(12356)
+    return 'Fortinet'
+      if ( $id =~ /^1\.3\.6\.1\.4\.1\.12356/ );
 
     return 'NetSNMP' if $vendor eq 'NetSNMP';
 }
@@ -262,6 +267,14 @@ sub guess_by_desc {
     #  Nortel AP 222X
     return 'Nortel::AP222x'
       if ( $desc =~ /Access\s+Point\s+222/ );
+
+    #------------------------------------------------------------------#
+    #                      Fortinet Devices                            #
+    #------------------------------------------------------------------#
+
+    # Fortigate
+    return 'Fortinet'
+      if ( $desc =~ /Fortigate|Fortianalyzer/ );
 
     #------------------------------------------------------------------#
 
