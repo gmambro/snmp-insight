@@ -63,15 +63,13 @@ sub classify {
     my $services = $device->sysServices;
     my $desc     = $self->desc;
 
-    _debug(
-        "SNMP::Insight::classifier services: ", "$services\n" || "undef\n",
-        "id:$id sysDescr:\"$desc\" vendor: $vendor\n"
-    );
+    _debug($self->meta->name, "services:", "$services" || "undef");
+    _debug($self->meta->name, "id:$id sysDescr:\"$desc\" vendor:$vendor");
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
     if ( !defined($services) && !defined($desc) ) {
-        _debug("No sysServices nor sysDescr, giving up\n");
+        _debug($self->meta->name, "No sysServices nor sysDescr, giving up");
         return;
     }
 
@@ -79,14 +77,14 @@ sub classify {
 
     $device_type = $self->guess_by_desc($desc);
     _debug(
-        "SNMP::Insight::classifier by description %s: ",
-        "$device_type\n" || "undef\n"
+	$self->meta->name, "by description %s:",
+	"$device_type" || "undef"
     );
 
     $device_type ||= $self->guess_by_vendor();
     _debug(
-        "SNMP::Insight::classifier by vendor %s: ",
-        "$device_type\n" || "undef\n"
+        $self->meta->name, "by vendor %s:",
+        "$device_type" || "undef"
     );
 
     return $device_type;

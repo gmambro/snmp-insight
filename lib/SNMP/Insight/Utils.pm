@@ -17,7 +17,7 @@ BEGIN {
 }
 
 sub _debug {
-    $ENV{SNMP_INSIGHT_DEBUG} and print STDERR @_;
+    $ENV{SNMP_INSIGHT_DEBUG} and print STDERR "DEBUG: @_\n";
 }
 
 sub _debug_level {

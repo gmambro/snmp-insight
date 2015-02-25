@@ -75,7 +75,7 @@ sub get_scalar {
     #add istance number to the oid
     $oid .= '.0';
 
-    _debug("SNMP::Insight fetching scalar $oid\n");
+    _debug($self->meta->name, "Fetching scalar $oid");
 
     my $result = $session->get_request( '-varbindlist' => [$oid] );
     $result or die "SNMP error " . $session->error();
@@ -98,7 +98,7 @@ sub get_subtree {
     my $s = $self->_driver;
     $oid eq '.' and $oid = '0';
 
-    _debug("SNMP::Insight fetching subtree $oid\n");
+    _debug($self->meta->name, "Fetching subtree $oid");
 
     my $last_oid = $oid;
 
