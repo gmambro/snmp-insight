@@ -13,6 +13,7 @@ use_ok 'SNMP::Insight::MIB::Cisco_VTP';
 use_ok 'SNMP::Insight::MIB::Cisco_StpExtensions';
 use_ok 'SNMP::Insight::MIB::Entity';
 use_ok 'SNMP::Insight::MIB::EtherLike';
+use_ok 'SNMP::Insight::MIB::Fortinet';
 use_ok 'SNMP::Insight::MIB::HostResources';
 use_ok 'SNMP::Insight::MIB::IEEE8023_LAG';
 use_ok 'SNMP::Insight::MIB::IFMIB';

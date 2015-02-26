@@ -30,8 +30,8 @@ has_table 'ipRouteTable' => (
         ipRouteMetric3 => 5,
         ipRouteMetric4 => 6,
         ipRouteNextHop => 7,
-        ipRouteType    => 8,
-        ipRouteProto   => 9,
+        ipRouteType    => [ 8, 'munge_routeType' ],
+        ipRouteProto   => [ 9, 'munge_routeProtocol' ],
         ipRouteAge     => 10,
         ipRouteMask    => 11,
         ipRouteMetric5 => 12,
@@ -45,7 +45,7 @@ has_table 'ipNetToMediaTable' => (
     columns => {
         ipNetToMediaPhysAddress => [ 2, 'munge_macaddress' ],
         ipNetToMediaNetAddress  => 3,
-        ipNetToMediaType        => 4,
+        ipNetToMediaType        => [ 4, 'munge_arpEntryType' ],
     }
 );
 
@@ -60,6 +60,52 @@ sub munge_forwarding {
     my %ENUM = (
         1 => 'forwarding',
         2 => 'notForwarding'
+    );
+    return $ENUM{$val};
+}
+
+sub munge_routeType {
+    my $val = shift;
+    $val or return;
+    my %ENUM = (
+        1 => 'other',
+        2 => 'invalid',
+        3 => 'direct',
+        4 => 'indirect'
+    );
+    return $ENUM{$val};
+}
+
+sub munge_routeProtocol {
+    my $val = shift;
+    $val or return;
+    my %ENUM = (
+        1 => 'other',
+        2 => 'local',
+        3 => 'netmgmt',
+        4 => 'icmp',
+        5 => 'egp',
+        6 => 'ggp',
+        7 => 'hello',
+        8 => 'rip',
+        9 => 'is-is',
+       10 => 'es-is',
+       11 => 'ciscoIgrp',
+       12 => 'bbnSpfIgp',
+       13 => 'ospf',
+       14 => 'bgp',
+    );
+    return $ENUM{$val};
+}
+
+sub munge_arpEntryType {
+    my $val = shift;
+    $val or return;
+    my %ENUM = (
+        1 => 'other',
+        2 => 'invalid',
+        3 => 'dynamic',
+        4 => 'static'
     );
     return $ENUM{$val};
 }
