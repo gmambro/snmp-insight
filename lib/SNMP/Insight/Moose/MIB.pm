@@ -102,6 +102,8 @@ Declare a table of a given C<$name> into the current MIB role.
 
 * columns => %columns
 
+For tables with multicolumn indexes an index builder can be declared with C<index_builder => $coderef>.
+
 =cut
 
 sub has_table {
