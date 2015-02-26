@@ -58,11 +58,11 @@ sub open {
     }
 
     if ( !$device_role ) {
-        _debug("debug: no info from classifier");
+        _debug("No info from Classifier");
         return $device;
     }
 
-    _debug("debug: classifier returned $device_role");
+    _debug("Classifier returned: $device_role");
     my $role_package
       = _load_device_role( $device_role, 'SNMP::Insight::Device' );
     if ($role_package) {
