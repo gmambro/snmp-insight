@@ -10,6 +10,10 @@ use warnings;
 use base qw( Exporter );
 our @EXPORT_OK = qw( sysObjectID2vendor );
 
+# WARNING:
+# vaules must be valid to create package names,
+# e.g. SNMP::Insigh::Device::$value
+
 my %ID_VENDOR_MAP = (
     9     => 'Cisco',
     11    => 'HP',

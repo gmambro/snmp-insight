@@ -9,7 +9,6 @@ use warnings FATAL => 'all';
 # VERSION:
 
 use Module::Runtime 0.014 'use_package_optimistically';
-use Moose::Util 'is_role';
 
 use Scalar::Util qw(blessed);
 
@@ -37,13 +36,13 @@ sub open {
 
     my $device = SNMP::Insight::Device->new( session => $session );
 
-    my $device_role;
 
     # if classifier exists but is undef it means we should not use any
     # classifier
 
     if ( $args{classifier} || !exists $args{classifier} ) {
-
+        my $device_type;
+        
         my $classifier = $args{classifier};
 
         if ( !$classifier || !blessed($classifier) ) {
@@ -54,26 +53,22 @@ sub open {
             );
         }
 
-        $device_role = $classifier->classify();
-    }
+        $device_type = $classifier->classify();
 
-    if ( !$device_role ) {
-        _debug("No info from Classifier");
-        return $device;
-    }
+        if ( !$device_type ) {
+            _debug("No info from Classifier");
+            return $device;
+        }
 
-    _debug("Classifier returned: $device_role");
-    my $role_package
-      = _load_device_role( $device_role, 'SNMP::Insight::Device' );
-    if ($role_package) {
-        $role_package->meta->apply($device);
-    }
-    else {
-        warn "$role_package not found, using bare device";
+        _debug("Classifier returned: $device_type");
+        $device_type and $device->device_type($device_type);
     }
 
     return $device;
 }
+   
+
+
 
 sub _load_class {
     my ( $class_name, $search_base, %options ) = @_;
@@ -88,19 +83,6 @@ sub _load_class {
     return;
 }
 
-sub _load_device_role {
-    my ( $role_name, $search_base ) = @_;
-
-    my $possible_full_name = $search_base . "::" . $role_name;
-    my @possible = ( $possible_full_name, $role_name );
-    for my $name (@possible) {
-        my $package = use_package_optimistically($name);
-        use_package_optimistically($name);
-        is_role($package) and return $package;
-    }
-
-    return;
-}
 
 =head1 SYNOPSIS
 

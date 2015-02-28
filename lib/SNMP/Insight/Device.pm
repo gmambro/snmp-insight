@@ -7,6 +7,9 @@ use namespace::autoclean;
 #VERSION:
 use SNMP::Insight::Session;
 
+use Module::Runtime 0.014 'use_package_optimistically';
+use Moose::Util 'is_role';
+
 =attr session
 
 An L<SNMP::Insight::Session> instance used to retrieve SNMP info.
@@ -32,6 +35,43 @@ sub get_all_mib_roles {
 
     return @roles;
 }
+
+has device_type => (
+    is => 'rw',
+    isa => 'Str',
+    trigger => \&_set_device_type
+);
+
+sub _set_device_type {
+    my ( $self, $device_type, $old_value ) = @_;
+
+    $old_value and confess "Device type can be set only once";
+    
+    my $role_package
+        = _load_device_role( $device_type, 'SNMP::Insight::Device' );
+    
+    if ($role_package) {
+        $role_package->meta->apply($self);
+    }
+    else {
+        warn "role $device_type not found, using bare device";
+    }
+}
+
+sub _load_device_role {
+    my ( $role_name, $search_base ) = @_;
+
+    my $possible_full_name = $search_base . "::" . $role_name;
+    my @possible = ( $possible_full_name, $role_name );
+    for my $name (@possible) {
+        my $package = use_package_optimistically($name);
+        use_package_optimistically($name);
+        is_role($package) and return $package;
+    }
+
+    return;
+}
+    
 
 with 'SNMP::Insight::MIB::SNMPv2',
   'SNMP::Insight::MIB::IFMIB',
