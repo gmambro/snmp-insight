@@ -47,7 +47,6 @@ has desc => (
     }
 );
 
-
 =method classify
 
 Return a suitable device role for the associated device.
@@ -64,33 +63,33 @@ sub classify {
     my $services = $device->sysServices;
     my $desc     = $self->desc;
 
-    _debug($self->meta->name, "services:", $services || "undef");
-    _debug($self->meta->name, "id:$id sysDescr:\"$desc\" vendor:$vendor");
+    _debug( $self->meta->name, "services:", $services || "undef" );
+    _debug( $self->meta->name, "id:$id sysDescr:\"$desc\" vendor:$vendor" );
 
     # Some devices don't implement sysServices, but do return a description.
     # In that case, log a warning and continue.
     if ( !defined($services) && !defined($desc) ) {
-        _debug($self->meta->name, "No sysServices nor sysDescr, giving up");
+        _debug( $self->meta->name, "No sysServices nor sysDescr, giving up" );
         return;
     }
 
     my $device_type;
 
-    my $vendor_method = "guess_" . lc(${vendor});
-    if ($self->can($vendor_method) ) {
-	$device_type = $self->$vendor;
-	_debug(
-	    $self->meta->name, "classifier $vendor_method:",
-	    "$device_type" || "undef"
-	);
-	defined($device_type) and return $device_type;
+    my $vendor_method = "guess_" . lc( ${vendor} );
+    if ( $self->can($vendor_method) ) {
+        $device_type = $self->$vendor;
+        _debug(
+            $self->meta->name, "classifier $vendor_method:",
+            "$device_type" || "undef"
+        );
+        defined($device_type) and return $device_type;
     }
-        
+
     $device_type = $self->guess_by_desc($desc);
     _debug(
-	$self->meta->name, "by description %s:",
-	"$device_type" || "undef"
-    );   
+        $self->meta->name, "by description %s:",
+        "$device_type" || "undef"
+    );
 
     # use vendor as last resort
     return $device_type || $vendor;
@@ -109,7 +108,6 @@ sub guess_by_desc {
 
     return unless $desc =~ /\S/o;
 
-  
     #------------------------------------------------------------------#
     #                      Nortel Devices                              #
     #------------------------------------------------------------------#
@@ -215,13 +213,12 @@ sub guess_by_desc {
 #                        HP Devices                                #
 #------------------------------------------------------------------#
 
-
 sub guess_hp {
 
-     my $self = shift;
+    my $self = shift;
 
     my $desc = $self->desc;
-  
+
     # HP, older ProCurve models (1600, 2400, 2424m, 4000, 8000)
     return 'HP::HP4000'
       if $desc =~ /\b(J4093A|J4110A|J4120A|J4121A|J4122A|J4122B)\b/;
@@ -237,11 +234,11 @@ sub guess_hp {
 }
 
 sub guess_cisco {
-  my $self = shift;
+    my $self = shift;
 
-    my $desc = $self->desc;
-  my $device = $self->device;
-  
+    my $desc   = $self->desc;
+    my $device = $self->device;
+
     # Cisco Small Business (300 500) series override
     # This is for enterprises(1).cisco(9).otherEnterprises(6).ciscosb(1)
     return 'CiscoSB'

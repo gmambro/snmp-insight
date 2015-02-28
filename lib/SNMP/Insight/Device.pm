@@ -37,8 +37,8 @@ sub get_all_mib_roles {
 }
 
 has device_type => (
-    is => 'rw',
-    isa => 'Str',
+    is      => 'rw',
+    isa     => 'Str',
     trigger => \&_set_device_type
 );
 
@@ -46,10 +46,10 @@ sub _set_device_type {
     my ( $self, $device_type, $old_value ) = @_;
 
     $old_value and confess "Device type can be set only once";
-    
+
     my $role_package
-        = _load_device_role( $device_type, 'SNMP::Insight::Device' );
-    
+      = _load_device_role( $device_type, 'SNMP::Insight::Device' );
+
     if ($role_package) {
         $role_package->meta->apply($self);
     }
@@ -71,7 +71,6 @@ sub _load_device_role {
 
     return;
 }
-    
 
 with 'SNMP::Insight::MIB::SNMPv2',
   'SNMP::Insight::MIB::IFMIB',

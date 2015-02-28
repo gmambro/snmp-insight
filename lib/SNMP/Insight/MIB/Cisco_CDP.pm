@@ -14,28 +14,25 @@ with 'SNMP::Insight::MIB';
 mib_oid "1.3.6.1.4.1.9.9.23";
 mib_name "CISCO-CDP-MIB";
 
-has_scalar 'cdpDeviceId' => (
-	oid => '1.3.4'
-);
+has_scalar 'cdpDeviceId' => ( oid => '1.3.4' );
 
 has_table 'cdpCacheTable' => (
     oid     => '1.2.1',
     index   => 'cdpCacheAddress',
     columns => {
-    	"cdpCacheIfIndex"	    => '1',
-    	"cdpCacheAddressType"   => [ '3', 'munge_addrtype'],
+        "cdpCacheIfIndex"       => '1',
+        "cdpCacheAddressType"   => [ '3', 'munge_addrtype' ],
         "cdpCacheAddress"       => [ '4', 'munge_ipaddress' ],
         "cdpCacheVersion"       => '5',
         "cdpCacheDeviceId"      => '6',
         "cdpCacheDevicePort"    => '7',
-        "cdpCachePlatform"	    => '8',
-        "cdpCacheCapabilities"  => ['9', 'munge_caps'],
+        "cdpCachePlatform"      => '8',
+        "cdpCacheCapabilities"  => [ '9', 'munge_caps' ],
         "cdpCacheVTPMgmtDomain" => '10',
         "cdpCacheNativeVLAN"    => '11',
-        "cdpCacheDuplex"	    => '12',
+        "cdpCacheDuplex"        => '12',
         "cdpCacheSysName"       => '17',
         "cdpCacheLastChange"    => '24',
-
     }
 );
 

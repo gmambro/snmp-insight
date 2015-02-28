@@ -26,9 +26,9 @@ propagate a received frame."
 =cut
 
 has_table dot1qTpFdbTable => (
-    oid     => '1.2.2',
+    oid             => '1.2.2',
     index_generator => \&_munge_dot1qTpFdbTable_index,
-    columns => {
+    columns         => {
         dot1qTpFdbAddress => 1,
         dot1qTpFdbPort    => 2,
         dot1qTpFdbStatus  => 3,

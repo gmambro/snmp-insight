@@ -11,8 +11,7 @@ use namespace::autoclean;
 
 #VERSION:
 
-with 'SNMP::Insight::MIB::Fortinet',
-     'SNMP::Insight::MIB::IFMIB';
+with 'SNMP::Insight::MIB::Fortinet', 'SNMP::Insight::MIB::IFMIB';
 
 sub _build_vendor {
     return 'Fortinet';
@@ -23,9 +22,9 @@ sub _build_os {
 }
 
 sub _build_os_version {
-    my $self  = shift;
+    my $self = shift;
 
-    return $self->fnSysVersion();	
+    return $self->fnSysVersion();
 }
 
 1;

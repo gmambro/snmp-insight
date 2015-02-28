@@ -36,13 +36,12 @@ sub open {
 
     my $device = SNMP::Insight::Device->new( session => $session );
 
-
     # if classifier exists but is undef it means we should not use any
     # classifier
 
     if ( $args{classifier} || !exists $args{classifier} ) {
         my $device_type;
-        
+
         my $classifier = $args{classifier};
 
         if ( !$classifier || !blessed($classifier) ) {
@@ -66,9 +65,6 @@ sub open {
 
     return $device;
 }
-   
-
-
 
 sub _load_class {
     my ( $class_name, $search_base, %options ) = @_;
@@ -82,7 +78,6 @@ sub _load_class {
 
     return;
 }
-
 
 =head1 SYNOPSIS
 

@@ -187,7 +187,6 @@ sub munge_caps {
     return $bits;
 }
 
-
 1;
 
 # Local Variables:

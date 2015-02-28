@@ -27,11 +27,10 @@ my $device = SNMP::Insight::open(
     }
 );
 
-
 print "Device Type: ", $device->device_type, "\n";
-print "Vendor: ",     $device->vendor,     "\n";
-print "OS: ",         $device->os,         "\n";
-print "OS Version: ", $device->os_version, "\n";
+print "Vendor: ",      $device->vendor,      "\n";
+print "OS: ",          $device->os,          "\n";
+print "OS Version: ",  $device->os_version,  "\n";
 
 my @roles = $device->get_all_mib_roles;
 foreach my $role (@roles) {
