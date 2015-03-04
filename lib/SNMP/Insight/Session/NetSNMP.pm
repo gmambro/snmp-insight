@@ -123,7 +123,7 @@ sub get_subtree {
       GET_BULK:
         while (
             defined $s->get_bulk_request(
-                -maxrepetitions => 25,
+                -maxrepetitions => 1,
                 -varbindlist    => [$last_oid]
             )
           )
