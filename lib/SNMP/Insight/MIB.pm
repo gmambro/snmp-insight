@@ -173,7 +173,7 @@ sub munge_port_list {
     return $list;
 }
 
-=item munge_caps
+=func munge_caps
 
 Takes an octet string and returns an ascii binary string, 7 digits long, MSB.
 
