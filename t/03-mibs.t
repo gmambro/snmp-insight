@@ -18,6 +18,7 @@ use_ok 'SNMP::Insight::MIB::HostResources';
 use_ok 'SNMP::Insight::MIB::IEEE8023_LAG';
 use_ok 'SNMP::Insight::MIB::IFMIB';
 use_ok 'SNMP::Insight::MIB::IP';
+use_ok 'SNMP::Insight::MIB::Juniper';
 use_ok 'SNMP::Insight::MIB::OSPF';
 use_ok 'SNMP::Insight::MIB::QBridge';
 use_ok 'SNMP::Insight::MIB::SNMPv2';
