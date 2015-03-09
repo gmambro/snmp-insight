@@ -8,7 +8,9 @@ use warnings;
 #VERSION:
 
 use base qw( Exporter );
-our @EXPORT_OK = qw( sysObjectID2vendor );
+our @EXPORT_OK = qw( sysObjectID2vendor vendor2sysObjectID);
+
+my $ENTERPRISES_OID = "1.3.6.1.4.1";
 
 # WARNING:
 # vaules must be valid to create package names,
@@ -74,6 +76,27 @@ sub sysObjectID2vendor {
 
     $id =~ /^\.?1\.3\.6\.1\.4\.1\.(\d+)/ and return $ID_VENDOR_MAP{$1};
     return "UNKNOWN";
+}
+
+
+=func vendor2sysObjectID
+
+Try to extract a sysObjectID enterprise prefix from a vendor string.
+Returns undef if vendor is unknown.
+
+=cut
+
+sub vendor2sysObjectID {
+    my $vendor = shift;
+    defined $vendor or return;
+
+    my %VENDOR_ID_MAP = reverse %ID_VENDOR_MAP;
+
+    if( defined $VENDOR_ID_MAP{$vendor} ){
+        return $ENTERPRISES_OID . "." . $VENDOR_ID_MAP{$vendor};
+    } else {
+        return;
+    }
 }
 
 1;

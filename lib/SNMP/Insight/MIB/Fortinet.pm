@@ -1,6 +1,6 @@
 package SNMP::Insight::MIB::Fortinet;
 
-#ABSTRACT: Support for data in FORTINET-MIB-280
+#ABSTRACT: Support for data in FORTINET-CORE-MIB, FORTINET-FORTIGATE-MIB, FORTINET-FORTIANALYZER-MIB
 
 use Moose::Role;
 
@@ -12,13 +12,17 @@ use namespace::autoclean;
 with 'SNMP::Insight::MIB';
 
 mib_oid "1.3.6.1.4.1.12356";
-mib_name "FORTINET-MIB-280";
+mib_name "FORTINET-MIB";
 
+# FORTINET-CORE-MIB
+has_scalar fnSysSerial => ( oid => '100.1.1.1' );
+
+# FORTINET-FORTIGATE-MIB
 has_scalar fnSysModel => ( oid => '1.1' );
+has_scalar fgSysVersion => ( oid => '101.4.1.1' );
 
-has_scalar fnSysSerial => ( oid => '1.2' );
-
-has_scalar fnSysVersion => ( oid => '1.3' );
+# FORTINET-FORTIANALYZER-MIB
+has_scalar fa300SysVersion => ( oid => '102.99.2.2' );
 
 1;
 

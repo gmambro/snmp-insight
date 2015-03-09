@@ -24,12 +24,6 @@ sub _build_os {
     return 'FortiOS';
 }
 
-sub _build_os_version {
-    my $self = shift;
-
-    return $self->fnSysVersion();
-}
-
 1;
 
 # Local Variables:
