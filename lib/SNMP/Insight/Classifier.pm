@@ -18,6 +18,7 @@ Autodiscovery of device type applying heuristics on SNMPv2 entities
 =cut
 
 use SNMP::Insight::Utils qw( _debug );
+use SNMP::Insight::MIB::Utils qw( vendor2sysObjectID );
 
 =attr device
 
@@ -77,7 +78,7 @@ sub classify {
 
     my $vendor_method = "guess_" . lc( ${vendor} );
     if ( $self->can($vendor_method) ) {
-        $device_type = $self->$vendor;
+        $device_type = $self->$vendor_method;
         _debug(
             $self->meta->name, "classifier $vendor_method:",
             "$device_type" || "undef"
@@ -141,14 +142,6 @@ sub guess_by_desc {
     #  Nortel AP 222X
     return 'Nortel::AP222x'
       if ( $desc =~ /Access\s+Point\s+222/ );
-
-    #------------------------------------------------------------------#
-    #                      Fortinet Devices                            #
-    #------------------------------------------------------------------#
-
-    # Fortigate
-    return 'Fortinet'
-      if ( $desc =~ /Fortigate|Fortianalyzer/ );
 
     #------------------------------------------------------------------#
 
@@ -232,6 +225,10 @@ sub guess_hp {
       if $desc =~ /HP\sVC\s/;
 
 }
+
+#------------------------------------------------------------------#
+#                        Cisco Devices                             #
+#------------------------------------------------------------------#
 
 sub guess_cisco {
     my $self = shift;
@@ -330,4 +327,33 @@ sub guess_cisco {
     return 'Cisco';
 }
 
+#------------------------------------------------------------------#
+#                      Fortinet Devices                            #
+#------------------------------------------------------------------#
+
+sub guess_fortinet {
+    my $self = shift;
+
+    my $id = $self->device->sysObjectID;
+    my $vendor = $self->device->vendor;
+
+    my $fortigate_id = vendor2sysObjectID($vendor);
+
+    return 'Fortinet::Fortigate'
+      if ( $id =~ m/^\.?$fortigate_id\.101/ );
+
+    return 'Fortinet::Fortianalyzer'
+      if ( $id =~ m/^\.?$fortigate_id\.102/ );
+
+    return 'Fortinet';
+
+}
+
 1;
+
+# Local Variables:
+# mode: cperl
+# indent-tabs-mode: nil
+# cperl-indent-level: 4
+# cperl-indent-parens-as-block: t
+# End:
