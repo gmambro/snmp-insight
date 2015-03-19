@@ -12,15 +12,15 @@ use namespace::autoclean;
 requires 'session';
 
 sub _mib_read_scalar {
-    my ( $self, $oid, $munger ) = @_;
+    my ( $self, $oid, $munger, $extras ) = @_;
 
     my $v = $self->session->get_scalar($oid);
-    $munger and $v = $munger->($v);
+    $munger and $v = $munger->($v,$extras);
     return $v;
 }
 
 sub _mib_read_tablerow {
-    my ( $self, $oid, $munger ) = @_;
+    my ( $self, $oid, $munger, $extras ) = @_;
 
     my $row = $self->session->get_subtree($oid);
 
@@ -29,7 +29,7 @@ sub _mib_read_tablerow {
 
         # Don't optimize this RE!
         $_->[0] =~ /^$oid\.(.*)/ and $_->[0] = $1;
-        $munger                  and $_->[1] = $munger->( $_->[1] );
+        $munger                  and $_->[1] = $munger->( $_->[1], $extras );
 
         $ret->{ $_->[0] } = $_->[1];
     }
