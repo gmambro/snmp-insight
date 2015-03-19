@@ -82,7 +82,7 @@ has_table 'vlanTrunkPorts' => (
         vlanTrunkPortIfIndex               => 1,
         vlanTrunkPortManagementDomain      => 2,
         vlanTrunkPortEncapsulationType     => [3, 'munge_enctype'],
-        vlanTrunkPortVlansEnabled          => [4, 'munge_membership_vlan'],
+        vlanTrunkPortVlansEnabled          => [4, 'munge_membership_vlan', {'k'=> 1}],
         vlanTrunkPortNativeVlan            => 5,
         vlanTrunkPortRowStatus             => 6,
         vlanTrunkPortInJoins               => 7,
@@ -93,10 +93,10 @@ has_table 'vlanTrunkPorts' => (
         vlanTrunkPortDynamicState          => [13, 'munge_dynstate'],
         vlanTrunkPortDynamicStatus         => [14, 'munge_dynstatus'],
         vlanTrunkPortVtpEnabled            => 15,
-        vlanTrunkPortEncapsulationOperType => [16, ,'munge_enctype'],
-        # vlanTrunkPortVlansEnabled2k        => [17,'munge_membership_vlan'],
-        # vlanTrunkPortVlansEnabled3k        => [18,'munge_membership_vlan'],
-        # vlanTrunkPortVlansEnabled4k        => [19,'munge_membership_vlan'],
+        vlanTrunkPortEncapsulationOperType => [16, 'munge_enctype'],
+        vlanTrunkPortVlansEnabled2k        => [17, 'munge_membership_vlan', {'k'=> 2}],
+        vlanTrunkPortVlansEnabled3k        => [18, 'munge_membership_vlan', {'k'=> 3}],
+        vlanTrunkPortVlansEnabled4k        => [19, 'munge_membership_vlan', {'k'=> 4}],
         # vtpVlansPruningEligible2k          => 20,
         # vtpVlansPruningEligible3k          => 21,
         # vtpVlansPruningEligible4k          => 22,
@@ -214,10 +214,18 @@ sub munge_managementmode {
 }
 
 sub munge_membership_vlan {
-    my $val = shift;
+    my ($val,$extras) = @_;
     $val or return;
+    my $k = $extras->{'k'};
+    return unless( $k >= 1 or $k <= 4 );
 
-    my $vlanlist = [ split( //, unpack( "B*", $val ) ) ];
+    my @vlanbitmap = split( //, unpack( "B*", $val ) );
+
+    my $vlanlist = [];
+    for my $i (0..1023){
+    	push( $vlanlist, $i+(1024*($k-1)) ) if $vlanbitmap[$i];
+    }
+
     return $vlanlist;
 }
 

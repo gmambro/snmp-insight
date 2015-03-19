@@ -37,6 +37,19 @@ has munger => (
     predicate => 'has_munger',
 );
 
+=attr extras
+
+A hash of extra stuff useful to make a munger parametric.
+
+=cut
+
+has extras => (
+    is        => 'rw',
+    isa       => 'HashRef',
+    required  => 0,
+    predicate => 'has_extras',
+);
+
 =attr entry_type
 
 One of scalar, table, column.

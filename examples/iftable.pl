@@ -30,8 +30,11 @@ print "Services ",    $device->sysServices, "\n";
 
 print "Abstraction\n";
 print "Vendor ",     $device->vendor,     "\n";
+print "Model ",      $device->model,      "\n";
 print "OS ",         $device->os,         "\n";
 print "OS Version ", $device->os_version, "\n";
 
-print Dumper( $device->ifTable );
-print Dumper( $device->ifXTable );
+print Dumper( $device->vlanTrunkPortVlansEnabled->{171});
+
+#$device->can('ifTable') and print 'yes';
+#print Dumper( $device->ifName );

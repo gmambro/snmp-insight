@@ -64,6 +64,11 @@ sub has_scalar {
         $munger_code = _load_munger( $meta, $options{munger} );
     }
 
+    my $extras;
+    if ( $options{extras} ) {
+        $extras = $options{extras};
+    }
+
     my %attribute_options = (
         traits     => ['MIBEntry'],
         is         => 'ro',
@@ -72,10 +77,15 @@ sub has_scalar {
         entry_type => 'scalar',
         default    => sub {
             my $self = shift;
-            $self->_mib_read_scalar( $oid, $munger_code );
+            $self->_mib_read_scalar( $oid, $munger_code, $extras );
         },
     );
+
+    # adding the munger code to attribute options...
     $options{munger} and $attribute_options{munger} = $munger_code;
+
+    # ...and some extra stuff useful to parametric mungers
+    $options{extras} and $attribute_options{extras} = $extras;
 
     $meta->add_attribute( $name, %attribute_options );
 }
@@ -203,7 +213,7 @@ sub _create_column {
 
     ref $col_opts eq 'ARRAY' or $col_opts = [$col_opts];
 
-    my ( $sub_id, $munger ) = @$col_opts;
+    my ( $sub_id, $munger, $extras ) = @$col_opts;
 
     my $col_oid = "$table_oid.1.$sub_id";
     my $munger_code;
@@ -219,10 +229,15 @@ sub _create_column {
 
         default => sub {
             my $self = shift;
-            $self->_mib_read_tablerow( $col_oid, $munger_code );
+            $self->_mib_read_tablerow( $col_oid, $munger_code, $extras );
         },
     );
+
+    # adding the munger code to attribute options...
     $munger and $attribute_options{munger} = $munger_code;
+
+    # ...and some extra stuff useful to parametric mungers
+    $extras and $attribute_options{extras} = $extras;
 
     $meta->add_attribute( $col_name, %attribute_options );
 }
