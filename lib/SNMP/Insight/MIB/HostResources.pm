@@ -106,7 +106,8 @@ has_table 'hrSWInstalledTable' => (
 
 =func munge_device_status
 
-Convert device status to a string like unknown running warning testing down.
+Convert device status to a string like unknown, running, warning,
+testing, down.
 
 =cut
 
@@ -116,7 +117,7 @@ sub munge_device_status {
     return $stati[$val];
 }
 
-=func munge_installed_date
+=func munge_sw_installed_date
 
 Convert hrSWInstalledDate to a human readble date time.
 

@@ -18,7 +18,7 @@ mib_name "FORTINET-MIB";
 has_scalar fnSysSerial => ( oid => '100.1.1.1' );
 
 # FORTINET-FORTIGATE-MIB
-has_scalar fnSysModel => ( oid => '1.1' );
+has_scalar fnSysModel   => ( oid => '1.1' );
 has_scalar fgSysVersion => ( oid => '101.4.1.1' );
 
 # FORTINET-FORTIANALYZER-MIB

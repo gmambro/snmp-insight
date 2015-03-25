@@ -78,7 +78,6 @@ sub sysObjectID2vendor {
     return "UNKNOWN";
 }
 
-
 =func vendor2sysObjectID
 
 Try to extract a sysObjectID enterprise prefix from a vendor string.
@@ -92,9 +91,10 @@ sub vendor2sysObjectID {
 
     my %VENDOR_ID_MAP = reverse %ID_VENDOR_MAP;
 
-    if( defined $VENDOR_ID_MAP{$vendor} ){
+    if ( defined $VENDOR_ID_MAP{$vendor} ) {
         return $ENTERPRISES_OID . "." . $VENDOR_ID_MAP{$vendor};
-    } else {
+    }
+    else {
         return;
     }
 }

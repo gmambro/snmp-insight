@@ -206,6 +206,12 @@ sub guess_by_desc {
 #                        HP Devices                                #
 #------------------------------------------------------------------#
 
+=method guess_hp
+
+Heuristics for HP Devices
+
+=cut
+
 sub guess_hp {
 
     my $self = shift;
@@ -229,6 +235,12 @@ sub guess_hp {
 #------------------------------------------------------------------#
 #                        Cisco Devices                             #
 #------------------------------------------------------------------#
+
+=method guess_cisco
+
+Heuristics for Cisco Devices
+
+=cut
 
 sub guess_cisco {
     my $self = shift;
@@ -331,10 +343,16 @@ sub guess_cisco {
 #                      Fortinet Devices                            #
 #------------------------------------------------------------------#
 
+=method guess_fortinet
+
+Heuristics for Fortinet Devices
+
+=cut
+
 sub guess_fortinet {
     my $self = shift;
 
-    my $id = $self->device->sysObjectID;
+    my $id     = $self->device->sysObjectID;
     my $vendor = $self->device->vendor;
 
     my $fortigate_id = vendor2sysObjectID($vendor);

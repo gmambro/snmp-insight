@@ -30,7 +30,7 @@ sub _build_os_version {
 
     my $softwares = $self->hrSWInstalledName();
 
-    foreach my $sw (values $softwares) {
+    foreach my $sw ( values $softwares ) {
         $sw =~ m/JUNOS\s+Software\s+Release\s+\[(.+)\]/i
           and return "$1";
     }

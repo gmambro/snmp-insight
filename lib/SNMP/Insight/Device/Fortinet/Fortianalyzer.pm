@@ -18,10 +18,10 @@ use namespace::autoclean;
 with 'SNMP::Insight::Device::Fortinet';
 
 sub _build_model {
-    my $self = shift;
+    my $self     = shift;
     my $full_ver = $self->fa300SysVersion();
 
-    $full_ver =~ m/(Fortianalyzer.+)\s/io ;
+    $full_ver =~ m/(Fortianalyzer.+)\s/io;
 
     return $1;
 }
@@ -31,7 +31,7 @@ sub _build_os_version {
 
     my $full_ver = $self->fa300SysVersion();
 
-    $full_ver =~ m/v(.+?),/io ;
+    $full_ver =~ m/v(.+?),/io;
 
     return $1;
 }

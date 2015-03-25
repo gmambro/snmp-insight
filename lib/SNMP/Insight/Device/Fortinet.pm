@@ -12,9 +12,9 @@ use namespace::autoclean;
 #VERSION:
 
 with 'SNMP::Insight::MIB::EtherLike',
-     'SNMP::Insight::MIB::Fortinet',
-     'SNMP::Insight::MIB::IFMIB',
-     'SNMP::Insight::MIB::IP';
+  'SNMP::Insight::MIB::Fortinet',
+  'SNMP::Insight::MIB::IFMIB',
+  'SNMP::Insight::MIB::IP';
 
 sub _build_vendor {
     return 'Fortinet';
